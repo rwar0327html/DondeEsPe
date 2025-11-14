@@ -5,63 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fiestas en Tiempo Real</title>
 
-  <!-- Aquí van los estilos CSS si los tienes -->
   <style>
-    body { margin: 0; font-family: Arial, sans-serif; }
-    header { text-align:center; padding:20px; background:#ff4081; color:white; }
+    body { margin: 0; font-family: Arial, sans-serif; background:black; color:white; }
+    header { 
+      text-align:center; 
+      padding:40px; 
+      background: linear-gradient(45deg, #ff00ff, #00ffff); 
+      color:white; 
+    }
     #map { height: 90vh; width: 100%; }
-    button { padding:10px 20px; border:none; background:white; color:#ff4081; border-radius:5px; cursor:pointer; }
+    button { 
+      padding:10px 20px; 
+      border:none; 
+      background:#00ffff; 
+      color:#000; 
+      border-radius:8px; 
+      cursor:pointer;
+      font-weight:bold;
+    }
   </style>
 </head>
+
 <body>
 
-  <!-- 1️⃣ Portada principal -->
+  <!-- PORTADA -->
   <header>
     <h1>Fiestas en Tiempo Real</h1>
     <p>¡Descubre y crea fiestas donde quieras!</p>
-   <button onclick="window.scrollTo({top: document.getElementById('map-section').offsetTop, behavior:'smooth'})">
-  Mantente Atento
-</button>
-    
-  <!-- 2️⃣ Sección del mapa -->
-<section id="map-section" style="height:90vh; width:100%;">
-  <div id="map"></div>
-</section>
 
-<!-- Script de Google Maps -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ_ho09gXran8O51V1wkRNq0h8a9ay4ig&callback=initMap" async defer></script>
+    <button onclick="window.scrollTo({top: document.getElementById('map-section').offsetTop, behavior:'smooth'})">
+      Mantente Atento
+    </button>
+  </header>
 
-<!-- Tu código JS -->
-<script>
-let map;
+  <!-- MAPA -->
+  <section id="map-section" style="height:90vh; width:100%;">
+    <div id="map"></div>
+  </section>
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -12.0464, lng: -77.0428 },
-    zoom: 12,
-  });
+  <!-- GOOGLE MAPS -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ_ho09gXran8O51V1wkRNq0h8a9ay4ig&callback=initMap" async defer></script>
 
-  map.addListener("click", (e) => {
-    crearEvento(e.latLng);
-  });
-}
+  <script>
+    let map;
 
-function crearEvento(latLng) {
-  const nombre = prompt("Nombre de la fiesta:");
-  if (!nombre) return;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -12.0464, lng: -77.0428 },
+        zoom: 12,
+      });
 
-  const fecha = prompt("Fecha de la fiesta (dd/mm/yyyy):");
-  if (!fecha) return;
+      map.addListener("click", (e) => {
+        crearEvento(e.latLng);
+      });
+    }
 
-  const descripcion = prompt("Descripción de la fiesta:");
-  if (!descripcion) return;
+    function crearEvento(latLng) {
+      const nombre = prompt("Nombre de la fiesta:");
+      if (!nombre) return;
 
-  new google.maps.Marker({
-    position: latLng,
-    map: map,
-    title: nombre
-  }).addListener("click", () => {
-    alert(`Fiesta: ${nombre}\nFecha: ${fecha}\nDescripción: ${descripcion}`);
-  });
-}
-</script>
+      const fecha = prompt("Fecha de la fiesta (dd/mm/yyyy):");
+      if (!fecha) return;
+
+      const descripcion = prompt("Descripción de la fiesta:");
+      if (!descripcion) return;
+
+      new google.maps.Marker({
+        position: latLng,
+        map: map,
+        title: nombre
+      }).addListener("click", () => {
+        alert(`Fiesta: ${nombre}\nFecha: ${fecha}\nDescripción: ${descripcion}`);
+      });
+    }
+  </script>
+
+</body>
+</html>
