@@ -19,53 +19,49 @@
   <header>
     <h1>Fiestas en Tiempo Real</h1>
     <p>¡Descubre y crea fiestas donde quieras!</p>
-    <button onclick="document.getElementById('map-section').scrollIntoView({behavior:'smooth'})">
-      Mantente Atento
-    </button>
-  </header>
-
+   <button onclick="window.scrollTo({top: document.getElementById('map-section').offsetTop, behavior:'smooth'})">
+  Mantente Atento
+</button>
+    
   <!-- 2️⃣ Sección del mapa -->
-  <section id="map-section">
-    <div id="map"></div>
-  </section>
+<section id="map-section" style="height:90vh; width:100%;">
+  <div id="map"></div>
+</section>
 
-  <!-- 3️⃣ Scripts: Google Maps API y JavaScript -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script>
-  <script>
-    let map;
+<!-- Script de Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ_ho09gXran8O51V1wkRNq0h8a9ay4ig&callback=initMap" async defer></script>
 
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -12.0464, lng: -77.0428 }, // Lima de ejemplo
-        zoom: 12,
-      });
+<!-- Tu código JS -->
+<script>
+let map;
 
-      map.addListener("click", (e) => {
-        crearEvento(e.latLng);
-      });
-    }
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -12.0464, lng: -77.0428 },
+    zoom: 12,
+  });
 
-    function crearEvento(latLng) {
-      const nombre = prompt("Nombre de la fiesta:");
-      if (!nombre) return;
+  map.addListener("click", (e) => {
+    crearEvento(e.latLng);
+  });
+}
 
-      const fecha = prompt("Fecha de la fiesta (dd/mm/yyyy):");
-      if (!fecha) return;
+function crearEvento(latLng) {
+  const nombre = prompt("Nombre de la fiesta:");
+  if (!nombre) return;
 
-      const descripcion = prompt("Descripción de la fiesta:");
-      if (!descripcion) return;
+  const fecha = prompt("Fecha de la fiesta (dd/mm/yyyy):");
+  if (!fecha) return;
 
-      new google.maps.Marker({
-        position: latLng,
-        map: map,
-        title: nombre
-      }).addListener("click", () => {
-        alert(`Fiesta: ${nombre}\nFecha: ${fecha}\nDescripción: ${descripcion}`);
-      });
-    }
+  const descripcion = prompt("Descripción de la fiesta:");
+  if (!descripcion) return;
 
-    window.onload = initMap;
-  </script>
-
-</body>
-</html>
+  new google.maps.Marker({
+    position: latLng,
+    map: map,
+    title: nombre
+  }).addListener("click", () => {
+    alert(`Fiesta: ${nombre}\nFecha: ${fecha}\nDescripción: ${descripcion}`);
+  });
+}
+</script>
