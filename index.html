@@ -8,8 +8,60 @@
   <!-- Fuente -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Archivo de estilos -->
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #0a0a0a, #000);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      color: #00f2ff;
+      text-shadow: 0 0 15px #00f2ff;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00f2ff; }
+      to { text-shadow: 0 0 25px #00f2ff; }
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #ff53ff;
+      margin-bottom: 30px;
+      text-shadow: 0 0 8px #ff53ff;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background: #00f2ff;
+      border: none;
+      border-radius: 10px;
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #ff53ff;
+      transform: scale(1.08);
+      box-shadow: 0 0 15px #ff53ff;
+      color: #fff;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,30 +70,24 @@
   <p>Próximamente: el buscador de fiestas en tiempo real.</p>
   <a href="#" class="btn">Mantente atento</a>
 
-  <!-- Archivo JS -->
-  <script src="app.js"></script>
+  <!-- FIREBASE -->
   <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyB-q52-p_bZj6KeFCVvSRaNoEDcW1GdY-w",
-    authDomain: "dondeespe-e3c51.firebaseapp.com",
-    projectId: "dondeespe-e3c51",
-    storageBucket: "dondeespe-e3c51.firebasestorage.app",
-    messagingSenderId: "383024573594",
-    appId: "1:383024573594:web:fd6d0605f919baac418323",
-    measurementId: "G-CDL2S4XWES"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-q52-p_bZj6KeFCVvSRaNoEDcW1GdY-w",
+      authDomain: "dondeespe-e3c51.firebaseapp.com",
+      projectId: "dondeespe-e3c51",
+      storageBucket: "dondeespe-e3c51.firebasestorage.app",
+      messagingSenderId: "383024573594",
+      appId: "1:383024573594:web:fd6d0605f919baac418323",
+      measurementId: "G-CDL2S4XWES"
+    };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+
 </body>
 </html>
