@@ -1,92 +1,70 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DondeEsPe</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiestas en Tiempo Real</title>
 
-  <!-- Fuente -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <!-- Aquí van los estilos CSS si los tienes -->
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #0a0a0a, #000);
-      color: #fff;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 10px;
-      color: #00f2ff;
-      text-shadow: 0 0 15px #00f2ff;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #00f2ff; }
-      to { text-shadow: 0 0 25px #00f2ff; }
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #ff53ff;
-      margin-bottom: 30px;
-      text-shadow: 0 0 8px #ff53ff;
-    }
-
-    .btn {
-      padding: 12px 25px;
-      background: #00f2ff;
-      border: none;
-      border-radius: 10px;
-      color: #000;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.25s;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background: #ff53ff;
-      transform: scale(1.08);
-      box-shadow: 0 0 15px #ff53ff;
-      color: #fff;
-    }
+    body { margin: 0; font-family: Arial, sans-serif; }
+    header { text-align:center; padding:20px; background:#ff4081; color:white; }
+    #map { height: 90vh; width: 100%; }
+    button { padding:10px 20px; border:none; background:white; color:#ff4081; border-radius:5px; cursor:pointer; }
   </style>
 </head>
-
 <body>
 
-  <h1>Bienvenido a DondeEsPe 🎉</h1>
-  <p>Próximamente: el buscador de fiestas en tiempo real.</p>
-  <a href="#" class="btn">Mantente atento</a>
+  <!-- 1️⃣ Portada principal -->
+  <header>
+    <h1>Fiestas en Tiempo Real</h1>
+    <p>¡Descubre y crea fiestas donde quieras!</p>
+    <button onclick="document.getElementById('map-section').scrollIntoView({behavior:'smooth'})">
+      Mantente Atento
+    </button>
+  </header>
 
-  <!-- FIREBASE -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+  <!-- 2️⃣ Sección del mapa -->
+  <section id="map-section">
+    <div id="map"></div>
+  </section>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyB-q52-p_bZj6KeFCVvSRaNoEDcW1GdY-w",
-      authDomain: "dondeespe-e3c51.firebaseapp.com",
-      projectId: "dondeespe-e3c51",
-      storageBucket: "dondeespe-e3c51.firebasestorage.app",
-      messagingSenderId: "383024573594",
-      appId: "1:383024573594:web:fd6d0605f919baac418323",
-      measurementId: "G-CDL2S4XWES"
-    };
+  <!-- 3️⃣ Scripts: Google Maps API y JavaScript -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script>
+  <script>
+    let map;
 
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -12.0464, lng: -77.0428 }, // Lima de ejemplo
+        zoom: 12,
+      });
+
+      map.addListener("click", (e) => {
+        crearEvento(e.latLng);
+      });
+    }
+
+    function crearEvento(latLng) {
+      const nombre = prompt("Nombre de la fiesta:");
+      if (!nombre) return;
+
+      const fecha = prompt("Fecha de la fiesta (dd/mm/yyyy):");
+      if (!fecha) return;
+
+      const descripcion = prompt("Descripción de la fiesta:");
+      if (!descripcion) return;
+
+      new google.maps.Marker({
+        position: latLng,
+        map: map,
+        title: nombre
+      }).addListener("click", () => {
+        alert(`Fiesta: ${nombre}\nFecha: ${fecha}\nDescripción: ${descripcion}`);
+      });
+    }
+
+    window.onload = initMap;
   </script>
 
 </body>
