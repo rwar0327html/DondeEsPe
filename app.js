@@ -1,3 +1,5 @@
+alert("A");
 document.addEventListener("DOMContentLoaded", () => {
-  alert("DOM CARGADO");
+  alert("B");
 });
+alert("C");
