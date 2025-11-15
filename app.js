@@ -1,2 +1,1 @@
-// app.js limpio temporalmente
-console.log("app.js cargado correctamente");
+alert("ESTE ES EL app.js REAL");
