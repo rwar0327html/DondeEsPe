@@ -24,12 +24,11 @@
       font-weight:bold;
     }
 
-    /* MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.7);
-      display: none;           
+      display: none;
       align-items: center;
       justify-content: center;
       z-index: 9999;
@@ -46,8 +45,8 @@
       position: relative;
     }
 
-    .modal h2 { margin: 0 0 4px; font-size: 1.4rem; }
-    .modal-subtitle { margin: 0 0 16px; font-size: 0.9rem; color: #ccc; }
+    .modal h2 { margin-top: 0; margin-bottom: 4px; font-size: 1.4rem; }
+    .modal-subtitle { margin-top: 0; margin-bottom: 16px; font-size: 0.9rem; color: #ccc; }
 
     .modal-close {
       position: absolute;
@@ -60,8 +59,11 @@
       cursor: pointer;
     }
 
-    .modal label { display:block; margin-top:10px; margin-bottom:4px; font-size:0.85rem; color:#ddd; }
-    .modal input,.modal textarea,.modal select {
+    .modal label { display: block; margin-top: 10px; margin-bottom: 4px; font-size: 0.85rem; color: #ddd; }
+
+    .modal input,
+    .modal textarea,
+    .modal select {
       width: 100%;
       padding: 8px 10px;
       border-radius: 8px;
@@ -72,20 +74,42 @@
       box-sizing: border-box;
     }
 
-    .slider-row { display:flex; align-items:center; gap:10px; }
-    .file-input { border: 1px dashed #555; border-radius: 10px; padding: 10px; text-align:center; margin-top:4px; }
+    .modal textarea { resize: vertical; min-height: 60px; }
 
-    .modal-actions { margin-top:16px; display:flex; justify-content:flex-end; gap:10px; }
-    .btn-secondary { background:#222; color:#fff; }
-    .btn-primary { background:#00ffff; color:#000; }
-    .btn-secondary,.btn-primary { padding:8px 16px; border-radius:999px; border:none; cursor:pointer; font-weight:bold; }
+    .slider-row { display: flex; align-items: center; gap: 10px; }
+    .slider-row span { font-size: 0.9rem; }
 
+    .file-input {
+      border: 1px dashed #555;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 4px;
+    }
+
+    .modal-actions { margin-top: 16px; display: flex; justify-content: flex-end; gap: 10px; }
+
+    .btn-secondary { background: #222; color: #fff; }
+    .btn-primary { background: #00ffff; color: #000; }
+
+    .btn-secondary,
+    .btn-primary {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .helper-text { font-size: 0.75rem; color: #888; margin-top: 3px; }
   </style>
 </head>
 
 <body>
 
-  <!-- PORTADA -->
   <header>
     <h1>Fiestas en Tiempo Real</h1>
     <p>¡Descubre y crea fiestas donde quieras!</p>
@@ -99,12 +123,10 @@
     </div>
   </header>
 
-  <!-- MAPA -->
   <section id="map-section" style="height:90vh; width:100%;">
     <div id="map"></div>
   </section>
 
-  <!-- MODAL -->
   <div id="fiesta-modal-overlay" class="modal-overlay">
     <div class="modal">
       <button class="modal-close" type="button" onclick="cerrarModalFiesta()">✕</button>
@@ -112,33 +134,34 @@
       <p class="modal-subtitle">Ubicación seleccionada en el mapa ✔</p>
 
       <form id="fiesta-form" onsubmit="guardarFiesta(event)">
-        <label>Nombre de la fiesta</label>
+        <label for="fiesta-nombre">Nombre de la fiesta</label>
         <input id="fiesta-nombre" type="text" required maxlength="80" />
 
-        <label>Descripción</label>
+        <label for="fiesta-descripcion">Descripción</label>
         <textarea id="fiesta-descripcion" required maxlength="300"></textarea>
 
-        <label>Fecha</label>
+        <label for="fiesta-fecha">Fecha</label>
         <input id="fiesta-fecha" type="date" required />
 
-        <label>Zona</label>
+        <label for="fiesta-zona">Zona / Distrito</label>
         <select id="fiesta-zona" required>
           <option value="">Selecciona una zona</option>
-          <option value="Miraflores">Miraflores</option>
-          <option value="Barranco">Barranco</option>
-          <option value="Surco">Surco</option>
-          <option value="San Isidro">San Isidro</option>
-          <option value="Centro de Lima">Centro de Lima</option>
+          <option>Miraflores</option>
+          <option>Barranco</option>
+          <option>Surco</option>
+          <option>San Isidro</option>
+          <option>Centro de Lima</option>
+          <option>Otro</option>
         </select>
 
-        <label>Capacidad mínima</label>
+        <label for="fiesta-capacidad">Capacidad mínima</label>
         <div class="slider-row">
           <input id="fiesta-capacidad" type="range" min="10" max="300" value="50"
             oninput="document.getElementById('capacidad-valor').textContent = this.value + ' personas';" />
           <span id="capacidad-valor">50 personas</span>
         </div>
 
-        <label>Flyer</label>
+        <label for="fiesta-flyer">Flyer</label>
         <div class="file-input">
           <input id="fiesta-flyer" type="file" accept="image/*" />
         </div>
@@ -147,7 +170,6 @@
           <button type="button" class="btn-secondary" onclick="cerrarModalFiesta()">Cancelar</button>
           <button type="submit" class="btn-primary">Publicar fiesta</button>
         </div>
-
       </form>
     </div>
   </div>
@@ -157,11 +179,6 @@
   <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const estado = document.getElementById("estado-firebase");
-      if (estado) estado.textContent = "Firebase conectado correctamente.";
-    });
-
     const firebaseConfig = {
       apiKey: "AIzaSyB-q52-p_bZj6KeFCVvSRaNoEDcW1GdY-w",
       authDomain: "dondeespe-e3c51.firebaseapp.com",
@@ -180,7 +197,7 @@
   <!-- Google Maps -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
 
-  <!-- Lógica -->
+  <!-- Lógica del mapa y modal -->
   <script>
     let map;
     let selectedLatLng = null;
@@ -206,61 +223,21 @@
         selectedLatLng = e.latLng;
         abrirModalFiesta();
       });
-
-      db.ref("fiestas").on("value", (snapshot) => {
-        const data = snapshot.val();
-        if (!data) return;
-
-        Object.values(data).forEach(evento => {
-          if (!evento.lat || !evento.lng) return;
-
-          const marker = new google.maps.Marker({
-            position: { lat: evento.lat, lng: evento.lng },
-            map: map,
-            title: evento.nombre || "Fiesta"
-          });
-
-          marker.addEventListener("click", () => {
-            alert(
-              `Fiesta: ${evento.nombre}\nFecha: ${evento.fecha}\nZona: ${evento.zona}\nCapacidad: ${evento.capacidadMinima}\nDescripción: ${evento.descripcion}`
-            );
-          });
-        });
-      });
     }
+  </script>
 
-    /* 🔥 FUNCIÓN GLOBAL PARA QUE funcione el botón */
-    window.guardarFiesta = function(e) {
-      e.preventDefault();
+  <!-- 🔥 SCRIPT DE PRUEBA PARA guardarFiesta -->
+  <script>
+    console.log("Cargando función guardarFiesta...");
 
-      if (!selectedLatLng) {
-        alert("Selecciona ubicación en el mapa.");
-        return;
-      }
-
-      const nombre = document.getElementById("fiesta-nombre").value.trim();
-      const descripcion = document.getElementById("fiesta-descripcion").value.trim();
-      const fecha = document.getElementById("fiesta-fecha").value;
-      const zona = document.getElementById("fiesta-zona").value;
-      const capacidad = parseInt(document.getElementById("fiesta-capacidad").value);
-
-      db.ref("fiestas").push({
-        nombre,
-        descripcion,
-        fecha,
-        zona,
-        capacidadMinima: capacidad,
-        lat: selectedLatLng.lat(),
-        lng: selectedLatLng.lng(),
-        flyerURL: "",
-        estado: "pendiente",
-        creadoEn: Date.now()
-      });
-
-      cerrarModalFiesta();
-      alert("Fiesta creada y guardada.");
+    window.guardarFiesta = function(event) {
+      event.preventDefault();
+      alert("✔ La función guardarFiesta SÍ se ejecuta correctamente.");
     };
   </script>
+
+  <!-- app.js -->
+  <script src="app.js"></script>
 
 </body>
 </html>
