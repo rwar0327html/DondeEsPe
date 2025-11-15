@@ -37,16 +37,17 @@
       Mantente Atento
     </button>
 
-    <!-- INDICADOR DEL ESTADO DE FIREBASE -->
+    <!-- INDICADOR DE ESTADO FIREBASE -->
     <div id="estado-firebase" style="margin-top:20px; font-weight:bold;">
       Verificando conexión con Firebase...
     </div>
   </header>
 
-  <!-- Firebase CDN -->
+  <!-- 🔥 SCRIPTS DE FIREBASE (DEBEN ESTAR AQUÍ) -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
 
+  <!-- Inicializar Firebase -->
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyB-q52-p_bZj6KeFCVvSRaNoEDcW1GdY-w",
@@ -54,92 +55,4 @@
       databaseURL: "https://dondeespe-e3c51-default-rtdb.firebaseio.com",
       projectId: "dondeespe-e3c51",
       storageBucket: "dondeespe-e3c51.firebasestorage.app",
-      messagingSenderId: "383024573594",
-      appId: "1:383024573594:web:522d399280589261418323",
-      measurementId: "G-NX47X8PK1Q"
-    };
-
-    // Inicializar Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-  </script>
-
-  <!-- MAPA -->
-  <section id="map-section" style="height:90vh; width:100%;">
-    <div id="map"></div>
-  </section>
-
-  <!-- GOOGLE MAPS -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
-
-  <script>
-    let map;
-
-    function initMap() {
-      map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -12.0464, lng: -77.0428 },
-        zoom: 12,
-      });
-
-      // Crear evento al hacer click
-      map.addListener("click", (e) => {
-        crearEvento(e.latLng);
-      });
-
-      // Cargar fiestas guardadas desde Firebase
-      db.ref("fiestas").on("value", (snapshot) => {
-        const data = snapshot.val();
-        if (!data) return;
-
-        Object.values(data).forEach(evento => {
-          const marker = new google.maps.Marker({
-            position: { lat: evento.lat, lng: evento.lng },
-            map: map,
-            title: evento.nombre
-          });
-
-          marker.addListener("click", () => {
-            alert(`Fiesta: ${evento.nombre}\nFecha: ${evento.fecha}\nDescripción: ${evento.descripcion}`);
-          });
-        });
-      });
-    }
-
-    // Crear fiesta y guardarla en Firebase
-    function crearEvento(latLng) {
-      const nombre = prompt("Nombre de la fiesta:");
-      if (!nombre) return;
-
-      const fecha = prompt("Fecha de la fiesta (dd/mm/yyyy):");
-      if (!fecha) return;
-
-      const descripcion = prompt("Descripción de la fiesta:");
-      if (!descripcion) return;
-
-      // Crear marcador en el mapa
-      const marker = new google.maps.Marker({
-        position: latLng,
-        map: map,
-        title: nombre
-      });
-
-      marker.addListener("click", () => {
-        alert(`Fiesta: ${nombre}\nFecha: ${fecha}\nDescripción: ${descripcion}`);
-      });
-
-      // Guardar en Firebase
-      db.ref("fiestas").push({
-        nombre: nombre,
-        fecha: fecha,
-        descripcion: descripcion,
-        lat: latLng.lat(),
-        lng: latLng.lng()
-      });
-    }
-  </script>
-
-  <!-- Tu módulo (DEBE ser el último) -->
-  <script type="module" src="app.js"></script>
-
-</body>
-</html>
+      messagingSe
