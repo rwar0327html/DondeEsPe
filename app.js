@@ -1,1 +1,5 @@
-document.body.innerHTML = "<h1 style='color: red'>ESTE ES EL APP.JS REAL</h1>";
+document.addEventListener("DOMContentLoaded", () => {
+  const estado = document.getElementById("estado-firebase");
+  if (estado) estado.textContent = "Firebase conectado correctamente.";
+  console.log("Firebase OK ✔");
+});
