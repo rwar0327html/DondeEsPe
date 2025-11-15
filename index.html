@@ -38,14 +38,35 @@
     </button>
   </header>
 
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-q52-p_bZj6KeFCVvSRaNoEDcW1GdY-w",
+      authDomain: "dondeespe-e3c51.firebaseapp.com",
+      databaseURL: "https://dondeespe-e3c51-default-rtdb.firebaseio.com",
+      projectId: "dondeespe-e3c51",
+      storageBucket: "dondeespe-e3c51.firebasestorage.app",
+      messagingSenderId: "383024573594",
+      appId: "1:383024573594:web:522d399280589261418323",
+      measurementId: "G-NX47X8PK1Q"
+    };
+
+    // Inicializar Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+
   <!-- MAPA -->
   <section id="map-section" style="height:90vh; width:100%;">
     <div id="map"></div>
   </section>
 
   <!-- GOOGLE MAPS -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
-  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
+
   <script>
     let map;
 
@@ -55,11 +76,32 @@
         zoom: 12,
       });
 
+      // Crear evento al hacer click
       map.addListener("click", (e) => {
         crearEvento(e.latLng);
       });
+
+      // Cargar fiestas guardadas desde Firebase
+      db.ref("fiestas").on("value", (snapshot) => {
+        const data = snapshot.val();
+        if (!data) return;
+
+        // Crear marcadores por cada evento
+        Object.values(data).forEach(evento => {
+          const marker = new google.maps.Marker({
+            position: { lat: evento.lat, lng: evento.lng },
+            map: map,
+            title: evento.nombre
+          });
+
+          marker.addListener("click", () => {
+            alert(`Fiesta: ${evento.nombre}\nFecha: ${evento.fecha}\nDescripción: ${evento.descripcion}`);
+          });
+        });
+      });
     }
 
+    // Crear fiesta y guardarla en Firebase
     function crearEvento(latLng) {
       const nombre = prompt("Nombre de la fiesta:");
       if (!nombre) return;
@@ -70,12 +112,24 @@
       const descripcion = prompt("Descripción de la fiesta:");
       if (!descripcion) return;
 
-      new google.maps.Marker({
+      // Crear marcador en el mapa
+      const marker = new google.maps.Marker({
         position: latLng,
         map: map,
         title: nombre
-      }).addListener("click", () => {
+      });
+
+      marker.addListener("click", () => {
         alert(`Fiesta: ${nombre}\nFecha: ${fecha}\nDescripción: ${descripcion}`);
+      });
+
+      // Guardar en Firebase
+      db.ref("fiestas").push({
+        nombre: nombre,
+        fecha: fecha,
+        descripcion: descripcion,
+        lat: latLng.lat(),
+        lng: latLng.lng()
       });
     }
   </script>
