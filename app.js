@@ -1,22 +1,21 @@
 console.log("DondeEsPe conectado correctamente.");
-// app.js — Este archivo NO rompe tu Firebase antiguo. Solo muestra el estado.
 
-// Como es módulo, debemos esperar a que el DOM cargue
+// Esperar a que cargue todo el DOM
 document.addEventListener("DOMContentLoaded", () => {
   const estado = document.getElementById("estado-firebase");
 
+  // Probar si firebase realmente está cargado
   try {
-    // Verificar si firebase ya está cargado (usando tu script global)
-    if (typeof firebase !== "undefined") {
-      estado.textContent = "✅ Firebase conectado correctamente.";
-      console.log("Firebase cargado:", firebase);
-    } else {
-      estado.textContent = "❌ Firebase NO está cargado.";
-      console.error("No se encontró Firebase.");
-    }
+    // Intentar acceder a firebase.app()
+    const testApp = firebase.app();
+
+    // Si no explota, Firebase está cargado
+    estado.textContent = "✅ Firebase conectado correctamente.";
+    console.log("Firebase cargado:", testApp);
+
   } catch (error) {
-    estado.textContent = "❌ Error conectando Firebase.";
-    console.error(error);
+    // Si explota, Firebase NO cargó
+    estado.textContent = "❌ Firebase NO está cargado.";
+    console.error("Error:", error);
   }
 });
-
