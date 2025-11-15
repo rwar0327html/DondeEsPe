@@ -230,10 +230,45 @@
   <script>
     console.log("Cargando función guardarFiesta...");
 
-    window.guardarFiesta = function(event) {
-      event.preventDefault();
-      alert("✔ La función guardarFiesta SÍ se ejecuta correctamente.");
-    };
+    <script>
+function guardarFiesta(e) {
+  console.log("Guardando fiesta en Firebase...");
+
+  if (!window.selectedLatLng) {
+    alert("Primero selecciona una ubicación haciendo click en el mapa.");
+    return;
+  }
+
+  const nombre = document.getElementById("fiesta-nombre").value.trim();
+  const descripcion = document.getElementById("fiesta-descripcion").value.trim();
+  const fecha = document.getElementById("fiesta-fecha").value;
+  const zona = document.getElementById("fiesta-zona").value;
+  const capacidad = parseInt(document.getElementById("fiesta-capacidad").value, 10) || 0;
+
+  if (!nombre || !descripcion || !fecha || !zona) {
+    alert("Completa todos los campos.");
+    return;
+  }
+
+  // Guardar en Firebase
+  window.db.ref("fiestas").push({
+    nombre,
+    descripcion,
+    fecha,
+    zona,
+    capacidadMinima: capacidad,
+    lat: window.selectedLatLng.lat(),
+    lng: window.selectedLatLng.lng(),
+    flyerURL: "",
+    estado: "pendiente",
+    creadoEn: Date.now()
+  });
+
+  alert("🎉 Fiesta creada y guardada en Firebase (modo pendiente).");
+  cerrarModalFiesta();
+}
+</script>
+
   </script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
