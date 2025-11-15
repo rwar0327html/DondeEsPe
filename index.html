@@ -35,21 +35,12 @@
 
     <button onclick="window.scrollTo({top: document.getElementById('map-section').offsetTop, behavior:'smooth'})">
       Mantente Atento
-      <header>
-  <h1>Fiestas en Tiempo Real</h1>
-  <p>¡Descubre y crea fiestas donde quieras!</p>
-
-  <button onclick="window.scrollTo({top: document.getElementById('map-section').offsetTop, behavior:'smooth'})">
-    Mantente Atento
-  </button>
-
-  <!-- INDICADOR DEL ESTADO DE FIREBASE -->
-  <div id="estado-firebase" style="margin-top:20px; font-weight:bold;">
-    Verificando conexión con Firebase...
-  </div>
-</header>
-
     </button>
+
+    <!-- INDICADOR DEL ESTADO DE FIREBASE -->
+    <div id="estado-firebase" style="margin-top:20px; font-weight:bold;">
+      Verificando conexión con Firebase...
+    </div>
   </header>
 
   <!-- Firebase CDN -->
@@ -100,7 +91,6 @@
         const data = snapshot.val();
         if (!data) return;
 
-        // Crear marcadores por cada evento
         Object.values(data).forEach(evento => {
           const marker = new google.maps.Marker({
             position: { lat: evento.lat, lng: evento.lng },
@@ -147,7 +137,9 @@
       });
     }
   </script>
-<script type="module" src="app.js"></script>
+
+  <!-- Tu módulo (DEBE ser el último) -->
+  <script type="module" src="app.js"></script>
 
 </body>
 </html>
