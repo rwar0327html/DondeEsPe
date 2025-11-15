@@ -1,5 +1,1 @@
-alert("A");
-document.addEventListener("DOMContentLoaded", () => {
-  alert("B");
-});
-alert("C");
+document.body.innerHTML = "<h1 style='color: red'>ESTE ES EL APP.JS REAL</h1>";
