@@ -1,6 +1,5 @@
 console.log("DondeEsPe conectado correctamente.");
 
-// Como es módulo, debemos esperar a que el DOM cargue
 document.addEventListener("DOMContentLoaded", () => {
   const estado = document.getElementById("estado-firebase");
 
