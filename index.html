@@ -235,6 +235,29 @@
       alert("✔ La función guardarFiesta SÍ se ejecuta correctamente.");
     };
   </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("Conectando evento del formulario...");
+
+  const formulario = document.getElementById("fiesta-form");
+
+  if (formulario) {
+    formulario.addEventListener("submit", function(e) {
+      e.preventDefault();
+      console.log("Evento submit capturado ✔");
+
+      if (typeof guardarFiesta === "function") {
+        guardarFiesta(e);
+      } else {
+        alert("❌ ERROR: La función guardarFiesta NO existe o no está cargada.");
+        console.error("guardarFiesta no está definida.");
+      }
+    });
+  } else {
+    console.error("No se encontró el formulario #fiesta-form.");
+  }
+});
+</script>
 
   <!-- app.js -->
   <script src="app.js"></script>
