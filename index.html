@@ -23,6 +23,131 @@
       cursor:pointer;
       font-weight:bold;
     }
+
+    /* Modal centrado para crear fiesta */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;           
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal {
+      background: #0b0b0f;
+      border-radius: 16px;
+      padding: 24px 20px;
+      width: 95%;
+      max-width: 420px;
+      border: 1px solid #ff00ff;
+      box-shadow: 0 0 25px rgba(255, 0, 255, 0.5);
+      position: relative;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+      margin-bottom: 4px;
+      font-size: 1.4rem;
+    }
+
+    .modal-subtitle {
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .modal label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+      color: #ddd;
+    }
+
+    .modal input,
+    .modal textarea,
+    .modal select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #141419;
+      color: #fff;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    .modal textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-row span {
+      font-size: 0.9rem;
+    }
+
+    .file-input {
+      border: 1px dashed #555;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 4px;
+    }
+
+    .modal-actions {
+      margin-top: 16px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .btn-secondary {
+      background: #222;
+      color: #fff;
+    }
+
+    .btn-primary {
+      background: #00ffff;
+      color: #000;
+    }
+
+    .btn-secondary,
+    .btn-primary {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .helper-text {
+      font-size: 0.75rem;
+      color: #888;
+      margin-top: 3px;
+    }
   </style>
 </head>
 
@@ -42,12 +167,59 @@
     </div>
   </header>
 
-
-  <!-- MAPA (ESTO FALTABA!) -->
+  <!-- MAPA -->
   <section id="map-section" style="height:90vh; width:100%;">
-      <div id="map"></div>
+    <div id="map"></div>
   </section>
 
+  <!-- MODAL PARA CREAR FIESTA -->
+  <div id="fiesta-modal-overlay" class="modal-overlay">
+    <div class="modal">
+      <button class="modal-close" type="button" onclick="cerrarModalFiesta()">✕</button>
+      <h2>Crear Fiesta 🎉</h2>
+      <p class="modal-subtitle">Ubicación seleccionada en el mapa ✔</p>
+
+      <form id="fiesta-form" onsubmit="guardarFiesta(event)">
+        <label for="fiesta-nombre">Nombre de la fiesta</label>
+        <input id="fiesta-nombre" type="text" required maxlength="80" placeholder="Ej: Tarde de Perreo en Barranco" />
+
+        <label for="fiesta-descripcion">Descripción</label>
+        <textarea id="fiesta-descripcion" required maxlength="300" placeholder="Cuenta qué tipo de fiesta es, dress code, música, etc."></textarea>
+
+        <label for="fiesta-fecha">Fecha</label>
+        <input id="fiesta-fecha" type="date" required />
+
+        <label for="fiesta-zona">Zona / Distrito</label>
+        <select id="fiesta-zona" required>
+          <option value="">Selecciona una zona</option>
+          <option value="Miraflores">Miraflores</option>
+          <option value="Barranco">Barranco</option>
+          <option value="Surco">Surco</option>
+          <option value="San Isidro">San Isidro</option>
+          <option value="Centro de Lima">Centro de Lima</option>
+          <option value="Otro">Otro</option>
+        </select>
+
+        <label for="fiesta-capacidad">Capacidad mínima para activar la fiesta</label>
+        <div class="slider-row">
+          <input id="fiesta-capacidad" type="range" min="10" max="300" value="50" oninput="document.getElementById('capacidad-valor').textContent = this.value + ' personas';" />
+          <span id="capacidad-valor">50 personas</span>
+        </div>
+        <p class="helper-text">Esta es la cantidad mínima de personas para considerar la fiesta “activa”.</p>
+
+        <label for="fiesta-flyer">Flyer (obligatorio más adelante)</label>
+        <div class="file-input">
+          <input id="fiesta-flyer" type="file" accept="image/*" />
+          <p class="helper-text">Por ahora solo lo seleccionas, luego conectamos el almacenamiento.</p>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="cerrarModalFiesta()">Cancelar</button>
+          <button type="submit" class="btn-primary">Publicar fiesta</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
@@ -72,9 +244,25 @@
   <!-- Google Maps -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
 
-  <!-- Lógica del Mapa -->
+  <!-- Lógica del mapa + modal -->
   <script>
     let map;
+    let selectedLatLng = null;
+
+    function abrirModalFiesta() {
+      const overlay = document.getElementById("fiesta-modal-overlay");
+      overlay.style.display = "flex";
+    }
+
+    function cerrarModalFiesta() {
+      const overlay = document.getElementById("fiesta-modal-overlay");
+      overlay.style.display = "none";
+      selectedLatLng = null;
+      const form = document.getElementById("fiesta-form");
+      if (form) form.reset();
+      const capacidadValor = document.getElementById("capacidad-valor");
+      if (capacidadValor) capacidadValor.textContent = "50 personas";
+    }
 
     function initMap() {
       map = new google.maps.Map(document.getElementById("map"), {
@@ -82,49 +270,79 @@
         zoom: 12,
       });
 
+      // Cuando el usuario hace click en el mapa → selecciona ubicación y abre el modal
       map.addListener("click", (e) => {
-        crearEvento(e.latLng);
+        selectedLatLng = e.latLng;
+        abrirModalFiesta();
       });
 
+      // Cargar fiestas desde Firebase
       db.ref("fiestas").on("value", (snapshot) => {
         const data = snapshot.val();
         if (!data) return;
 
+        // Limpiamos marcadores antiguos: en MVP simple no los almacenamos, solo volvemos a dibujar
         Object.values(data).forEach(evento => {
+          if (!evento.lat || !evento.lng) return;
+
           const marker = new google.maps.Marker({
             position: { lat: evento.lat, lng: evento.lng },
             map: map,
-            title: evento.nombre
+            title: evento.nombre || "Fiesta"
           });
 
           marker.addListener("click", () => {
-            alert(`Fiesta: ${evento.nombre}\nFecha: ${evento.fecha}\nDescripción: ${evento.descripcion}`);
+            const capacidadTexto = evento.capacidadMinima ? `Capacidad mínima: ${evento.capacidadMinima} personas\n` : "";
+            const zonaTexto = evento.zona ? `Zona: ${evento.zona}\n` : "";
+            alert(
+              `Fiesta: ${evento.nombre}\n` +
+              (evento.fecha ? `Fecha: ${evento.fecha}\n` : "") +
+              zonaTexto +
+              capacidadTexto +
+              `Descripción: ${evento.descripcion || ""}`
+            );
           });
         });
       });
     }
 
-    function crearEvento(latLng) {
-      const nombre = prompt("Nombre de la fiesta:");
-      if (!nombre) return;
+    function guardarFiesta(e) {
+      e.preventDefault();
+      if (!selectedLatLng) {
+        alert("Primero selecciona una ubicación haciendo click en el mapa.");
+        return;
+      }
 
-      const fecha = prompt("Fecha de la fiesta:");
-      if (!fecha) return;
+      const nombre = document.getElementById("fiesta-nombre").value.trim();
+      const descripcion = document.getElementById("fiesta-descripcion").value.trim();
+      const fecha = document.getElementById("fiesta-fecha").value;
+      const zona = document.getElementById("fiesta-zona").value;
+      const capacidad = parseInt(document.getElementById("fiesta-capacidad").value, 10) || 0;
 
-      const descripcion = prompt("Descripción:");
-      if (!descripcion) return;
+      if (!nombre || !descripcion || !fecha || !zona) {
+        alert("Completa todos los campos.");
+        return;
+      }
 
       db.ref("fiestas").push({
         nombre,
-        fecha,
         descripcion,
-        lat: latLng.lat(),
-        lng: latLng.lng()
+        fecha,
+        zona,
+        capacidadMinima: capacidad,
+        lat: selectedLatLng.lat(),
+        lng: selectedLatLng.lng(),
+        flyerURL: "",       // Lo conectamos más adelante a Storage
+        estado: "pendiente",
+        creadoEn: Date.now()
       });
+
+      cerrarModalFiesta();
+      alert("Fiesta creada. Por ahora se guarda como 'pendiente' en la base de datos.");
     }
   </script>
 
-  <!-- app.js (siempre al final) -->
+  <!-- app.js siempre al final -->
   <script type="module" src="app.js"></script>
 
 </body>
