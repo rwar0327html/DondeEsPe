@@ -1,5 +1,2 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const estado = document.getElementById("estado-firebase");
-  if (estado) estado.textContent = "Firebase conectado correctamente.";
-  console.log("Firebase OK ✔");
-});
+// app.js limpio temporalmente
+console.log("app.js cargado correctamente");
