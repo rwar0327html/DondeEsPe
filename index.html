@@ -17,28 +17,25 @@
 </head>
 <body>
 
-  <!-- HERO PREMIUM NEÓN AMARILLO/NARANJA -->
+  <!-- HERO EXACTO COMO TU FOTO -->
   <section id="hero">
-    <div class="hero-content">
-      <h1>🔥 DondeEsPe 🔥</h1>
-      <p>Encuentra o crea fiestas en tu zona</p>
-      <button id="verMapaBtn" class="hero-btn">Entrar al Mapa</button>
-    </div>
+    <h1>Fiestas en Tiempo Real 🎉</h1>
+    <p>Encuentra o crea fiestas en tu zona</p>
+
+    <button id="verMapaBtn">Ver mapa</button>
   </section>
 
-  <!-- MAPA (OCULTO AL INICIO) -->
-  <div id="map" style="display:none;"></div>
+  <!-- MAPA ABAJO -->
+  <div id="map"></div>
 
-  <!-- BOTÓN CREAR FIESTA (OCULTO AL INICIO) -->
-  <button id="openFormBtn" class="neon-button" style="display:none;">
-    Crear Fiesta ✨
-  </button>
+  <!-- BOTÓN FLOTANTE PARA CREAR EVENTO -->
+  <button id="openFormBtn" class="floating-btn">Crear Fiesta ✨</button>
 
-  <!-- MODAL PREMIUM NEÓN (EDITADO Y LIMPIO) -->
+  <!-- MODAL PREMIUM -->
   <div id="partyModal" class="modal">
     <div class="modal-content">
 
-      <h2 class="modal-title">Crear Fiesta 🎉</h2>
+      <h2>Crear Fiesta 🎉</h2>
 
       <label>Nombre</label>
       <input type="text" id="eventoNombre">
@@ -62,15 +59,12 @@
 
       <label>Mínimo para iniciar la juerga</label>
       <input type="range" id="eventoMin" min="0" max="300" value="0">
-
       <div id="sliderValue">0 personas</div>
 
       <label>Flyer obligatorio</label>
       <input type="file" id="eventoFlyer" accept="image/*">
 
-      <!-- BOTÓN PUBLICAR REDUCIDO -->
       <button id="enviarFiesta" class="publish-btn">Publicar Fiesta</button>
-
       <button id="closeFormBtn" class="close-btn">Cancelar</button>
 
     </div>
@@ -78,5 +72,6 @@
 
   <!-- JS -->
   <script src="app.js"></script>
+
 </body>
 </html>
