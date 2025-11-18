@@ -25,17 +25,17 @@
     <button id="verMapaBtn">Ver mapa</button>
   </section>
 
-  <!-- MAPA -->
+  <!-- MAPA (VISIBLE, CON ALTURA) -->
   <div id="map"></div>
 
-  <!-- BOTÓN CREAR FIESTA -->
-  <button id="openFormBtn" class="floating-btn">Crear Fiesta ✨</button>
+  <!-- BOTÓN CREAR FIESTA (CORRECTO) -->
+  <button id="openFormBtn" class="neon-button">Crear Fiesta ✨</button>
 
   <!-- MODAL -->
   <div id="partyModal" class="modal">
     <div class="modal-content">
 
-      <h2>Crear Fiesta 🎉</h2>
+      <h2 class="modal-title">Crear Fiesta 🎉</h2>
 
       <label>Nombre</label>
       <input type="text" id="eventoNombre">
@@ -58,16 +58,16 @@
       </select>
 
       <label>Cantidad mínima para iniciar la juerga</label>
-<input 
-  type="range" 
-  id="eventoMin" 
-  min="50" 
-  max="1000" 
-  value="50"
->
-<div id="sliderValue">50 personas</div>
+      <input 
+        type="range" 
+        id="eventoMin" 
+        min="50" 
+        max="1000" 
+        value="50"
+      >
+      <div id="sliderValue">50 personas</div>
 
-      <label>Flyer obligatorio</label>
+      <label>Flyer obligatorio:</label>
       <input type="file" id="eventoFlyer" accept="image/*">
 
       <button id="enviarFiesta" class="publish-btn">Publicar Fiesta</button>
