@@ -34,25 +34,44 @@
     Crear Fiesta ✨
   </button>
 
-  <!-- MODAL NEÓN -->
+  <!-- MODAL PREMIUM NEÓN -->
   <div id="partyModal" class="modal">
     <div class="modal-content">
-      <h2>Crear nueva fiesta 🎉</h2>
 
-      <label>Nombre del evento</label>
-      <input type="text" id="eventoNombre" placeholder="Ej: Sunset Party Barranco">
+      <h2 class="modal-title">Crear Fiesta 🎉</h2>
 
-      <label>Zona</label>
-      <input type="text" id="eventoZona" placeholder="Ej: Barranco, Miraflores, Surco">
+      <label>Nombre</label>
+      <input type="text" id="eventoNombre" placeholder="Nombre del evento">
 
-      <label>Capacidad mínima (personas)</label>
-      <input type="number" id="eventoMin" min="0" max="300" placeholder="Ej: 50">
+      <label>Descripción</label>
+      <textarea id="eventoDescripcion" placeholder="Descripción detallada"></textarea>
 
-      <label>Flyer</label>
+      <label>Fecha</label>
+      <input type="date" id="eventoFecha">
+
+      <label>Zona / Distrito</label>
+      <select id="eventoZona">
+        <option value="Barranco">Barranco</option>
+        <option value="Miraflores">Miraflores</option>
+        <option value="San Isidro">San Isidro</option>
+        <option value="Surco">Surco</option>
+        <option value="La Molina">La Molina</option>
+        <option value="SJL">San Juan de Lurigancho</option>
+        <option value="Comas">Comas</option>
+      </select>
+
+      <label>Cantidad mínima para iniciar la juerga</label>
+      <input type="range" id="eventoMin" min="0" max="300" value="0" class="slider">
+      <div id="sliderValue">0 personas</div>
+
+      <label>Flyer obligatorio:</label>
       <input type="file" id="eventoFlyer" accept="image/*">
 
-      <button id="enviarFiesta" class="neon-button small">Publicar Fiesta</button>
+      <!-- BOTÓN PUBLICAR REDUCIDO -->
+      <button id="enviarFiesta" class="publish-btn">Publicar Fiesta</button>
+
       <button id="closeFormBtn" class="close-btn">Cancelar</button>
+
     </div>
   </div>
 
@@ -60,3 +79,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+
