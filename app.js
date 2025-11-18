@@ -4,13 +4,13 @@ mapboxgl.accessToken = "pk.eyJ1IjoiZG9uZGVlc3BlMi0iLCJhIjoiY21pNDgxOGZ2MGRubzJrb
 const map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/mapbox/streets-v12",
-  center: [-77.0428, -12.0464], // Lima
+  center: [-77.0428, -12.0464], 
   zoom: 14,
-  pitch: 60,   // inclinación 3D
-  bearing: -20 // rotación inicial
+  pitch: 60,
+  bearing: -20
 });
 
-// Activar edificios 3D
+// Edificios 3D
 map.on("load", () => {
   const layers = map.getStyle().layers;
 
@@ -56,12 +56,32 @@ map.on("load", () => {
   );
 });
 
-// Abrir modal
+
+// --- HERO LOGIC ---
+document.getElementById("verMapaBtn").onclick = () => {
+  document.getElementById("hero").style.display = "none";
+  document.getElementById("map").style.display = "block";
+  document.getElementById("openFormBtn").style.display = "block";
+};
+
+// --- MODAL MANEJO ---
 document.getElementById("openFormBtn").onclick = () => {
   document.getElementById("partyModal").style.display = "flex";
 };
 
-// Cerrar modal
 document.getElementById("closeFormBtn").onclick = () => {
   document.getElementById("partyModal").style.display = "none";
 };
+
+// --- CLICK EN EL MAPA PARA CREAR FIESTA ---
+let selectedLat = null;
+let selectedLng = null;
+
+map.on("click", (e) => {
+  selectedLat = e.lngLat.lat;
+  selectedLng = e.lngLat.lng;
+
+  console.log("Coordenadas:", selectedLat, selectedLng);
+
+  document.getElementById("partyModal").style.display = "flex";
+});
