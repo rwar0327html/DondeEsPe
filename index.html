@@ -15,72 +15,72 @@
 
 <body>
 
-  <!-- HERO SENCILLO Y JUVENIL -->
+  <!-- HERO -->
   <section id="hero">
     <h1 class="hero-title arcade-font">Fiestas en Tiempo Real 🎉</h1>
     <p class="hero-sub">Encuentra o crea fiestas en tu zona</p>
     <button id="verMapaBtn" class="hero-btn">Ver mapa</button>
   </section>
 
-  <!-- MAPA GOOGLE 2D -->
+  <!-- MAPA -->
   <div id="map"></div>
 
-<!-- MODAL NUEVO -->
-<div id="partyModal" class="modal">
-  <div class="modal-box">
+  <!-- MODAL NUEVO -->
+  <div id="partyModal" class="modal">
+    <div class="modal-box">
 
-    <h2 class="modal-title">Crear Fiesta ✨</h2>
+      <h2 class="modal-title">Crear Fiesta ✨</h2>
 
-    <div class="field-group">
-      <label>Nombre del evento</label>
-      <input type="text" id="eventoNombre">
+      <div class="field-group">
+        <label>Nombre del evento</label>
+        <input type="text" id="eventoNombre">
+      </div>
+
+      <div class="field-group">
+        <label>Descripción</label>
+        <textarea id="eventoDescripcion"></textarea>
+      </div>
+
+      <div class="field-group">
+        <label>Fecha</label>
+        <input type="date" id="eventoFecha">
+      </div>
+
+      <div class="field-group">
+        <label>Zona / Distrito</label>
+        <select id="eventoZona">
+          <option>Centro de Lima</option>
+          <option>Barranco</option>
+          <option>Miraflores</option>
+          <option>San Isidro</option>
+          <option>Surco</option>
+          <option>La Molina</option>
+          <option>SJL</option>
+          <option>Comas</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label>Mínimo para iniciar la juerga</label>
+        <input type="range" id="eventoMin" min="50" max="1000" value="50">
+        <div id="sliderValue">50 personas</div>
+      </div>
+
+      <div class="field-group">
+        <label>Flyer obligatorio</label>
+        <input type="file" id="eventoFlyer" accept="image/*">
+      </div>
+
+      <button id="enviarFiesta" class="submit-btn">Publicar Fiesta</button>
+      <button id="closeFormBtn" class="cancel-btn">Cancelar</button>
+
     </div>
-
-    <div class="field-group">
-      <label>Descripción</label>
-      <textarea id="eventoDescripcion"></textarea>
-    </div>
-
-    <div class="field-group">
-      <label>Fecha</label>
-      <input type="date" id="eventoFecha">
-    </div>
-
-    <div class="field-group">
-      <label>Zona / Distrito</label>
-      <select id="eventoZona">
-        <option>Centro de Lima</option>
-        <option>Barranco</option>
-        <option>Miraflores</option>
-        <option>San Isidro</option>
-        <option>Surco</option>
-        <option>La Molina</option>
-        <option>SJL</option>
-        <option>Comas</option>
-      </select>
-    </div>
-
-    <div class="field-group">
-      <label>Mínimo para iniciar la juerga</label>
-      <input type="range" id="eventoMin" min="50" max="1000" value="50">
-      <div id="sliderValue">50 personas</div>
-    </div>
-
-    <div class="field-group">
-      <label>Flyer obligatorio</label>
-      <input type="file" id="eventoFlyer" accept="image/*">
-    </div>
-
-    <button id="enviarFiesta" class="submit-btn">Publicar Fiesta</button>
-    <button id="closeFormBtn" class="cancel-btn">Cancelar</button>
-
   </div>
-</div>
 
   <!-- JS -->
   <script src="app.js"></script>
 
-  <!-- GOOGLE MAPS API -->
+  <!-- GOOGLE MAPS -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
 
 </body>
