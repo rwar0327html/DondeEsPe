@@ -101,6 +101,7 @@ input,
 textarea,
 select {
   width: 100%;
+  box-sizing: border-box; /* ⬅ EVITA QUE SE SALGA DEL MARCO */
   background: #1a1a1a;
   color: white;
   border: 1px solid #444;
