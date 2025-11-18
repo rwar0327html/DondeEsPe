@@ -1,239 +1,130 @@
-/* IMPORTAMOS LA FUENTE PIXELADA */
-@import url('https://fonts.cdnfonts.com/css/karmatic-arcade');
-
-/* GENERAL */
 body {
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
   background: #000;
-  overflow-x: hidden;
 }
 
-/* HERO MODERNO JUVENIL */
+/* --- HERO --- */
 #hero {
-  width: 100%;
-  padding: 25px 20px;
+  background: linear-gradient(135deg, #ff6a00, #ffb300);
+  padding: 70px 20px;
   text-align: center;
-  background: linear-gradient(135deg, #ff3cac, #784ba0);
-}
-
-#hero h1 {
-  font-family: "Karmatic Arcade";
-  font-size: 28px;
-  margin: 0;
   color: white;
-  text-shadow: none;
 }
 
-#hero p {
-  font-size: 15px;
-  margin-top: 5px;
-  color: #ececec;
+.hero-title {
+  font-size: 36px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.hero-sub {
+  margin-top: 8px;
+  opacity: 0.9;
 }
 
 .hero-btn {
-  margin-top: 10px;
-  padding: 10px 22px;
-  font-size: 15px;
-  border: none;
-  border-radius: 10px;
+  margin-top: 18px;
+  padding: 12px 25px;
+  font-size: 16px;
   background: white;
+  border-radius: 12px;
+  border: none;
   cursor: pointer;
 }
 
-/* MAPA */
+/* --- MAPA --- */
 #map {
   width: 100%;
-  height: 80vh;
-}
-
-/* BOTÓN CREAR FIESTA */
-.neon-button {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  background: #000;
-  padding: 12px 22px;
-  font-size: 16px;
-  border-radius: 14px;
-  color: #ffd700;
-  border: 2px solid #ffd700;
-  box-shadow: 0 0 10px rgba(255,215,0,0.4);
-  cursor: pointer;
-  z-index: 10;
-}
-
-/* MAPA */
-#map {
-  width: 100vw;
   height: 100vh;
-  display: none;
 }
 
-/* BOTÓN FLOTANTE CREAR FIESTA */
-.neon-button {
+/* --- BOTÓN FLOTANTE --- */
+.floating-btn {
   position: fixed;
-  bottom: 25px;
-  right: 25px;
-  background: #000;
-  padding: 14px 25px;
-  font-size: 18px;
-  border-radius: 18px;
+  bottom: 20px;
+  right: 20px;
+  background: black;
   color: #ffd700;
+  padding: 15px 25px;
+  border-radius: 14px;
   border: 2px solid #ffd700;
-  box-shadow: 0 0 20px rgba(255,215,0,0.6);
   cursor: pointer;
-  display: none;
-  z-index: 20;
 }
 
-/* MODAL */
+/* --- MODAL --- */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.5);
   backdrop-filter: blur(6px);
   justify-content: center;
   align-items: center;
-  z-index: 50;
 }
 
-/* CONTENIDO DEL MODAL */
 .modal-content {
   width: 90%;
-  max-width: 360px;
-  background: #0f0f0f;
+  max-width: 380px;
+  background: #111;
   padding: 25px;
-  border-radius: 18px;
-  border: 2px solid rgba(255,215,0,0.7);
-  box-shadow: 0 0 25px rgba(255,215,0,0.4);
+  border-radius: 16px;
+  border: 1px solid #ffd700;
   color: white;
-  position: relative;
 }
 
-/* TÍTULO DEL MODAL */
 .modal-title {
   text-align: center;
-  font-size: 26px;
-  color: #ffd700;
+  font-size: 22px;
   margin-bottom: 15px;
-  font-weight: 600;
 }
 
-/* LABELS */
 label {
-  margin-top: 14px;
-  font-size: 14px;
+  margin-top: 12px;
   display: block;
-  color: #ddd;
 }
 
-/* CAMPOS */
 input,
 textarea,
 select {
   width: 100%;
   padding: 12px;
-  margin-top: 6px;
-  border-radius: 12px;
-  background: #1a1a1a;
-  border: 1px solid #333;
+  background: #222;
+  border: 1px solid #444;
   color: white;
-  font-size: 14px;
-  box-sizing: border-box;
+  border-radius: 12px;
+  margin-top: 6px;
 }
 
 textarea {
-  height: 75px;
-}
-
-/* SLIDER PERFECTO */
-input[type=range] {
-  width: 100%;
-  margin-top: 8px;
-  -webkit-appearance: none;
-  height: 6px;
-  background: #3a3a3a;
-  border-radius: 4px;
-  outline: none;
-}
-
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 16px;
-  width: 16px;
-  background: #ffd700;
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 8px #ffd700;
-}
-
-#sliderValue {
-  text-align: right;
-  margin-top: 4px;
-  margin-bottom: 10px;
-  color: #ffd700;
-  font-size: 14px;
-  font-weight: 600;
+  height: 80px;
 }
 
 #sliderValue {
   text-align: right;
   margin-top: 5px;
-  font-size: 15px;
   color: #ffd700;
-  font-weight: 600;
 }
 
-/* BOTÓN PUBLICAR */
 .publish-btn {
-  margin-top: 20px;
-  background: #000;
-  color: #ffd700;
-  border: 2px solid #ffd700;
+  width: 100%;
   padding: 12px;
-  width: 70%;
-  border-radius: 14px;
+  background: #ffd700;
+  color: #000;
+  border-radius: 12px;
+  border: none;
+  margin-top: 15px;
   cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 16px;
-  font-weight: 600;
-}
-.publish-btn:hover {
-  box-shadow: 0 0 12px #ffd700;
 }
 
-/* BOTÓN CANCELAR */
 .close-btn {
-  margin-top: 12px;
   width: 100%;
-  background: #222;
+  margin-top: 10px;
   padding: 12px;
+  background: #333;
   border-radius: 12px;
+  border: none;
   color: white;
   cursor: pointer;
-  font-size: 15px;
-}
-.close-btn:hover {
-  background: #333;
-}
-
-/* POPUP DEL MAPA (TARJETA FIESTA) */
-.mapboxgl-popup-content {
-  background: #000 !important;
-  color: white !important;
-  border: 2px solid #ffd700 !important;
-  border-radius: 12px !important;
-  font-family: Poppins !important;
-  box-shadow: 0 0 12px #ffd700 !important;
-  padding: 10px !important;
-}
-
-/* QUITAR BORDES FEOS DEL MAPBOX */
-.mapboxgl-popup-tip {
-  border-top-color: #ffd700 !important;
 }
