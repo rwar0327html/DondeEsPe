@@ -56,3 +56,12 @@ map.on("load", () => {
   );
 });
 
+// Abrir modal
+document.getElementById("openFormBtn").onclick = () => {
+  document.getElementById("partyModal").style.display = "flex";
+};
+
+// Cerrar modal
+document.getElementById("closeFormBtn").onclick = () => {
+  document.getElementById("partyModal").style.display = "none";
+};
