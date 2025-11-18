@@ -6,7 +6,7 @@ body {
   background: #000;
 }
 
-/* FUENTE ARCADE SOLO PARA EL TÍTULO */
+/* FUENTE ARCADE PARA EL TÍTULO */
 .arcade-font {
   font-family: 'Karmatic Arcade', sans-serif;
   letter-spacing: 2px;
@@ -58,7 +58,7 @@ body {
   z-index: 9999;
 }
 
-/* CAJA DEL FORMULARIO */
+/* CAJA FORMULARIO */
 .modal-box {
   width: 92%;
   max-width: 380px;
@@ -70,7 +70,6 @@ body {
   animation: fadeIn 0.25s ease;
 }
 
-/* TÍTULO */
 .modal-title {
   text-align: center;
   font-size: 26px;
@@ -84,7 +83,6 @@ body {
   margin-bottom: 18px;
 }
 
-/* LABELS */
 .field-group label {
   display: block;
   font-size: 14px;
@@ -92,7 +90,7 @@ body {
   margin-bottom: 6px;
 }
 
-/* INPUTS y TEXTAREAS */
+/* INPUTS Y CAMPOS */
 .modal-box input,
 .modal-box textarea,
 .modal-box select {
@@ -103,7 +101,7 @@ body {
   border-radius: 10px;
   font-size: 14px;
   color: #fff;
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 textarea {
@@ -111,7 +109,16 @@ textarea {
   resize: none;
 }
 
-/* SLIDER ESTILO NEÓN */
+/* FILE INPUT */
+input[type="file"] {
+  padding: 10px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: #bbb;
+}
+
+/* SLIDER NEÓN */
 input[type="range"] {
   -webkit-appearance: none;
   width: 100%;
@@ -175,20 +182,4 @@ input[type="range"]::-webkit-slider-thumb {
 @keyframes fadeIn {
   from { transform: scale(0.92); opacity: 0; }
   to   { transform: scale(1); opacity: 1; }
-}
-
-/* CANCELAR */
-.close-btn {
-  margin-top: 12px;
-  width: 100%;
-  background: #222;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-.close-btn:hover {
-  background: #333;
 }
