@@ -27,44 +27,44 @@
   <!-- BOTÓN FLOTANTE -->
   <button id="openFormBtn" class="floating-btn">Crear Fiesta ✨</button>
 
-  <!-- MODAL -->
   <div id="partyModal" class="modal">
-    <div class="modal-content">
+  <div class="modal-content">
 
-      <h2 class="modal-title">Crear Fiesta 🎉</h2>
+    <h2 class="modal-title">Crear Fiesta 🎉</h2>
 
-      <label>Nombre</label>
-      <input type="text" id="eventoNombre">
+    <label>Nombre</label>
+    <input type="text" id="eventoNombre" placeholder="Nombre del evento">
 
-      <label>Descripción</label>
-      <textarea id="eventoDescripcion"></textarea>
+    <label>Descripción</label>
+    <textarea id="eventoDescripcion" placeholder="Descripción detallada"></textarea>
 
-      <label>Fecha</label>
-      <input type="date" id="eventoFecha">
+    <label>Fecha</label>
+    <input type="date" id="eventoFecha">
 
-      <label>Zona / Distrito</label>
-      <select id="eventoZona">
-        <option>Barranco</option>
-        <option>Miraflores</option>
-        <option>San Isidro</option>
-        <option>Surco</option>
-        <option>La Molina</option>
-        <option>SJL</option>
-        <option>Comas</option>
-      </select>
+    <label>Zona / Distrito</label>
+    <select id="eventoZona">
+      <option>Centro de Lima</option>
+      <option>Barranco</option>
+      <option>Miraflores</option>
+      <option>San Isidro</option>
+      <option>Surco</option>
+      <option>La Molina</option>
+      <option>SJL</option>
+      <option>Comas</option>
+    </select>
 
-      <label>Cantidad mínima para iniciar la juerga</label>
-      <input type="range" id="eventoMin" min="50" max="1000" value="50">
-      <div id="sliderValue">50 personas</div>
+    <label>Mínimo para iniciar la juerga</label>
+    <input type="range" id="eventoMin" min="50" max="1000" value="50">
+    <div id="sliderValue">50 personas</div>
 
-      <label>Flyer obligatorio</label>
-      <input type="file" id="eventoFlyer" accept="image/*">
+    <label>Flyer obligatorio:</label>
+    <input type="file" id="eventoFlyer" accept="image/*">
 
-      <button id="enviarFiesta" class="publish-btn">Publicar Fiesta</button>
-      <button id="closeFormBtn" class="close-btn">Cancelar</button>
+    <button id="enviarFiesta" class="publish-btn">Publicar Fiesta</button>
+    <button id="closeFormBtn" class="close-btn">Cancelar</button>
 
-    </div>
   </div>
+</div>
 
   <!-- GOOGLE MAPS -->
   <script src="app.js"></script>
