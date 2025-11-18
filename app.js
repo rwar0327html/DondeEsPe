@@ -24,11 +24,9 @@ const closeFormBtn = document.getElementById("closeFormBtn");
 openFormBtn.onclick = () => modal.style.display = "flex";
 closeFormBtn.onclick = () => modal.style.display = "none";
 
-/* SLIDER */
+/* SLIDER DINÁMICO */
 const slider = document.getElementById("eventoMin");
 const sliderValue = document.getElementById("sliderValue");
-
-slider.max = 1000; // MÁXIMO 1000 PERSONAS
 
 slider.oninput = () => {
   sliderValue.innerText = slider.value + " personas";
