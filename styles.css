@@ -114,18 +114,20 @@ textarea {
   height: 80px;
 }
 
-/* SLIDER */
+/* === SLIDER PREMIUM DORADO === */
 input[type="range"] {
+  -webkit-appearance: none;
   width: 100%;
-  margin-top: 12px;
+  height: 6px;
+  background: #2b2b2b;
+  border-radius: 4px;
+  outline: none;
+  margin-top: 10px;
 }
 
-#sliderValue {
-  text-align: right;
-  margin-top: 6px;
-  color: #ffd700;
-  font-size: 14px;
-}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  background:
 
 /* BOTÓN PUBLICAR */
 .publish-btn {
