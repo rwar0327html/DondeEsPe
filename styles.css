@@ -1,136 +1,90 @@
-body {
-  margin: 0;
-  font-family: Poppins, sans-serif;
-  background: #000;
-}
-
-/* HERO */
-#hero {
-  text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(135deg, #ff00e1, #00eaff);
-  color: white;
-}
-
-#hero h1 {
-  font-size: 40px;
-  margin: 0;
-  text-shadow: 0 0 8px white;
-}
-
-#hero p {
-  margin-top: 15px;
-  font-size: 18px;
-}
-
-#verMapaBtn {
-  margin-top: 25px;
-  background: white;
-  color: #000;
-  font-size: 16px;
-  padding: 12px 25px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-#verMapaBtn:hover {
-  transform: scale(1.05);
-}
-
-#firebaseStatus {
-  margin-top: 20px;
-  font-size: 15px;
-}
-
-/* MAPA */
-#map {
-  width: 100%;
-  height: 90vh;
-}
-
-/* BOTÓN FLOTANTE */
-.floating-btn {
-  position: fixed;
-  bottom: 22px;
-  right: 22px;
-  background: #000;
-  color: #ffd700;
-  border: 2px solid #ffd700;
-  padding: 14px 22px;
-  border-radius: 14px;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 0 15px #ffd700;
-}
-
-/* MODAL */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(5px);
-  background: #00000080;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  width: 340px;
-  background: #0d0d0d;
+  width: 90%;
+  max-width: 360px;
+  background: #0f0f0f;
   padding: 25px;
   border-radius: 18px;
-  border: 2px solid #ffd700;
-  box-shadow: 0 0 18px #ffd700;
-  text-align: left;
+  border: 1px solid rgba(255,215,0,0.6);
+  box-shadow: 0 0 25px rgba(255,215,0,0.4);
   color: white;
 }
 
 .modal-content h2 {
   text-align: center;
+  font-size: 24px;
   color: #ffd700;
+  margin-bottom: 15px;
 }
 
 label {
+  margin-top: 12px;
   font-size: 14px;
-  margin-top: 10px;
-  display: block;
+  color: #ddd;
 }
 
 input,
 textarea,
 select {
   width: 100%;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  margin-top: 6px;
+  border-radius: 12px;
   background: #1a1a1a;
-  border: 1px solid #444;
+  border: 1px solid #333;
   color: white;
-  margin-top: 5px;
+  font-size: 14px;
 }
 
 textarea {
   height: 70px;
 }
 
+#sliderValue {
+  text-align: right;
+  margin-top: 5px;
+  color: #ffd700;
+}
+
+/* BOTÓN PUBLICAR */
 .publish-btn {
-  width: 60%;
-  margin: 20px auto 10px;
-  display: block;
-  padding: 10px;
+  margin-top: 18px;
   background: #000;
   color: #ffd700;
   border: 2px solid #ffd700;
-  border-radius: 10px;
+  padding: 12px;
+  width: 70%;
+  border-radius: 14px;
   cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+}
+.publish-btn:hover {
+  box-shadow: 0 0 12px #ffd700;
 }
 
+/* BOTÓN CANCELAR */
 .close-btn {
+  margin-top: 12px;
   width: 100%;
-  padding: 10px;
-  background: #333;
+  background: #222;
+  padding: 12px;
+  border-radius: 12px;
   color: white;
-  border-radius: 10px;
-  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+.close-btn:hover {
+  background: #333;
 }
