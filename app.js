@@ -85,3 +85,13 @@ map.on("click", (e) => {
 
   document.getElementById("partyModal").style.display = "flex";
 });
+
+document.getElementById("verMapaBtn").onclick = () => {
+  document.getElementById("hero").style.display = "none";
+  document.getElementById("map").style.display = "block";
+  document.getElementById("openFormBtn").style.display = "block";
+
+  setTimeout(() => {
+    map.resize();
+  }, 200);
+};
