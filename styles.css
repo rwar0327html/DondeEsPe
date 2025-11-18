@@ -10,38 +10,58 @@ body {
   overflow-x: hidden;
 }
 
-/* HERO */
+/* HERO MODERNO JUVENIL */
 #hero {
   width: 100%;
-  background: radial-gradient(circle at center, #ffb300, #ff6a00, #000);
-  padding: 70px 20px;
+  padding: 25px 20px;
   text-align: center;
-  color: white;
+  background: linear-gradient(135deg, #ff3cac, #784ba0);
 }
 
 #hero h1 {
-  font-family: "Karmatic Arcade", sans-serif;
-  font-size: 42px;
-  color: #ffd700;
+  font-family: "Karmatic Arcade";
+  font-size: 28px;
   margin: 0;
-  text-shadow: 0 0 2px #e7c400;
+  color: white;
+  text-shadow: none;
 }
 
 #hero p {
-  margin-top: 10px;
-  font-size: 18px;
-  opacity: 0.9;
+  font-size: 15px;
+  margin-top: 5px;
+  color: #ececec;
 }
 
 .hero-btn {
-  margin-top: 25px;
-  padding: 12px 28px;
-  background: #fff;
-  color: #000;
-  border-radius: 12px;
-  font-size: 16px;
+  margin-top: 10px;
+  padding: 10px 22px;
+  font-size: 15px;
   border: none;
+  border-radius: 10px;
+  background: white;
   cursor: pointer;
+}
+
+/* MAPA */
+#map {
+  width: 100%;
+  height: 80vh;
+}
+
+/* BOTÓN CREAR FIESTA */
+.neon-button {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #000;
+  padding: 12px 22px;
+  font-size: 16px;
+  border-radius: 14px;
+  color: #ffd700;
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 10px rgba(255,215,0,0.4);
+  cursor: pointer;
+  z-index: 10;
 }
 
 /* MAPA */
