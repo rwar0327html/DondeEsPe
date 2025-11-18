@@ -1,25 +1,26 @@
-/* ====== BASE ====== */
+/* ===== BASE ===== */
 body {
   margin: 0;
   font-family: Poppins, sans-serif;
   background: #000;
 }
 
-/* ====== HERO NUEVO (AMARILLO/NARANJA) ====== */
+/* ===== HERO AMARILLO / NARANJA ===== */
 #hero {
   text-align: center;
   padding: 60px 20px;
   background: linear-gradient(135deg, #ffcc00, #ff7a00);
   color: white;
-  box-shadow: 0 0 35px #ffae00;
+  box-shadow: 0 0 40px #ff9d00;
 }
 
-/* FUENTE ARCADE SOLO PARA EL TÍTULO */
+/* ===== TÍTULO ARCADE ===== */
 .arcade-title {
   font-family: 'Karmatic Arcade', sans-serif;
   font-size: 38px;
   margin: 0;
-  text-shadow: 0 0 12px #000;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px #000;
 }
 
 #hero p {
@@ -27,6 +28,7 @@ body {
   margin-top: 10px;
 }
 
+/* ===== BOTÓN HERO ===== */
 #verMapaBtn {
   margin-top: 25px;
   background: white;
@@ -43,13 +45,13 @@ body {
   transform: scale(1.05);
 }
 
-/* ====== MAPA OSCURO ====== */
+/* ===== MAPA OSCURO ===== */
 #map {
   width: 100%;
   height: 90vh;
 }
 
-/* ====== BOTÓN FLOTANTE ====== */
+/* ===== BOTÓN FLOTANTE ===== */
 .floating-btn {
   position: fixed;
   bottom: 20px;
@@ -64,7 +66,7 @@ body {
   box-shadow: 0 0 20px #ffd700;
 }
 
-/* ====== MODAL ====== */
+/* ===== MODAL ===== */
 .modal {
   display: none;
   position: fixed;
@@ -117,14 +119,13 @@ textarea {
   height: 70px;
 }
 
-/* Slider */
 #sliderValue {
   text-align: right;
   margin-top: 5px;
   color: #ffd700;
 }
 
-/* BOTÓN PUBLICAR */
+/* ===== BOTÓN PUBLICAR ===== */
 .publish-btn {
   margin-top: 18px;
   background: #000;
@@ -144,7 +145,7 @@ textarea {
   box-shadow: 0 0 12px #ffd700;
 }
 
-/* BOTÓN CANCELAR */
+/* ===== BOTÓN CANCELAR ===== */
 .close-btn {
   margin-top: 12px;
   width: 100%;
