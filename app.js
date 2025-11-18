@@ -11,9 +11,14 @@ const map = new mapboxgl.Map({
 let selectedLat = null;
 let selectedLng = null;
 
-/* SCROLL AL MAPA DESDE EL HERO */
 document.getElementById("verMapaBtn").onclick = () => {
-  document.getElementById("map").scrollIntoView({ behavior: "smooth" });
+  const mapDiv = document.getElementById("map");
+
+  mapDiv.style.display = "block"; // MOSTRAR EL MAPA
+
+  map.resize(); // NECESARIO para que cargue bien
+
+  mapDiv.scrollIntoView({ behavior: "smooth" });
 };
 
 /* MODAL */
