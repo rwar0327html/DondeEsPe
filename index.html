@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DondeEsPe — Fiestas en Tiempo Real</title>
+  <title>DondeEsPe</title>
 
-  <!-- Fuente -->
+  <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/karmatic-arcade" rel="stylesheet">
 
   <!-- Mapbox -->
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
@@ -18,21 +19,20 @@
 
 <body>
 
-  <!-- HERO TAL CUAL COMO TU CAPTURA -->
+  <!-- HERO AMARILLO / NARANJA -->
   <section id="hero">
-    <h1>Fiestas en Tiempo Real 🎉</h1>
+    <h1 class="arcade-title">Fiestas en Tiempo Real 🎉</h1>
     <p>Encuentra o crea fiestas en tu zona</p>
-
     <button id="verMapaBtn">Ver mapa</button>
   </section>
 
   <!-- MAPA -->
   <div id="map"></div>
 
-  <!-- BOTÓN FLOTANTE CREAR FIESTA -->
+  <!-- BOTÓN FLOTANTE -->
   <button id="openFormBtn" class="floating-btn">Crear Fiesta ✨</button>
 
-  <!-- MODAL PREMIUM -->
+  <!-- MODAL -->
   <div id="partyModal" class="modal">
     <div class="modal-content">
 
@@ -59,8 +59,8 @@
       </select>
 
       <label>Mínimo para iniciar la juerga</label>
-      <input type="range" id="eventoMin" min="0" max="300" value="0">
-      <div id="sliderValue">0 personas</div>
+      <input type="range" id="eventoMin" min="1000" max="5000" value="1000">
+      <div id="sliderValue">1000 personas</div>
 
       <label>Flyer obligatorio</label>
       <input type="file" id="eventoFlyer" accept="image/*">
