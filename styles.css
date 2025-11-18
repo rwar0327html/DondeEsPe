@@ -129,11 +129,34 @@ textarea {
   height: 75px;
 }
 
-/* SLIDER */
-input[type="range"] {
+/* SLIDER PERFECTO */
+input[type=range] {
   width: 100%;
   margin-top: 8px;
-  accent-color: #ffd700;
+  -webkit-appearance: none;
+  height: 6px;
+  background: #3a3a3a;
+  border-radius: 4px;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  background: #ffd700;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px #ffd700;
+}
+
+#sliderValue {
+  text-align: right;
+  margin-top: 4px;
+  margin-bottom: 10px;
+  color: #ffd700;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 #sliderValue {
