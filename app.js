@@ -4,14 +4,13 @@ let selectedLng = null;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -12.046374, lng: -77.042793 }, // Lima
+    center: { lat: -12.046374, lng: -77.042793 },
     zoom: 13,
-    disableDefaultUI: false,
     gestureHandling: "greedy",
-    mapTypeId: "roadmap" // 2D real
+    mapTypeId: "roadmap"
   });
 
-  // Click en el mapa → Abrir formulario
+  // ABRIR FORMULARIO AL TOCAR EL MAPA
   map.addListener("click", (e) => {
     selectedLat = e.latLng.lat();
     selectedLng = e.latLng.lng();
@@ -24,7 +23,7 @@ document.getElementById("verMapaBtn").onclick = () => {
   document.getElementById("map").scrollIntoView({ behavior: "smooth" });
 };
 
-/* MODAL */
+/* CERRAR FORMULARIO */
 document.getElementById("closeFormBtn").onclick = () => {
   document.getElementById("partyModal").style.display = "none";
 };
