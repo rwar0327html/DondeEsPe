@@ -12,6 +12,71 @@ body {
   height: 100vh;
 }
 
+/* HERO PREMIUM AMARILLO/NARANJA */
+#hero {
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at top, #ffdd55 0%, #ff9c00 40%, #0a0a05 85%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: heroFade 0.8s ease-out;
+}
+
+#hero::after {
+  content: "";
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: rgba(255, 204, 0, 0.45);
+  filter: blur(90px);
+  border-radius: 50%;
+  top: -100px;
+  animation: floatGlow 6s ease-in-out infinite alternate;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+}
+
+#hero h1 {
+  font-size: 48px;
+  color: #ffd700;
+  font-weight: 700;
+  text-shadow: 0 0 15px #ffde73, 0 0 35px #ffbf00;
+  margin-bottom: 10px;
+}
+
+#hero p {
+  font-size: 20px;
+  color: #fff3c4;
+  opacity: 0.95;
+  margin-bottom: 30px;
+}
+
+/* HERO BUTTON */
+.hero-btn {
+  background: #000;
+  color: #ffdd55;
+  border: 2px solid #ffdd55;
+  padding: 15px 35px;
+  font-size: 20px;
+  border-radius: 25px;
+  box-shadow: 0 0 18px #ffdd55, 0 0 55px rgba(255,170,0,0.6);
+  cursor: pointer;
+  transition: 0.25s;
+  font-weight: 600;
+}
+
+.hero-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 25px #ffdd55, 0 0 95px rgba(255,170,0,0.9);
+}
+
 /* BOTÓN NEÓN */
 .neon-button {
   position: absolute;
@@ -55,7 +120,6 @@ body {
   z-index: 20;
 }
 
-/* TARJETA PREMIUM */
 .modal-content {
   background: #0a0a0a;
   padding: 25px;
@@ -88,7 +152,6 @@ body {
   color: white;
   border: 1px solid #333;
   border-radius: 10px;
-  transition: 0.2s;
   outline: none;
 }
 
@@ -97,7 +160,7 @@ body {
   box-shadow: 0 0 10px #ffd700;
 }
 
-/* BOTÓN CERRAR */
+/* CLOSE BUTTON */
 .close-btn {
   margin-top: 10px;
   background: #222;
@@ -116,83 +179,10 @@ body {
 
 /* ANIMACIONES */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity:0; transform: scale(0.95);}
+  to { opacity:1; transform: scale(1);}
 }
 
-/* HERO PREMIUM AMARILLO/NARANJA */
-#hero {
-  height: 100vh;
-  width: 100vw;
-  background: radial-gradient(circle at top, #ffdd55 0%, #ff9c00 40%, #0a0a05 85%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  animation: heroFade 0.8s ease-out;
-}
-
-/* Brillo neón que se mueve suavemente */
-#hero::after {
-  content: "";
-  position: absolute;
-  width: 450px;
-  height: 450px;
-  background: rgba(255, 204, 0, 0.45);
-  filter: blur(90px);
-  border-radius: 50%;
-  top: -100px;
-  animation: floatGlow 6s ease-in-out infinite alternate;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-}
-
-#hero h1 {
-  font-size: 48px;
-  color: #ffd700;
-  font-weight: 700;
-  text-shadow: 0 0 15px #ffde73, 0 0 35px #ffbf00;
-  margin-bottom: 10px;
-}
-
-#hero p {
-  font-size: 20px;
-  color: #fff3c4;
-  opacity: 0.95;
-  margin-bottom: 30px;
-}
-
-/* BOTÓN VIP ACCESS */
-.hero-btn {
-  background: #000;
-  color: #ffdd55;
-  border: 2px solid #ffdd55;
-  padding: 15px 35px;
-  font-size: 20px;
-  border-radius: 25px;
-  box-shadow: 0 0 18px #ffdd55, 0 0 55px rgba(255,170,0,0.6);
-  cursor: pointer;
-  transition: 0.25s;
-  font-weight: 600;
-}
-
-.hero-btn:hover {
-  transform: scale(1.07);
-  box-shadow: 0 0 25px #ffdd55, 0 0 95px rgba(255,170,0,0.9);
-}
-
-/* ANIMACIONES */
 @keyframes heroFade {
   from {opacity:0; transform: translateY(25px);}
   to {opacity:1; transform: translateY(0);}
