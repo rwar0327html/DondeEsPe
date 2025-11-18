@@ -7,11 +7,6 @@
 
   <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/karmatic-arcade" rel="stylesheet">
-
-  <!-- Mapbox -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
 
   <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
@@ -19,18 +14,18 @@
 
 <body>
 
-  <!-- HERO JUVENIL MODERNO -->
+  <!-- HERO SENCILLO Y JUVENIL -->
   <section id="hero">
-    <h1 class="arcade-title">Fiestas en Tiempo Real 🎉</h1>
-    <p>Explora las mejores juergas cerca de ti</p>
+    <h1 class="hero-title">Fiestas en Tiempo Real 🎉</h1>
+    <p class="hero-sub">Encuentra o crea fiestas en tu zona</p>
     <button id="verMapaBtn" class="hero-btn">Ver mapa</button>
   </section>
 
-  <!-- MAPA 2D – SIEMPRE VISIBLE -->
+  <!-- MAPA GOOGLE 2D -->
   <div id="map"></div>
 
-  <!-- BOTÓN CREAR FIESTA -->
-  <button id="openFormBtn" class="neon-button">Crear Fiesta ✨</button>
+  <!-- BOTÓN FLOTANTE -->
+  <button id="openFormBtn" class="floating-btn">Crear Fiesta ✨</button>
 
   <!-- MODAL -->
   <div id="partyModal" class="modal">
@@ -59,13 +54,7 @@
       </select>
 
       <label>Cantidad mínima para iniciar la juerga</label>
-      <input 
-        type="range" 
-        id="eventoMin" 
-        min="50" 
-        max="1000" 
-        value="50"
-      >
+      <input type="range" id="eventoMin" min="50" max="1000" value="50">
       <div id="sliderValue">50 personas</div>
 
       <label>Flyer obligatorio</label>
@@ -77,8 +66,9 @@
     </div>
   </div>
 
-  <!-- JS -->
+  <!-- GOOGLE MAPS -->
   <script src="app.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
 
 </body>
 </html>
