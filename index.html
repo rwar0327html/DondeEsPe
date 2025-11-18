@@ -29,42 +29,43 @@
   <!-- MAPA (OCULTO AL INICIO) -->
   <div id="map" style="display:none;"></div>
 
-  <!-- BOTÓN NEÓN (OCULTO AL INICIO) -->
+  <!-- BOTÓN CREAR FIESTA (OCULTO AL INICIO) -->
   <button id="openFormBtn" class="neon-button" style="display:none;">
     Crear Fiesta ✨
   </button>
 
-  <!-- MODAL PREMIUM NEÓN -->
+  <!-- MODAL PREMIUM NEÓN (EDITADO Y LIMPIO) -->
   <div id="partyModal" class="modal">
     <div class="modal-content">
 
       <h2 class="modal-title">Crear Fiesta 🎉</h2>
 
       <label>Nombre</label>
-      <input type="text" id="eventoNombre" placeholder="Nombre del evento">
+      <input type="text" id="eventoNombre">
 
       <label>Descripción</label>
-      <textarea id="eventoDescripcion" placeholder="Descripción detallada"></textarea>
+      <textarea id="eventoDescripcion"></textarea>
 
       <label>Fecha</label>
       <input type="date" id="eventoFecha">
 
       <label>Zona / Distrito</label>
       <select id="eventoZona">
-        <option value="Barranco">Barranco</option>
-        <option value="Miraflores">Miraflores</option>
-        <option value="San Isidro">San Isidro</option>
-        <option value="Surco">Surco</option>
-        <option value="La Molina">La Molina</option>
-        <option value="SJL">San Juan de Lurigancho</option>
-        <option value="Comas">Comas</option>
+        <option>Barranco</option>
+        <option>Miraflores</option>
+        <option>San Isidro</option>
+        <option>Surco</option>
+        <option>La Molina</option>
+        <option>SJL</option>
+        <option>Comas</option>
       </select>
 
-      <label>Cantidad mínima para iniciar la juerga</label>
-      <input type="range" id="eventoMin" min="0" max="300" value="0" class="slider">
+      <label>Mínimo para iniciar la juerga</label>
+      <input type="range" id="eventoMin" min="0" max="300" value="0">
+
       <div id="sliderValue">0 personas</div>
 
-      <label>Flyer obligatorio:</label>
+      <label>Flyer obligatorio</label>
       <input type="file" id="eventoFlyer" accept="image/*">
 
       <!-- BOTÓN PUBLICAR REDUCIDO -->
@@ -79,4 +80,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-
