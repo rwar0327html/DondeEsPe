@@ -7,6 +7,7 @@
 
   <!-- Fuentes -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/karmatic-arcade" rel="stylesheet">
 
   <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
@@ -16,7 +17,7 @@
 
   <!-- HERO SENCILLO Y JUVENIL -->
   <section id="hero">
-    <h1 class="hero-title">Fiestas en Tiempo Real 🎉</h1>
+    <h1 class="hero-title arcade-font">Fiestas en Tiempo Real 🎉</h1>
     <p class="hero-sub">Encuentra o crea fiestas en tu zona</p>
     <button id="verMapaBtn" class="hero-btn">Ver mapa</button>
   </section>
@@ -27,47 +28,50 @@
   <!-- BOTÓN FLOTANTE -->
   <button id="openFormBtn" class="floating-btn">Crear Fiesta ✨</button>
 
+  <!-- MODAL FORMULARIO PERFECTO (VERSIÓN QUE TE GUSTÓ) -->
   <div id="partyModal" class="modal">
-  <div class="modal-content">
+    <div class="modal-content">
 
-    <h2 class="modal-title">Crear Fiesta 🎉</h2>
+      <h2 class="modal-title">Crear Fiesta 🎉</h2>
 
-    <label>Nombre</label>
-    <input type="text" id="eventoNombre" placeholder="Nombre del evento">
+      <label>Nombre</label>
+      <input type="text" id="eventoNombre" placeholder="Nombre del evento">
 
-    <label>Descripción</label>
-    <textarea id="eventoDescripcion" placeholder="Descripción detallada"></textarea>
+      <label>Descripción</label>
+      <textarea id="eventoDescripcion" placeholder="Descripción detallada"></textarea>
 
-    <label>Fecha</label>
-    <input type="date" id="eventoFecha">
+      <label>Fecha</label>
+      <input type="date" id="eventoFecha">
 
-    <label>Zona / Distrito</label>
-    <select id="eventoZona">
-      <option>Centro de Lima</option>
-      <option>Barranco</option>
-      <option>Miraflores</option>
-      <option>San Isidro</option>
-      <option>Surco</option>
-      <option>La Molina</option>
-      <option>SJL</option>
-      <option>Comas</option>
-    </select>
+      <label>Zona / Distrito</label>
+      <select id="eventoZona">
+        <option>Centro de Lima</option>
+        <option>Barranco</option>
+        <option>Miraflores</option>
+        <option>San Isidro</option>
+        <option>Surco</option>
+        <option>La Molina</option>
+        <option>SJL</option>
+        <option>Comas</option>
+      </select>
 
-    <label>Mínimo para iniciar la juerga</label>
-    <input type="range" id="eventoMin" min="50" max="1000" value="50">
-    <div id="sliderValue">50 personas</div>
+      <label>Mínimo para iniciar la juerga</label>
+      <input type="range" id="eventoMin" min="50" max="1000" value="50">
+      <div id="sliderValue">50 personas</div>
 
-    <label>Flyer obligatorio:</label>
-    <input type="file" id="eventoFlyer" accept="image/*">
+      <label>Flyer obligatorio:</label>
+      <input type="file" id="eventoFlyer" accept="image/*">
 
-    <button id="enviarFiesta" class="publish-btn">Publicar Fiesta</button>
-    <button id="closeFormBtn" class="close-btn">Cancelar</button>
+      <button id="enviarFiesta" class="publish-btn">Publicar Fiesta</button>
+      <button id="closeFormBtn" class="close-btn">Cancelar</button>
 
+    </div>
   </div>
-</div>
 
-  <!-- GOOGLE MAPS -->
+  <!-- JS -->
   <script src="app.js"></script>
+
+  <!-- GOOGLE MAPS API -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
 
 </body>
