@@ -1,3 +1,4 @@
+/* GENERAL */
 body {
   margin: 0;
   padding: 0;
@@ -5,7 +6,13 @@ body {
   background: #000;
 }
 
-/* --- HERO --- */
+/* FUENTE ARCADE SOLO PARA EL TÍTULO */
+.arcade-font {
+  font-family: 'Karmatic Arcade', sans-serif;
+  letter-spacing: 2px;
+}
+
+/* HERO */
 #hero {
   background: linear-gradient(135deg, #ff6a00, #ffb300);
   padding: 70px 20px;
@@ -14,8 +21,7 @@ body {
 }
 
 .hero-title {
-  font-size: 36px;
-  font-weight: 600;
+  font-size: 38px;
   margin: 0;
 }
 
@@ -34,13 +40,13 @@ body {
   cursor: pointer;
 }
 
-/* --- MAPA --- */
+/* MAPA */
 #map {
   width: 100%;
   height: 100vh;
 }
 
-/* --- BOTÓN FLOTANTE --- */
+/* BOTÓN FLOTANTE */
 .floating-btn {
   position: fixed;
   bottom: 20px;
@@ -51,6 +57,7 @@ body {
   border-radius: 14px;
   border: 2px solid #ffd700;
   cursor: pointer;
+  box-shadow: 0 0 15px rgba(255,215,0,0.4);
 }
 
 /* MODAL */
@@ -117,6 +124,7 @@ input[type="range"] {
   text-align: right;
   margin-top: 6px;
   color: #ffd700;
+  font-size: 14px;
 }
 
 /* BOTÓN PUBLICAR */
@@ -133,7 +141,7 @@ input[type="range"] {
 }
 
 .publish-btn:hover {
-  background: #ffea8c;
+  background: #ffe27c;
 }
 
 /* CANCELAR */
@@ -151,4 +159,3 @@ input[type="range"] {
 .close-btn:hover {
   background: #333;
 }
-
