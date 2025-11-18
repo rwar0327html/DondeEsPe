@@ -1,3 +1,70 @@
+/* ====== BASE ====== */
+body {
+  margin: 0;
+  font-family: Poppins, sans-serif;
+  background: #000;
+}
+
+/* ====== HERO NUEVO (AMARILLO/NARANJA) ====== */
+#hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #ffcc00, #ff7a00);
+  color: white;
+  box-shadow: 0 0 35px #ffae00;
+}
+
+/* FUENTE ARCADE SOLO PARA EL TÍTULO */
+.arcade-title {
+  font-family: 'Karmatic Arcade', sans-serif;
+  font-size: 38px;
+  margin: 0;
+  text-shadow: 0 0 12px #000;
+}
+
+#hero p {
+  font-size: 17px;
+  margin-top: 10px;
+}
+
+#verMapaBtn {
+  margin-top: 25px;
+  background: white;
+  color: #000;
+  font-size: 16px;
+  padding: 12px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s;
+}
+
+#verMapaBtn:hover {
+  transform: scale(1.05);
+}
+
+/* ====== MAPA OSCURO ====== */
+#map {
+  width: 100%;
+  height: 90vh;
+}
+
+/* ====== BOTÓN FLOTANTE ====== */
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #000;
+  color: #ffd700;
+  border: 2px solid #ffd700;
+  padding: 14px 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 0 20px #ffd700;
+}
+
+/* ====== MODAL ====== */
 .modal {
   display: none;
   position: fixed;
@@ -26,6 +93,7 @@
   margin-bottom: 15px;
 }
 
+/* ===== INPUTS ===== */
 label {
   margin-top: 12px;
   font-size: 14px;
@@ -49,6 +117,7 @@ textarea {
   height: 70px;
 }
 
+/* Slider */
 #sliderValue {
   text-align: right;
   margin-top: 5px;
@@ -70,6 +139,7 @@ textarea {
   margin-right: auto;
   font-size: 16px;
 }
+
 .publish-btn:hover {
   box-shadow: 0 0 12px #ffd700;
 }
@@ -85,6 +155,7 @@ textarea {
   cursor: pointer;
   font-size: 15px;
 }
+
 .close-btn:hover {
   background: #333;
 }
