@@ -13,22 +13,23 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
 
+  <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-  <!-- HERO -->
+  <!-- HERO JUVENIL MODERNO -->
   <section id="hero">
     <h1 class="arcade-title">Fiestas en Tiempo Real 🎉</h1>
-    <p>Encuentra o crea fiestas en tu zona</p>
-    <button id="verMapaBtn">Ver mapa</button>
+    <p>Explora las mejores juergas cerca de ti</p>
+    <button id="verMapaBtn" class="hero-btn">Ver mapa</button>
   </section>
 
-  <!-- MAPA (VISIBLE, CON ALTURA) -->
+  <!-- MAPA 2D – SIEMPRE VISIBLE -->
   <div id="map"></div>
 
-  <!-- BOTÓN CREAR FIESTA (CORRECTO) -->
+  <!-- BOTÓN CREAR FIESTA -->
   <button id="openFormBtn" class="neon-button">Crear Fiesta ✨</button>
 
   <!-- MODAL -->
@@ -67,7 +68,7 @@
       >
       <div id="sliderValue">50 personas</div>
 
-      <label>Flyer obligatorio:</label>
+      <label>Flyer obligatorio</label>
       <input type="file" id="eventoFlyer" accept="image/*">
 
       <button id="enviarFiesta" class="publish-btn">Publicar Fiesta</button>
@@ -76,6 +77,7 @@
     </div>
   </div>
 
+  <!-- JS -->
   <script src="app.js"></script>
 
 </body>
