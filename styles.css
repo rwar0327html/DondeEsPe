@@ -53,78 +53,102 @@ body {
   cursor: pointer;
 }
 
-/* --- MODAL --- */
+/* MODAL */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(6px);
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
   width: 90%;
-  max-width: 380px;
-  background: #111;
+  max-width: 360px;
+  background: #0f0f0f;
   padding: 25px;
-  border-radius: 16px;
-  border: 1px solid #ffd700;
+  border-radius: 20px;
+  border: 2px solid rgba(255,215,0,0.6);
+  box-shadow: 0 0 25px rgba(255,215,0,0.4);
   color: white;
 }
 
 .modal-title {
   text-align: center;
-  font-size: 22px;
-  margin-bottom: 15px;
+  font-size: 26px;
+  color: #ffd700;
+  margin-bottom: 18px;
 }
 
+/* INPUTS */
 label {
-  margin-top: 12px;
   display: block;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #ddd;
 }
 
 input,
 textarea,
 select {
   width: 100%;
-  padding: 12px;
-  background: #222;
-  border: 1px solid #444;
+  background: #1a1a1a;
   color: white;
-  border-radius: 12px;
+  border: 1px solid #444;
+  padding: 12px;
   margin-top: 6px;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 textarea {
   height: 80px;
 }
 
+/* SLIDER */
+input[type="range"] {
+  width: 100%;
+  margin-top: 12px;
+}
+
 #sliderValue {
   text-align: right;
-  margin-top: 5px;
+  margin-top: 6px;
   color: #ffd700;
 }
 
+/* BOTÓN PUBLICAR */
 .publish-btn {
+  margin-top: 20px;
   width: 100%;
   padding: 12px;
   background: #ffd700;
-  color: #000;
-  border-radius: 12px;
   border: none;
-  margin-top: 15px;
+  border-radius: 14px;
+  color: #000;
   cursor: pointer;
+  font-size: 16px;
 }
 
+.publish-btn:hover {
+  background: #ffea8c;
+}
+
+/* CANCELAR */
 .close-btn {
+  margin-top: 12px;
   width: 100%;
-  margin-top: 10px;
+  background: #222;
   padding: 12px;
-  background: #333;
   border-radius: 12px;
   border: none;
   color: white;
   cursor: pointer;
 }
+
+.close-btn:hover {
+  background: #333;
+}
+
