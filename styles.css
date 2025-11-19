@@ -193,7 +193,7 @@ input[type="range"]::-webkit-slider-thumb {
   to   { transform: scale(1); opacity: 1; }
 }
 
-/* Animación de flotación para iconos */
+/* Animación de flotación para los iconos */
 .floating-icon {
   animation: floatIcon 2.4s ease-in-out infinite;
 }
@@ -203,4 +203,3 @@ input[type="range"]::-webkit-slider-thumb {
   50% { transform: translateY(-6px); }
   100% { transform: translateY(0px); }
 }
-
