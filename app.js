@@ -3,12 +3,23 @@ let selectedLat = null;
 let selectedLng = null;
 
 /* ------------------ ICONOS PERSONALIZADOS ------------------ */
+// Tus PNG ya están en:
+// https://rwar0327html.github.io/DondeEsPe/copa.png  etc.
 const iconosFiesta = {
   discoteca: "https://rwar0327html.github.io/DondeEsPe/copa.png",
   rave:       "https://rwar0327html.github.io/DondeEsPe/dj.png",
   masiva:     "https://rwar0327html.github.io/DondeEsPe/fuego.png",
   concierto:  "https://rwar0327html.github.io/DondeEsPe/microfono.png"
 };
+
+/* ------------------ FUNCIÓN CREAR ICONO ANIMADO ------------------ */
+function crearIconoAnimado(url) {
+  return {
+    url: url,
+    scaledSize: new google.maps.Size(40, 40), 
+    anchor: new google.maps.Point(20, 20)
+  };
+}
 
 /* ------------------ MAPA ------------------ */
 function initMap() {
@@ -50,15 +61,21 @@ document.getElementById("publicarBtn").onclick = () => {
   if (!selectedLat || !selectedLng) return;
 
   const tipoFiesta = document.getElementById("eventoTipo").value;
+  const icono = crearIconoAnimado(iconosFiesta[tipoFiesta]);
 
-  new google.maps.Marker({
+  const marker = new google.maps.Marker({
     position: { lat: selectedLat, lng: selectedLng },
     map,
-    icon: {
-      url: iconosFiesta[tipoFiesta],
-      scaledSize: new google.maps.Size(40, 40), // tamaño del icono
-    }
+    icon: icono
   });
+
+  // --- AÑADIR ANIMACIÓN FLOTANTE ---
+  const markerURL = marker.getIcon().url;
+
+  setTimeout(() => {
+    const imgs = document.querySelectorAll(`img[src="${markerURL}"]`);
+    imgs.forEach(img => img.classList.add("floating-icon"));
+  }, 300);
 
   document.getElementById("partyModal").style.display = "none";
 };
