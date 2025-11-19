@@ -3,8 +3,6 @@ let selectedLat = null;
 let selectedLng = null;
 
 /* ------------------ ICONOS PERSONALIZADOS ------------------ */
-// Tus PNG ya están en:
-// https://rwar0327html.github.io/DondeEsPe/copa.png  etc.
 const iconosFiesta = {
   discoteca: "https://rwar0327html.github.io/DondeEsPe/copa.png",
   rave:       "https://rwar0327html.github.io/DondeEsPe/dj.png",
@@ -16,7 +14,7 @@ const iconosFiesta = {
 function crearIconoAnimado(url) {
   return {
     url: url,
-    scaledSize: new google.maps.Size(40, 40), 
+    scaledSize: new google.maps.Size(40, 40),
     anchor: new google.maps.Point(20, 20)
   };
 }
@@ -30,7 +28,7 @@ function initMap() {
     mapTypeId: "roadmap"
   });
 
-  // ABRIR FORMULARIO AL TOCAR EL MAPA
+  // Abrir formulario al tocar el mapa
   map.addListener("click", (e) => {
     selectedLat = e.latLng.lat();
     selectedLng = e.latLng.lng();
@@ -56,22 +54,33 @@ slider.oninput = () => {
   sliderValue.innerText = slider.value + " personas";
 };
 
-/* ------------------ PUBLICAR FIESTA ------------------ */
-document.getElementById("publicarBtn").onclick = () => {
+/* ------------------ PUBLICAR FIESTA (FIREBASE + MAPA) ------------------ */
+document.getElementById("publicarBtn").onclick = async () => {
   if (!selectedLat || !selectedLng) return;
 
   const tipoFiesta = document.getElementById("eventoTipo").value;
   const icono = crearIconoAnimado(iconosFiesta[tipoFiesta]);
 
+  /* ---------- GUARDAR FIESTA EN FIRESTORE ---------- */
+  await db.collection("fiestas").add({
+    tipo: tipoFiesta,
+    lat: selectedLat,
+    lng: selectedLng,
+    minimo: slider.value,
+    creado: Date.now()
+  });
+
+  console.log("Fiesta guardada en Firebase ✔");
+
+  /* ---------- AGREGAR MARKER EN EL MAPA ---------- */
   const marker = new google.maps.Marker({
     position: { lat: selectedLat, lng: selectedLng },
     map,
     icon: icono
   });
 
-  // --- AÑADIR ANIMACIÓN FLOTANTE ---
+  // Animación
   const markerURL = marker.getIcon().url;
-
   setTimeout(() => {
     const imgs = document.querySelectorAll(`img[src="${markerURL}"]`);
     imgs.forEach(img => img.classList.add("floating-icon"));
