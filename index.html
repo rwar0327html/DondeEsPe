@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DondeEsPe — Fiestas en Tiempo Real</title>
 
-  <!-- Fuente -->
+  <!-- Fuente REAL -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
   <!-- Estilos -->
@@ -40,26 +40,7 @@
       <button id="locateMeBtn" class="fab-button">
         📍
       </button>
-
-      <!-- Botón flotante: abrir panel de fiestas -->
-      <button id="openPanelBtn" class="fab-btn">
-        🎉
-      </button>
     </section>
-
-    <!-- PANEL LATERAL DESLIZABLE (FIESTAS ACTIVAS) -->
-    <aside id="slidePanel" class="slide-panel hidden">
-      <div class="panel-header">
-        <h2>Fiestas activas</h2>
-        <button id="closePanelBtn" class="panel-close">✕</button>
-      </div>
-      <p class="panel-subtitle">
-        Mira qué se está prendiendo en tiempo real cerca de ti.
-      </p>
-      <ul id="partyList" class="party-list">
-        <!-- Se llena dinámicamente desde app.js -->
-      </ul>
-    </aside>
 
     <!-- Modal / Formulario de creación de fiesta -->
     <div id="partyModal" class="modal hidden">
@@ -90,6 +71,7 @@
                 <option value="Otro">Otro</option>
               </select>
             </div>
+
             <div>
               <label for="partyGenre">Género musical</label>
               <select id="partyGenre" name="partyGenre" required>
@@ -109,6 +91,7 @@
               <label for="partyDate">Fecha</label>
               <input type="date" id="partyDate" name="partyDate" required />
             </div>
+
             <div>
               <label for="partyTime">Hora</label>
               <input type="time" id="partyTime" name="partyTime" required />
