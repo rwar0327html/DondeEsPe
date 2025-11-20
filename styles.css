@@ -1,205 +1,243 @@
-/* GENERAL */
-body {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: "Poppins", sans-serif;
-  background: #000;
+  background: #05050a;
+  color: #fff;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* FUENTE ARCADE PARA EL TÍTULO */
-.arcade-font {
-  font-family: 'Karmatic Arcade', sans-serif;
-  letter-spacing: 2px;
+.app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
 }
 
-/* HERO */
-#hero {
-  background: linear-gradient(135deg, #ff6a00, #ffb300);
-  padding: 70px 20px;
-  text-align: center;
-  color: white;
+/* Top bar */
+.top-bar {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 999px;
+  backdrop-filter: blur(18px);
+  background: rgba(10, 10, 20, 0.75);
+  border: 1px solid rgba(255, 215, 0, 0.35);
 }
 
-.hero-title {
-  font-size: 38px;
-  margin: 0;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.hero-sub {
-  margin-top: 8px;
-  opacity: 0.9;
+.logo-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ffd700);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
 }
 
-.hero-btn {
-  margin-top: 18px;
-  padding: 12px 25px;
-  font-size: 16px;
-  background: white;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
+.logo-text {
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
-/* MAPA */
+.top-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.chip {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(15, 15, 25, 0.8);
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: default;
+}
+
+.chip-live {
+  border-color: #ff3366;
+  color: #ff7b9c;
+}
+
+/* Mapa */
 #map {
   width: 100%;
-  height: 75vh;   
-  margin-top: 0;
+  height: 100%;
+  filter: saturate(1.2) contrast(1.05);
 }
 
-/* MODAL BASE */
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+/* Panel inferior */
+.bottom-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 15;
+  padding: 12px 16px 18px;
+  pointer-events: none; /* el panel no bloquea clicks en el mapa excepto dentro de él */
 }
 
-/* CAJA FORMULARIO */
-.modal-box {
-  width: 92%;
-  max-width: 380px;
-  background: #0a0a0a;
-  padding: 28px;
+.bottom-panel > * {
+  pointer-events: auto;
+}
+
+.panel-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tab-btn {
+  flex: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(5, 5, 10, 0.8);
+  color: #aaa;
+  padding: 8px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background: radial-gradient(circle at 0% 0%, #ffe79b, #ffd700);
+  color: #111;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.8);
+}
+
+/* Contenido del panel */
+.panel-content {
+  background: rgba(5, 5, 15, 0.92);
   border-radius: 18px;
-  border: 2px solid rgba(255, 215, 0, 0.6);
-  box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
-  animation: fadeIn 0.25s ease;
+  padding: 12px 14px 14px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.85);
 }
 
-.modal-title {
-  text-align: center;
-  font-size: 26px;
-  color: #ffd700;
-  margin-bottom: 20px;
-  font-weight: 600;
+.panel-content h2 {
+  font-size: 16px;
+  margin-bottom: 4px;
 }
 
-/* GRUPOS */
+.subtitle {
+  font-size: 12px;
+  color: #b3b3b3;
+  margin-bottom: 10px;
+}
+
+/* Formulario */
 .field-group {
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .field-group label {
   display: block;
-  font-size: 14px;
+  font-size: 12px;
+  margin-bottom: 4px;
   color: #e5e5e5;
-  margin-bottom: 6px;
 }
 
-/* INPUTS y TEXTAREAS */
-.modal-box input,
-.modal-box textarea,
-.modal-box select {
+.field-group input,
+.field-group select {
   width: 100%;
-  padding: 12px;
-  background: #1a1a1a;
-  border: 1px solid #333;
   border-radius: 10px;
-  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 7px 9px;
+  font-size: 13px;
+  background: rgba(15, 15, 25, 0.9);
   color: #fff;
-  box-sizing: border-box; 
+  outline: none;
 }
 
-/* SELECT de Tipo de Fiesta */
-#eventoTipo {
-  background: #1a1a1a;
-  color: #fff;
-  border: 1px solid #333;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 14px;
-  margin-top: 6px;
+.field-group input:disabled {
+  opacity: 0.7;
+}
+
+.field-row {
+  display: flex;
+  gap: 8px;
+}
+
+.primary-btn {
+  margin-top: 4px;
   width: 100%;
-  box-sizing: border-box;
-}
-
-/* FILE INPUT */
-input[type="file"] {
-  padding: 10px;
-  background: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 10px;
-  color: #bbb;
-}
-
-/* SLIDER NEÓN */
-input[type="range"] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  background: #333;
-  border-radius: 4px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background: #ffd700;
-  box-shadow: 0 0 12px #ffd700;
-  cursor: pointer;
-  margin-top: -7px;
-}
-
-#sliderValue {
-  text-align: right;
-  color: #ffd700;
-  margin-top: 6px;
-  font-size: 14px;
-}
-
-/* BOTONES */
-.submit-btn {
-  width: 100%;
-  padding: 12px;
-  background: #ffd700;
-  color: #000;
-  border-radius: 12px;
-  font-size: 16px;
-  cursor: pointer;
+  border-radius: 999px;
+  padding: 9px 14px;
   border: none;
-  margin-top: 10px;
-}
-
-.submit-btn:hover {
-  background: #ffe578;
-}
-
-.cancel-btn {
-  width: 100%;
-  padding: 12px;
-  background: #1f1f1f;
-  color: #fff;
-  border-radius: 12px;
-  border: none;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  font-size: 15px;
-  margin-top: 10px;
+  background: linear-gradient(90deg, #ffd700, #ffb347);
+  color: #111;
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.9);
 }
 
-.cancel-btn:hover {
-  background: #333;
+/* Lista de fiestas */
+.party-list {
+  max-height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-right: 4px;
 }
 
-/* ANIMACIÓN */
-@keyframes fadeIn {
-  from { transform: scale(0.92); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+.party-card {
+  border-radius: 14px;
+  padding: 8px 10px;
+  background: radial-gradient(circle at 0% 0%, rgba(255, 215, 0, 0.18), rgba(15, 15, 25, 0.95));
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  cursor: pointer;
+  transition: transform 0.15s ease;
 }
 
-/* Animación de flotación para los iconos */
-.floating-icon {
-  animation: floatIcon 2.4s ease-in-out infinite;
+.party-card:hover {
+  transform: translateY(-1px);
 }
 
-@keyframes floatIcon {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0px); }
+.party-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.party-meta {
+  font-size: 11px;
+  color: #d3d3d3;
+}
+
+.party-badge {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 10px;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Utilidades */
+.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .bottom-panel {
+    max-width: 460px;
+    margin: 0 auto;
+  }
 }
