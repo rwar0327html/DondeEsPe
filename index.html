@@ -24,41 +24,51 @@
 <body>
   <div class="app">
 
-    <!-- Header superior -->
-    <header class="top-bar">
-      <div class="logo">
-        <span class="logo-dot"></span>
-        <span class="logo-text">DondeEs<span class="logo-pe">Pe</span></span>
+    <!-- HERO SUPERIOR NEON -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Fiestas en Tiempo Real</h1>
+        <p class="hero-subtitle">
+          Descubre, crea y únete a las fiestas que están pasando cerca de ti.
+        </p>
+        <button class="hero-btn" id="scrollToMap">
+          Explorar mapa 🔥
+        </button>
       </div>
-      <div class="top-right">
-        <span class="tagline">Fiestas en tiempo real cerca de ti 🎉</span>
-      </div>
-    </header>
 
-    <!-- Tip / mensaje -->
-    <div class="info-banner">
-      Toca cualquier punto del mapa para crear una fiesta nueva ✨
-    </div>
+      <!-- Luces / glows -->
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+    </section>
 
-    <!-- Contenedor principal -->
-    <main class="main-layout">
-      <!-- Mapa -->
+    <!-- SECCIÓN DEL MAPA -->
+    <section class="map-section" id="mapSection">
       <div id="map"></div>
 
-      <!-- Panel lateral (lista de fiestas) -->
-      <aside class="sidebar">
-        <h2>Fiestas activas</h2>
-        <p class="sidebar-subtitle">Explora qué está pasando ahora mismo.</p>
-        <ul id="partyList" class="party-list">
-          <!-- Se llena dinámicamente desde app.js -->
-        </ul>
-      </aside>
-    </main>
+      <!-- Botón flotante: centrar en mi ubicación -->
+      <button id="locateMeBtn" class="fab-button">
+        📍
+      </button>
 
-    <!-- Botón flotante para centrar en mi ubicación (futuro, opcional) -->
-    <button id="locateMeBtn" class="fab-button">
-      📍
-    </button>
+      <!-- Botón flotante: abrir panel de fiestas -->
+      <button id="openPanelBtn" class="fab-btn">
+        🎉
+      </button>
+    </section>
+
+    <!-- PANEL LATERAL DESLIZABLE (FIESTAS ACTIVAS) -->
+    <aside id="slidePanel" class="slide-panel hidden">
+      <div class="panel-header">
+        <h2>Fiestas activas</h2>
+        <button id="closePanelBtn" class="panel-close">✕</button>
+      </div>
+      <p class="panel-subtitle">
+        Mira qué se está prendiendo en tiempo real cerca de ti.
+      </p>
+      <ul id="partyList" class="party-list">
+        <!-- Se llena dinámicamente desde app.js -->
+      </ul>
+    </aside>
 
     <!-- Modal / Formulario de creación de fiesta -->
     <div id="partyModal" class="modal hidden">
