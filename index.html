@@ -3,40 +3,158 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DondeEsPe — Fiestas en tiempo real</title>
+  <title>DondeEsPe — Fiestas en Tiempo Real</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
-  <!-- Google Maps -->
+  <!-- Leaflet (mapa tipo Waze) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
   <script
-    async
-    defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap">
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
   </script>
 
-  <!-- Tu JS -->
-  <script type="module" src="app.js"></script>
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
+  <div class="app">
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Fiestas en Tiempo Real</h1>
-      <p>¡Descubre y crea fiestas donde quieras!</p>
+    <!-- Header superior -->
+    <header class="top-bar">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        <span class="logo-text">DondeEs<span class="logo-pe">Pe</span></span>
+      </div>
+      <div class="top-right">
+        <span class="tagline">Fiestas en tiempo real cerca de ti 🎉</span>
+      </div>
+    </header>
 
-      <button class="cta-btn">Mantente Atento</button>
-
-      <p id="firebase-status" class="firebase-status">
-        Conectando con Firebase...
-      </p>
+    <!-- Tip / mensaje -->
+    <div class="info-banner">
+      Toca cualquier punto del mapa para crear una fiesta nueva ✨
     </div>
-  </section>
 
-  <main>
-    <div id="map"></div>
-  </main>
+    <!-- Contenedor principal -->
+    <main class="main-layout">
+      <!-- Mapa -->
+      <div id="map"></div>
 
+      <!-- Panel lateral (lista de fiestas) -->
+      <aside class="sidebar">
+        <h2>Fiestas activas</h2>
+        <p class="sidebar-subtitle">Explora qué está pasando ahora mismo.</p>
+        <ul id="partyList" class="party-list">
+          <!-- Se llena dinámicamente desde app.js -->
+        </ul>
+      </aside>
+    </main>
+
+    <!-- Botón flotante para centrar en mi ubicación (futuro, opcional) -->
+    <button id="locateMeBtn" class="fab-button">
+      📍
+    </button>
+
+    <!-- Modal / Formulario de creación de fiesta -->
+    <div id="partyModal" class="modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-content">
+        <button class="modal-close" id="closeModalBtn">✕</button>
+        <h2>Crea tu fiesta 🎧</h2>
+        <p class="modal-subtitle">
+          Elige buen nombre, buen vibe y nosotros la mostramos en el mapa.
+        </p>
+
+        <form id="partyForm">
+          <div class="form-group">
+            <label for="partyName">Nombre de la fiesta</label>
+            <input
+              type="text"
+              id="partyName"
+              name="partyName"
+              placeholder="Ej. Neon House en Barranco"
+              required
+            />
+          </div>
+
+          <div class="form-group two-cols">
+            <div>
+              <label for="partyType">Tipo de fiesta</label>
+              <select id="partyType" name="partyType" required>
+                <option value="">Selecciona...</option>
+                <option value="Casa">Casa</option>
+                <option value="Discoteca">Discoteca</option>
+                <option value="Terraza">Terraza</option>
+                <option value="Playa">Playa</option>
+                <option value="Bar">Bar</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div>
+              <label for="partyGenre">Género musical</label>
+              <select id="partyGenre" name="partyGenre" required>
+                <option value="">Selecciona...</option>
+                <option value="Reggaetón">Reggaetón</option>
+                <option value="Electrónica">Electrónica</option>
+                <option value="Techno">Techno</option>
+                <option value="Salsa">Salsa</option>
+                <option value="Latino mix">Latino mix</option>
+                <option value="Rock/Indie">Rock / Indie</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group two-cols">
+            <div>
+              <label for="partyDate">Fecha</label>
+              <input type="date" id="partyDate" name="partyDate" required />
+            </div>
+            <div>
+              <label for="partyTime">Hora</label>
+              <input type="time" id="partyTime" name="partyTime" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="partyPeople">Personas estimadas</label>
+            <input
+              type="number"
+              id="partyPeople"
+              name="partyPeople"
+              min="5"
+              placeholder="Ej. 30"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="partyDescription">Descripción</label>
+            <textarea
+              id="partyDescription"
+              name="partyDescription"
+              rows="3"
+              placeholder="Vestimenta, vibe, si hay cover, promos, etc."
+            ></textarea>
+          </div>
+
+          <p class="modal-hint">
+            * La fiesta se mostrará en el mapa luego de ser revisada por el equipo.
+          </p>
+
+          <button type="submit" class="primary-btn">
+            Publicar fiesta
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Lógica -->
+  <script src="app.js"></script>
 </body>
 </html>
