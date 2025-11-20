@@ -1,8 +1,32 @@
+/* ============================================================
+   1. FIREBASE REALTIME DATABASE
+============================================================ */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBamKskyem2u7YN26rMh4lUPqK3aPlTDuE",
+  authDomain: "dondeespe-546a3.firebaseapp.com",
+  databaseURL: "https://dondeespe-546a3-default-rtdb.firebaseio.com",
+  projectId: "dondeespe-546a3",
+  storageBucket: "dondeespe-546a3.firebasestorage.app",
+  messagingSenderId: "413412307464",
+  appId: "1:413412307464:web:48b9e633e9c3f82714d7bd"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+/* ============================================================
+   2. VARIABLES DEL MAPA
+============================================================ */
 let map;
 let selectedLat = null;
 let selectedLng = null;
 
-/* ------------------ ICONOS PERSONALIZADOS ------------------ */
+/* ============================================================
+   3. ICONOS PERSONALIZADOS
+============================================================ */
 const iconosFiesta = {
   discoteca: "https://rwar0327html.github.io/DondeEsPe/copa.png",
   rave:       "https://rwar0327html.github.io/DondeEsPe/dj.png",
@@ -10,7 +34,6 @@ const iconosFiesta = {
   concierto:  "https://rwar0327html.github.io/DondeEsPe/microfono.png"
 };
 
-/* ------------------ FUNCIÓN CREAR ICONO ANIMADO ------------------ */
 function crearIconoAnimado(url) {
   return {
     url: url,
@@ -19,8 +42,10 @@ function crearIconoAnimado(url) {
   };
 }
 
-/* ------------------ MAPA ------------------ */
-function initMap() {
+/* ============================================================
+   4. INICIAR MAPA
+============================================================ */
+window.initMap = function () {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: -12.046374, lng: -77.042793 },
     zoom: 13,
@@ -34,19 +59,25 @@ function initMap() {
     selectedLng = e.latLng.lng();
     document.getElementById("partyModal").style.display = "flex";
   });
-}
+};
 
-/* ------------------ BOTÓN "VER MAPA" ------------------ */
+/* ============================================================
+   5. BOTÓN "VER MAPA"
+============================================================ */
 document.getElementById("verMapaBtn").onclick = () => {
   document.getElementById("map").scrollIntoView({ behavior: "smooth" });
 };
 
-/* ------------------ CERRAR FORMULARIO ------------------ */
+/* ============================================================
+   6. CERRAR FORMULARIO
+============================================================ */
 document.getElementById("closeFormBtn").onclick = () => {
   document.getElementById("partyModal").style.display = "none";
 };
 
-/* ------------------ SLIDER ------------------ */
+/* ============================================================
+   7. SLIDER
+============================================================ */
 const slider = document.getElementById("eventoMin");
 const sliderValue = document.getElementById("sliderValue");
 
@@ -54,37 +85,34 @@ slider.oninput = () => {
   sliderValue.innerText = slider.value + " personas";
 };
 
-/* ------------------ PUBLICAR FIESTA (FIREBASE + MAPA) ------------------ */
+/* ============================================================
+   8. PUBLICAR FIESTA (🔥 REALTIME DATABASE)
+============================================================ */
 document.getElementById("publicarBtn").onclick = async () => {
-  if (!selectedLat || !selectedLng) return;
+  if (!selectedLat || !selectedLng) return alert("Selecciona un punto en el mapa");
 
-  const tipoFiesta = document.getElementById("eventoTipo").value;
-  const icono = crearIconoAnimado(iconosFiesta[tipoFiesta]);
+  const tipo = document.getElementById("eventoTipo").value;
 
-  /* ---------- GUARDAR FIESTA EN FIRESTORE ---------- */
-  await db.collection("fiestas").add({
-    tipo: tipoFiesta,
+  const fiestaData = {
+    tipo,
     lat: selectedLat,
     lng: selectedLng,
     minimo: slider.value,
     creado: Date.now()
-  });
+  };
 
-  console.log("Fiesta guardada en Firebase ✔");
+  // Guardar en REALETIME DATABASE
+  const fiestasRef = ref(db, "fiestas");
+  await push(fiestasRef, fiestaData);
 
-  /* ---------- AGREGAR MARKER EN EL MAPA ---------- */
+  alert("✔ Fiesta publicada correctamente");
+
+  // Marcar en el mapa
   const marker = new google.maps.Marker({
     position: { lat: selectedLat, lng: selectedLng },
     map,
-    icon: icono
+    icon: crearIconoAnimado(iconosFiesta[tipo])
   });
-
-  // Animación
-  const markerURL = marker.getIcon().url;
-  setTimeout(() => {
-    const imgs = document.querySelectorAll(`img[src="${markerURL}"]`);
-    imgs.forEach(img => img.classList.add("floating-icon"));
-  }, 300);
 
   document.getElementById("partyModal").style.display = "none";
 };
