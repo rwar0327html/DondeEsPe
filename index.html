@@ -3,105 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DondeEsPe — Publicar Fiesta</title>
+  <title>DondeEsPe — Fiestas en tiempo real</title>
 
   <!-- Fuente -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background: #121212;
-      color: white;
-      padding: 20px;
-    }
+  <!-- Leaflet CSS (mapa) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
 
-    .card {
-      background: #1e1e1e;
-      padding: 25px;
-      border-radius: 15px;
-      border: 2px solid gold;
-      max-width: 450px;
-      margin: auto;
-    }
-
-    input, textarea {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-    }
-
-    button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 12px;
-      background: gold;
-      color: black;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 8px;
-    }
-
-    #map { 
-      width: 100%; 
-      height: 300px; 
-      margin-top: 20px; 
-      border-radius: 10px;
-      border: 2px solid gold;
-    }
-  </style>
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
+  <div class="app">
+    <header class="top-bar">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        <span class="logo-text">DondeEsPe</span>
+      </div>
+      <div class="top-actions">
+        <button class="chip chip-live">● En tiempo real</button>
+        <button class="chip">Lima</button>
+      </div>
+    </header>
 
-  <h1>Publicar Fiesta 🎉</h1>
+    <!-- Mapa -->
+    <div id="map"></div>
 
-  <div class="card">
-    <label>Nombre de la fiesta</label>
-    <input type="text" id="nombreFiesta">
+    <!-- Panel flotante -->
+    <div class="bottom-panel">
+      <div class="panel-tabs">
+        <button class="tab-btn active" data-mode="organizador">Crear fiesta</button>
+        <button class="tab-btn" data-mode="invitado">Unirme a fiestas</button>
+      </div>
 
-    <label>Descripción</label>
-    <textarea id="descripcionFiesta"></textarea>
+      <!-- Vista organizador -->
+      <div class="panel-content" id="view-organizador">
+        <h2>Crea tu fiesta</h2>
+        <p class="subtitle">
+          Toca el mapa para elegir la ubicación y completa los datos.
+        </p>
 
-    <label>Zona</label>
-    <input type="text" id="zonaFiesta">
+        <form id="form-fiesta">
+          <div class="field-group">
+            <label>Nombre de la fiesta</label>
+            <input type="text" id="nombreFiesta" placeholder="Ej. La Jato del Flow" required />
+          </div>
 
-    <label>Mínimo para iniciar la juerga: <span id="minDisplay">0</span></label>
-    <input type="range" id="minimoFiesta" min="0" max="300">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Fecha</label>
+              <input type="date" id="fechaFiesta" required />
+            </div>
+            <div class="field-group">
+              <label>Hora</label>
+              <input type="time" id="horaFiesta" required />
+            </div>
+          </div>
 
-    <label>Flyer (URL de imagen)</label>
-    <input type="text" id="flyerFiesta" placeholder="https://imagen.com/flyer.jpg">
+          <div class="field-group">
+            <label>Tipo de música</label>
+            <select id="musicaFiesta">
+              <option>Reggaetón</option>
+              <option>Electrónica / Techno</option>
+              <option>House</option>
+              <option>Salsa / Bachata</option>
+              <option>Mix de todo</option>
+            </select>
+          </div>
 
-    <button id="btnPublicar">PUBLICAR FIESTA</button>
+          <div class="field-group">
+            <label>Mínimo de personas para activar la fiesta</label>
+            <input type="number" id="minimoPersonas" min="1" max="300" value="20" />
+          </div>
+
+          <div class="field-group">
+            <label>Ubicación seleccionada</label>
+            <input type="text" id="ubicacionTexto" placeholder="Toca el mapa para elegir el punto" disabled />
+          </div>
+
+          <button type="submit" class="primary-btn">
+            Publicar fiesta (MVP local)
+          </button>
+        </form>
+      </div>
+
+      <!-- Vista invitado -->
+      <div class="panel-content hidden" id="view-invitado">
+        <h2>Fiestas cerca de ti</h2>
+        <p class="subtitle">
+          Explora lo que está pasando ahora mismo en tu ciudad.
+        </p>
+
+        <div id="lista-fiestas" class="party-list">
+          <!-- Se llena desde app.js -->
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div id="map"></div>
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
 
-  <!-- Firebase + App -->
-  <script type="module" src="app.js"></script>
-
-  <!-- MAPA -->
-  <script>
-    function initMap() {
-      const mapa = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: -12.0464, lng: -77.0428 },
-        zoom: 12,
-        mapId: "DEMO_MAP_ID",
-        styles: [
-          { elementType: "geometry", stylers: [{ color: "#1d1d1d" }] },
-          { elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] }
-        ]
-      });
-    }
-  </script>
-
-  <script 
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" 
-    async defer>
-  </script>
-
+  <!-- JS propio -->
+  <script src="app.js"></script>
 </body>
 </html>
