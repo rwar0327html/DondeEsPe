@@ -15,7 +15,7 @@
 <body>
   <div class="app">
 
-    <!-- HERO SUPERIOR NEON -->
+    <!-- HERO SUPERIOR -->
     <section class="hero">
       <div class="hero-content">
         <h1 class="hero-title">Fiestas en Tiempo Real</h1>
@@ -27,101 +27,83 @@
         </button>
       </div>
 
-      <!-- Luces / glows -->
       <div class="hero-glow"></div>
       <div class="hero-glow2"></div>
     </section>
 
-    <!-- SECCIÓN DEL MAPA -->
+    <!-- MAPA -->
     <section class="map-section" id="mapSection">
       <div id="map"></div>
 
-      <!-- Botón flotante: centrar en mi ubicación -->
-      <button id="locateMeBtn" class="fab-button">
-        📍
-      </button>
+      <button id="locateMeBtn" class="fab-button">📍</button>
     </section>
 
-    <!-- Modal / Formulario de creación de fiesta -->
+    <!-- FORMULARIO NEON -->
     <div id="partyModal" class="modal hidden">
       <div class="modal-backdrop"></div>
       <div class="modal-content">
         <button class="modal-close" id="closeModalBtn">✕</button>
         <h2>Crea tu fiesta 🎧</h2>
-        <p class="modal-subtitle">
-          Elige buen nombre, buen vibe y nosotros la mostramos en el mapa.
-        </p>
 
         <form id="partyForm">
           <div class="form-group">
             <label for="partyName">Nombre de la fiesta</label>
-            <input type="text" id="partyName" name="partyName" placeholder="Ej. Neon House en Barranco" required />
+            <input id="partyName" required placeholder="Ej. Neon House en Barranco" />
           </div>
 
           <div class="form-group two-cols">
             <div>
-              <label for="partyType">Tipo de fiesta</label>
-              <select id="partyType" name="partyType" required>
+              <label>Tipo</label>
+              <select id="partyType" required>
                 <option value="">Selecciona...</option>
                 <option value="Casa">Casa</option>
                 <option value="Discoteca">Discoteca</option>
                 <option value="Terraza">Terraza</option>
                 <option value="Playa">Playa</option>
                 <option value="Bar">Bar</option>
-                <option value="Otro">Otro</option>
               </select>
             </div>
 
             <div>
-              <label for="partyGenre">Género musical</label>
-              <select id="partyGenre" name="partyGenre" required>
+              <label>Género</label>
+              <select id="partyGenre" required>
                 <option value="">Selecciona...</option>
                 <option value="Reggaetón">Reggaetón</option>
                 <option value="Electrónica">Electrónica</option>
-                <option value="Techno">Techno</option>
-                <option value="Salsa">Salsa</option>
-                <option value="Latino mix">Latino mix</option>
-                <option value="Rock/Indie">Rock / Indie</option>
               </select>
             </div>
           </div>
 
           <div class="form-group two-cols">
             <div>
-              <label for="partyDate">Fecha</label>
-              <input type="date" id="partyDate" name="partyDate" required />
+              <label>Fecha</label>
+              <input type="date" id="partyDate" required />
             </div>
 
             <div>
-              <label for="partyTime">Hora</label>
-              <input type="time" id="partyTime" name="partyTime" required />
+              <label>Hora</label>
+              <input type="time" id="partyTime" required />
             </div>
           </div>
 
           <div class="form-group">
-            <label for="partyPeople">Personas estimadas</label>
-            <input type="number" id="partyPeople" name="partyPeople" min="5" placeholder="Ej. 30" />
+            <label>Personas</label>
+            <input type="number" id="partyPeople" placeholder="Ej. 40" />
           </div>
 
           <div class="form-group">
-            <label for="partyDescription">Descripción</label>
-            <textarea id="partyDescription" name="partyDescription" rows="3" placeholder="Vestimenta, vibe, si hay cover, promos, etc."></textarea>
+            <label>Descripción</label>
+            <textarea id="partyDescription"></textarea>
           </div>
 
-          <p class="modal-hint">
-            * La fiesta se mostrará en el mapa luego de ser revisada por el equipo.
-          </p>
-
-          <button type="submit" class="primary-btn">
-            Publicar fiesta
-          </button>
+          <button class="primary-btn">Publicar fiesta</button>
         </form>
       </div>
     </div>
 
   </div>
 
-  <!-- Lógica principal -->
+  <!-- APP -->
   <script src="app.js"></script>
 
   <!-- GOOGLE MAPS API -->
