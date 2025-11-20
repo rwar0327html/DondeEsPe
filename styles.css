@@ -53,7 +53,8 @@ html, body {
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @keyframes heroGradient {
