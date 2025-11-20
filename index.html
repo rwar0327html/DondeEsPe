@@ -5,28 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DondeEsPe — Fiestas en tiempo real</title>
 
-  <!-- Fuente -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Firebase v8 (compat, sencillo) -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-  <!-- Google Maps (CON TU API KEY) -->
+  <!-- Google Maps -->
   <script
     async
     defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap">
   </script>
 
-  <!-- JS propio -->
-  <script src="app.js" defer></script>
+  <!-- Tu JS -->
+  <script type="module" src="app.js"></script>
 </head>
+
 <body>
-  <!-- FRANJA SUPERIOR -->
+
   <section class="hero">
     <div class="hero-content">
       <h1>Fiestas en Tiempo Real</h1>
@@ -40,9 +34,9 @@
     </div>
   </section>
 
-  <!-- MAPA -->
   <main>
     <div id="map"></div>
   </main>
+
 </body>
 </html>
