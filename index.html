@@ -3,64 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DondeEsPe — Fiestas en Tiempo Real</title>
+  <title>DondeEsPe — Publicar Fiesta</title>
 
+  <!-- Fuente -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     body {
-      margin: 0;
       font-family: "Poppins", sans-serif;
-      background: #0d0d0d;
+      background: #121212;
       color: white;
-    }
-
-    /* ------------------ FRANJA NARANJA ------------------ */
-    #header {
-      width: 100%;
-      background: orange;
-      padding: 15px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: 600;
-      color: black;
-    }
-
-    /* ------------------ MAPA ------------------ */
-    #map {
-      width: 100%;
-      height: calc(100vh - 70px); /* 70px para dejar espacio al header */
-    }
-
-    /* ------------------ MODAL FORMULARIO ------------------ */
-    #partyModal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      background: rgba(0,0,0,0.7);
-      z-index: 10;
-    }
-
-    .modal-content {
-      background: #1a1a1a;
       padding: 20px;
-      width: 90%;
-      max-width: 420px;
-      border: 2px solid gold;
-      border-radius: 16px;
-      box-shadow: 0 0 25px gold;
     }
 
-    input, select, textarea {
+    .card {
+      background: #1e1e1e;
+      padding: 25px;
+      border-radius: 15px;
+      border: 2px solid gold;
+      max-width: 450px;
+      margin: auto;
+    }
+
+    input, textarea {
       width: 100%;
       margin-top: 10px;
       padding: 10px;
       border-radius: 8px;
       border: none;
-      background: #222;
-      color: white;
     }
 
     button {
@@ -75,100 +45,63 @@
       border-radius: 8px;
     }
 
-    #closeFormBtn {
-      background: #444;
-      color: white;
-    }
-
-    /* ------------------ TARJETA BLACK PREMIUM ------------------ */
-    .party-card {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%) scale(0.8);
-      width: 90%;
-      max-width: 420px;
-      background: #000;
+    #map { 
+      width: 100%; 
+      height: 300px; 
+      margin-top: 20px; 
+      border-radius: 10px;
       border: 2px solid gold;
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: 0 0 25px gold;
-      display: none;
-      opacity: 0;
-      transition: .25s ease;
-      z-index: 20;
-    }
-
-    .party-card.show {
-      display: block;
-      opacity: 1;
-      transform: translateX(-50%) scale(1);
-    }
-
-    .party-card img {
-      width: 100%;
-      border-radius: 12px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ⭐ FRANJA NARANJA (BARRA SUPERIOR) -->
-  <div id="header">
-    ¡Bienvenido a DondeEsPe 🎉!
+  <h1>Publicar Fiesta 🎉</h1>
+
+  <div class="card">
+    <label>Nombre de la fiesta</label>
+    <input type="text" id="nombreFiesta">
+
+    <label>Descripción</label>
+    <textarea id="descripcionFiesta"></textarea>
+
+    <label>Zona</label>
+    <input type="text" id="zonaFiesta">
+
+    <label>Mínimo para iniciar la juerga: <span id="minDisplay">0</span></label>
+    <input type="range" id="minimoFiesta" min="0" max="300">
+
+    <label>Flyer (URL de imagen)</label>
+    <input type="text" id="flyerFiesta" placeholder="https://imagen.com/flyer.jpg">
+
+    <button id="btnPublicar">PUBLICAR FIESTA</button>
   </div>
 
-  <!-- MAPA -->
   <div id="map"></div>
 
-  <!-- MODAL FORM -->
-  <div id="partyModal">
-    <div class="modal-content">
-      <h2>Publicar Fiesta 🎉</h2>
-
-      <label>Nombre</label>
-      <input id="eventoNombre" type="text">
-
-      <label>Descripción</label>
-      <textarea id="eventoDescripcion"></textarea>
-
-      <label>Zona</label>
-      <input id="eventoZona" type="text">
-
-      <label>Flyer (URL)</label>
-      <input id="eventoFlyer" type="text">
-
-      <label>Tipo de Fiesta</label>
-      <select id="eventoTipo">
-        <option value="discoteca">Discoteca</option>
-        <option value="rave">Rave / DJ</option>
-        <option value="masiva">Fiesta Masiva</option>
-        <option value="concierto">Concierto</option>
-      </select>
-
-      <label>Personas mínimas: <span id="sliderValue">0 personas</span></label>
-      <input id="eventoMin" type="range" min="0" max="300" value="0">
-
-      <button id="publicarBtn">Publicar Fiesta</button>
-      <button id="closeFormBtn">Cerrar</button>
-    </div>
-  </div>
-
-  <!-- TARJETA PREMIUM -->
-  <div id="partyCard" class="party-card">
-    <img id="partyFlyer">
-    <div id="partyName"></div>
-    <div id="partyDesc"></div>
-    <div id="partyZone"></div>
-    <div id="partyMin"></div>
-  </div>
-
-  <!-- APP JS -->
+  <!-- Firebase + App -->
   <script type="module" src="app.js"></script>
 
-  <!-- GOOGLE MAPS -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap" async defer></script>
+  <!-- MAPA -->
+  <script>
+    function initMap() {
+      const mapa = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: -12.0464, lng: -77.0428 },
+        zoom: 12,
+        mapId: "DEMO_MAP_ID",
+        styles: [
+          { elementType: "geometry", stylers: [{ color: "#1d1d1d" }] },
+          { elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] }
+        ]
+      });
+    }
+  </script>
+
+  <script 
+    src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" 
+    async defer>
+  </script>
 
 </body>
 </html>
