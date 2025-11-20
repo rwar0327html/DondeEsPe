@@ -279,3 +279,11 @@ extraStyle.textContent = `
   }
 `;
 document.head.appendChild(extraStyle);
+
+document.getElementById("scrollToMap").onclick = () => {
+  document.getElementById("mapSection").scrollIntoView({behavior: "smooth"});
+};
+
+const panel = document.getElementById("slidePanel");
+document.getElementById("openPanelBtn").onclick = () => panel.classList.add("active");
+document.getElementById("closePanelBtn").onclick = () => panel.classList.remove("active");
