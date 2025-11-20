@@ -8,113 +8,41 @@
   <!-- Fuente -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Leaflet CSS (mapa) -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""
-  />
-
-  <!-- Estilos propios -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <div class="app">
-    <header class="top-bar">
-      <div class="logo">
-        <span class="logo-dot"></span>
-        <span class="logo-text">DondeEsPe</span>
-      </div>
-      <div class="top-actions">
-        <button class="chip chip-live">● En tiempo real</button>
-        <button class="chip">Lima</button>
-      </div>
-    </header>
 
-    <!-- Mapa -->
-    <div id="map"></div>
+  <!-- Firebase v8 (compat, sencillo) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-    <!-- Panel flotante -->
-    <div class="bottom-panel">
-      <div class="panel-tabs">
-        <button class="tab-btn active" data-mode="organizador">Crear fiesta</button>
-        <button class="tab-btn" data-mode="invitado">Unirme a fiestas</button>
-      </div>
-
-      <!-- Vista organizador -->
-      <div class="panel-content" id="view-organizador">
-        <h2>Crea tu fiesta</h2>
-        <p class="subtitle">
-          Toca el mapa para elegir la ubicación y completa los datos.
-        </p>
-
-        <form id="form-fiesta">
-          <div class="field-group">
-            <label>Nombre de la fiesta</label>
-            <input type="text" id="nombreFiesta" placeholder="Ej. La Jato del Flow" required />
-          </div>
-
-          <div class="field-row">
-            <div class="field-group">
-              <label>Fecha</label>
-              <input type="date" id="fechaFiesta" required />
-            </div>
-            <div class="field-group">
-              <label>Hora</label>
-              <input type="time" id="horaFiesta" required />
-            </div>
-          </div>
-
-          <div class="field-group">
-            <label>Tipo de música</label>
-            <select id="musicaFiesta">
-              <option>Reggaetón</option>
-              <option>Electrónica / Techno</option>
-              <option>House</option>
-              <option>Salsa / Bachata</option>
-              <option>Mix de todo</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label>Mínimo de personas para activar la fiesta</label>
-            <input type="number" id="minimoPersonas" min="1" max="300" value="20" />
-          </div>
-
-          <div class="field-group">
-            <label>Ubicación seleccionada</label>
-            <input type="text" id="ubicacionTexto" placeholder="Toca el mapa para elegir el punto" disabled />
-          </div>
-
-          <button type="submit" class="primary-btn">
-            Publicar fiesta (MVP local)
-          </button>
-        </form>
-      </div>
-
-      <!-- Vista invitado -->
-      <div class="panel-content hidden" id="view-invitado">
-        <h2>Fiestas cerca de ti</h2>
-        <p class="subtitle">
-          Explora lo que está pasando ahora mismo en tu ciudad.
-        </p>
-
-        <div id="lista-fiestas" class="party-list">
-          <!-- Se llena desde app.js -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Leaflet JS -->
+  <!-- Google Maps (CON TU API KEY) -->
   <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""
-  ></script>
+    async
+    defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initMap">
+  </script>
 
   <!-- JS propio -->
-  <script src="app.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- FRANJA SUPERIOR -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Fiestas en Tiempo Real</h1>
+      <p>¡Descubre y crea fiestas donde quieras!</p>
+
+      <button class="cta-btn">Mantente Atento</button>
+
+      <p id="firebase-status" class="firebase-status">
+        Conectando con Firebase...
+      </p>
+    </div>
+  </section>
+
+  <!-- MAPA -->
+  <main>
+    <div id="map"></div>
+  </main>
 </body>
 </html>
