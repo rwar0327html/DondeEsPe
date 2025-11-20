@@ -6,16 +6,7 @@
   <title>DondeEsPe — Fiestas en Tiempo Real</title>
 
   <!-- Fuente -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-
-  <!-- Leaflet (mapa tipo Waze) -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE=swap" rel="stylesheet" />
 
   <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
@@ -83,13 +74,7 @@
         <form id="partyForm">
           <div class="form-group">
             <label for="partyName">Nombre de la fiesta</label>
-            <input
-              type="text"
-              id="partyName"
-              name="partyName"
-              placeholder="Ej. Neon House en Barranco"
-              required
-            />
+            <input type="text" id="partyName" name="partyName" placeholder="Ej. Neon House en Barranco" required />
           </div>
 
           <div class="form-group two-cols">
@@ -132,23 +117,12 @@
 
           <div class="form-group">
             <label for="partyPeople">Personas estimadas</label>
-            <input
-              type="number"
-              id="partyPeople"
-              name="partyPeople"
-              min="5"
-              placeholder="Ej. 30"
-            />
+            <input type="number" id="partyPeople" name="partyPeople" min="5" placeholder="Ej. 30" />
           </div>
 
           <div class="form-group">
             <label for="partyDescription">Descripción</label>
-            <textarea
-              id="partyDescription"
-              name="partyDescription"
-              rows="3"
-              placeholder="Vestimenta, vibe, si hay cover, promos, etc."
-            ></textarea>
+            <textarea id="partyDescription" name="partyDescription" rows="3" placeholder="Vestimenta, vibe, si hay cover, promos, etc."></textarea>
           </div>
 
           <p class="modal-hint">
@@ -164,7 +138,11 @@
 
   </div>
 
-  <!-- Lógica -->
+  <!-- Lógica principal -->
   <script src="app.js"></script>
+
+  <!-- GOOGLE MAPS API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY_AQUI&callback=initGoogleMap" async defer></script>
+
 </body>
 </html>
