@@ -21,11 +21,12 @@ function initMap() {
 
   map = L.map("map").setView(limaCoords, 13);
 
-  // Capa base (OpenStreetMap)
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap'
-  }).addTo(map);
+  // Capa base 
+L.tileLayer("https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png", {
+    maxZoom: 20,
+    attribution:
+      '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a> contributors'
+}).addTo(map);
 
   // Evento: click en el mapa -> abrir modal
   map.on("click", (e) => {
