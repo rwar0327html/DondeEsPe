@@ -310,8 +310,3 @@ function addPartyMarker(party) {
   const info = new google.maps.InfoWindow({ content });
   marker.addListener("click", () => info.open(map, marker));
 }
-
-  <!-- GOOGLE MAPS API -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initGoogleMap" async defer></script>
-</body>
-</html>
