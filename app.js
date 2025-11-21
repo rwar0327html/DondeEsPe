@@ -7,6 +7,88 @@ let parties = [];
 let lastClickLatLng = null;
 
 // ======================
+// ESTILO APPLE MAPS (el que tú mandaste EXACTO)
+// ======================
+
+const appleMapStyle = [
+  {
+    featureType: "landscape.man_made",
+    elementType: "geometry",
+    stylers: [{ color: "#f7f1df" }]
+  },
+  {
+    featureType: "landscape.natural",
+    elementType: "geometry",
+    stylers: [{ color: "#d0e3b4" }]
+  },
+  {
+    featureType: "landscape.natural.terrain",
+    elementType: "geometry",
+    stylers: [{ visibility: "off" }]
+  },
+  {
+    featureType: "poi",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }]
+  },
+  {
+    featureType: "poi.business",
+    elementType: "all",
+    stylers: [{ visibility: "off" }]
+  },
+  {
+    featureType: "poi.medical",
+    elementType: "geometry",
+    stylers: [{ color: "#fbd3da" }]
+  },
+  {
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [{ color: "#bde6ab" }]
+  },
+  {
+    featureType: "road",
+    elementType: "geometry.stroke",
+    stylers: [{ visibility: "off" }]
+  },
+  {
+    featureType: "road",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry.fill",
+    stylers: [{ color: "#ffe15f" }]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#efd151" }]
+  },
+  {
+    featureType: "road.arterial",
+    elementType: "geometry.fill",
+    stylers: [{ color: "#ffffff" }]
+  },
+  {
+    featureType: "road.local",
+    elementType: "geometry.fill",
+    stylers: [{ color: "black" }]
+  },
+  {
+    featureType: "transit.station.airport",
+    elementType: "geometry.fill",
+    stylers: [{ color: "#cfb2db" }]
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#a2daf2" }]
+  }
+];
+
+// ======================
 // Inicializar Google Maps
 // ======================
 
@@ -17,32 +99,7 @@ function initGoogleMap() {
     center: lima,
     zoom: 13,
     disableDefaultUI: true,
-    styles: [
-      {
-        featureType: "all",
-        elementType: "geometry",
-        stylers: [{ color: "#1a1030" }]
-      },
-      {
-        featureType: "all",
-        elementType: "labels.text.fill",
-        stylers: [{ color: "#ffffff" }]
-      },
-      {
-        featureType: "poi",
-        stylers: [{ visibility: "off" }]
-      },
-      {
-        featureType: "road",
-        elementType: "geometry",
-        stylers: [{ color: "#2a1d4f" }]
-      },
-      {
-        featureType: "water",
-        elementType: "geometry",
-        stylers: [{ color: "#150d28" }]
-      }
-    ],
+    styles: appleMapStyle, // <- Aquí tu Apple map theme 👑
   });
 
   // Clic → abrir formulario
@@ -64,13 +121,9 @@ function initUI() {
   const partyForm = document.getElementById("partyForm");
   const locateMeBtn = document.getElementById("locateMeBtn");
 
-  // Cerrar modal
   closeModalBtn.addEventListener("click", closePartyModal);
-
-  // Enviar formulario
   partyForm.addEventListener("submit", handleCreateParty);
 
-  // Ubicarme
   locateMeBtn.addEventListener("click", () => {
     if (!navigator.geolocation) {
       alert("Tu navegador no soporta geolocalización.");
@@ -83,16 +136,12 @@ function initUI() {
     });
   });
 
-  // Cerrar al tocar fondo oscuro
   modal.addEventListener("click", (e) => {
     if (e.target.id === "partyModal") closePartyModal();
   });
 
-  // Scroll hacia mapa
   document.getElementById("scrollToMap").onclick = () => {
-    document
-      .getElementById("mapSection")
-      .scrollIntoView({ behavior: "smooth" });
+    document.getElementById("mapSection").scrollIntoView({ behavior: "smooth" });
   };
 }
 
@@ -138,7 +187,7 @@ function handleCreateParty(event) {
 }
 
 // ======================
-// Marcador NEON en Google Maps
+// Marcador NEON — Google Maps
 // ======================
 
 function addPartyMarker(party) {
@@ -158,11 +207,7 @@ function addPartyMarker(party) {
   });
 
   const content = `
-    <div style="
-      color: white; 
-      font-family: Poppins; 
-      max-width: 230px;
-    ">
+    <div style="color:#000; font-family:Poppins; max-width:230px;">
       <h3 style="margin:0 0 4px;">${party.name}</h3>
       <p><strong>Tipo:</strong> ${party.type}<br>
       <strong>Género:</strong> ${party.genre}</p>
