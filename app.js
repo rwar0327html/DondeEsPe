@@ -10,107 +10,24 @@ let currentParty = null;
 // ESTILO SNAZZY DARK NEON
 // ======================
 const darkNeonStyle = [
-  {
-    featureType: "all",
-    elementType: "labels",
-    stylers: [
-      { visibility: "on" },
-      { hue: "#ff0000" }
+  { featureType: "all", elementType: "labels", stylers: [{ visibility: "on" }, { hue: "#ff0000" }] },
+  { featureType: "all", elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] },
+  { featureType: "all", elementType: "labels.text.stroke", stylers: [{ color: "#000000" }, { lightness: 13 }] },
+  { featureType: "all", elementType: "labels.icon", stylers: [
+      { hue: "#ff0000" }, { saturation: "100" }, { lightness: "5" }, { gamma: "0.70" }, { weight: "7.95" }, { invert_lightness: true }
     ]
   },
-  {
-    featureType: "all",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#ffffff" }]
-  },
-  {
-    featureType: "all",
-    elementType: "labels.text.stroke",
-    stylers: [
-      { color: "#000000" },
-      { lightness: 13 }
-    ]
-  },
-  {
-    featureType: "all",
-    elementType: "labels.icon",
-    stylers: [
-      { hue: "#ff0000" },
-      { saturation: "100" },
-      { lightness: "5" },
-      { gamma: "0.70" },
-      { weight: "7.95" },
-      { invert_lightness: true }
-    ]
-  },
-  {
-    featureType: "administrative",
-    elementType: "geometry.fill",
-    stylers: [{ color: "#000000" }]
-  },
-  {
-    featureType: "administrative",
-    elementType: "geometry.stroke",
-    stylers: [
-      { color: "#144b53" },
-      { lightness: 14 },
-      { weight: 1.4 }
-    ]
-  },
-  {
-    featureType: "landscape",
-    elementType: "all",
-    stylers: [{ color: "#08304b" }]
-  },
-  {
-    featureType: "poi",
-    elementType: "geometry",
-    stylers: [
-      { color: "#0c4152" },
-      { lightness: 5 }
-    ]
-  },
-  {
-    featureType: "road.highway",
-    elementType: "geometry.fill",
-    stylers: [{ color: "#000000" }]
-  },
-  {
-    featureType: "road.highway",
-    elementType: "geometry.stroke",
-    stylers: [
-      { color: "#0b434f" },
-      { lightness: 25 }
-    ]
-  },
-  {
-    featureType: "road.arterial",
-    elementType: "geometry.fill",
-    stylers: [{ color: "#000000" }]
-  },
-  {
-    featureType: "road.arterial",
-    elementType: "geometry.stroke",
-    stylers: [
-      { color: "#0b3d51" },
-      { lightness: 16 }
-    ]
-  },
-  {
-    featureType: "road.local",
-    elementType: "geometry",
-    stylers: [{ color: "#000000" }]
-  },
-  {
-    featureType: "transit",
-    elementType: "all",
-    stylers: [{ color: "#146474" }]
-  },
-  {
-    featureType: "water",
-    elementType: "all",
-    stylers: [{ color: "#021019" }]
-  }
+  { featureType: "administrative", elementType: "geometry.fill", stylers: [{ color: "#000000" }] },
+  { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#144b53" }, { lightness: 14 }, { weight: 1.4 }] },
+  { featureType: "landscape", elementType: "all", stylers: [{ color: "#08304b" }] },
+  { featureType: "poi", elementType: "geometry", stylers: [{ color: "#0c4152" }, { lightness: 5 }] },
+  { featureType: "road.highway", elementType: "geometry.fill", stylers: [{ color: "#000000" }] },
+  { featureType: "road.highway", elementType: "geometry.stroke", stylers: [{ color: "#0b434f" }, { lightness: 25 }] },
+  { featureType: "road.arterial", elementType: "geometry.fill", stylers: [{ color: "#000000" }] },
+  { featureType: "road.arterial", elementType: "geometry.stroke", stylers: [{ color: "#0b3d51" }, { lightness: 16 }] },
+  { featureType: "road.local", elementType: "geometry", stylers: [{ color: "#000000" }] },
+  { featureType: "transit", elementType: "all", stylers: [{ color: "#146474" }] },
+  { featureType: "water", elementType: "all", stylers: [{ color: "#021019" }] }
 ];
 
 // ======================
@@ -186,9 +103,7 @@ function initUI() {
   // scroll a mapa
   if (scrollBtn) {
     scrollBtn.onclick = () => {
-      document
-        .getElementById("mapSection")
-        .scrollIntoView({ behavior: "smooth" });
+      document.getElementById("mapSection").scrollIntoView({ behavior: "smooth" });
     };
   }
 
@@ -203,65 +118,28 @@ function initUI() {
   // nombre de archivo flyer
   if (flyerInput && fileNameSpan) {
     flyerInput.addEventListener("change", () => {
-      if (flyerInput.files && flyerInput.files.length > 0) {
-        fileNameSpan.textContent = flyerInput.files[0].name;
-      } else {
-        fileNameSpan.textContent = "Ningún archivo seleccionado";
-      }
+      fileNameSpan.textContent = flyerInput.files?.length ? flyerInput.files[0].name : "Ningún archivo seleccionado";
     });
   }
 
-  // cerrar panel de fiesta
-  if (partyPanel && closePartyPanelBtn) {
+  // cerrar panel lateral
+  if (closePartyPanelBtn) {
     closePartyPanelBtn.addEventListener("click", () => {
       partyPanel.classList.add("hidden");
       currentParty = null;
-    });
-  }
-
-  // botón "Quiero ir"
-  if (joinBtn) {
-    joinBtn.addEventListener("click", () => {
-      if (!currentParty) return;
-      currentParty.attendees = (currentParty.attendees || 0) + 1;
-      updatePartyPanel(currentParty);
-      // aquí en el futuro se podría abrir WhatsApp o proceso de pago
     });
   }
 }
 
 function openPartyModal() {
   const modal = document.getElementById("partyModal");
-  const card = document.querySelector(".modal-card");
-
   modal.classList.remove("hidden");
-
-  if (card) {
-    card.classList.remove("modal-anim");
-    void card.offsetWidth;
-    card.classList.add("modal-anim");
-  }
 }
 
 function closePartyModal() {
   const modal = document.getElementById("partyModal");
-  const partyForm = document.getElementById("partyForm");
-  const capacityRange = document.getElementById("partyCapacityRange");
-  const capacityValue = document.getElementById("partyCapacityValue");
-  const fileNameSpan = document.getElementById("fileName");
-  const flyerInput = document.getElementById("partyFlyer");
-
   modal.classList.add("hidden");
-  partyForm.reset();
-
-  if (capacityRange && capacityValue) {
-    capacityRange.value = 50;
-    capacityValue.textContent = 50;
-  }
-
-  if (flyerInput) flyerInput.value = "";
-  if (fileNameSpan) fileNameSpan.textContent = "Ningún archivo seleccionado";
-
+  document.getElementById("partyForm").reset();
   lastClickLatLng = null;
 }
 
@@ -271,13 +149,9 @@ function closePartyModal() {
 function handleCreateParty(event) {
   event.preventDefault();
 
-  if (!lastClickLatLng) {
-    alert("Haz click en el mapa para seleccionar la ubicación.");
-    return;
-  }
+  if (!lastClickLatLng) return alert("Haz click en el mapa para seleccionar la ubicación.");
 
-  const flyerInput = document.getElementById("partyFlyer");
-  const flyerFile = flyerInput && flyerInput.files ? flyerInput.files[0] : null;
+  const flyerFile = document.getElementById("partyFlyer").files[0];
   const flyerUrl = flyerFile ? URL.createObjectURL(flyerFile) : null;
 
   const party = {
@@ -305,102 +179,86 @@ function handleCreateParty(event) {
   closePartyModal();
 }
 
-// Devuelve el icono NEON con forma de flecha / diamante
+// ======================
+// ICONO NEON (FLECHA)
+// ======================
 function getMarkerIcon(party) {
-  // Más adelante, en B y D, usaremos "party.type" para cambiar colores
   return {
-    // Forma tipo diamante / flecha hacia abajo
     path: "M 0,-2 L 1,0 L 0,2 L -1,0 Z",
-    fillColor: "#ff00ff",       // fucsia neon (como tu hero)
+    fillColor: "#ff00ff",
     fillOpacity: 1,
-    strokeColor: "#00ffff",     // cian neon
+    strokeColor: "#00ffff",
     strokeWeight: 2,
-    scale: 14,                  // tamaño del marcador
+    scale: 14,
   };
 }
 
 // ======================
-// MARCADOR NEON + PANEL
+// MARCADOR + ABRIR PANEL
 // ======================
 function addPartyMarker(party) {
   const marker = new google.maps.Marker({
     position: { lat: party.lat, lng: party.lng },
     map: map,
-    icon: getMarkerIcon(party),        // usamos nuestra flecha neon
+    icon: getMarkerIcon(party),
     animation: google.maps.Animation.DROP,
   });
 
   marker.addListener("click", () => {
-    // suma vista cada vez que alguien abre la fiesta
     party.views = (party.views || 0) + 1;
     openPartyPanel(party);
   });
 }
 
 // ======================
-// PANEL DE FIESTA
+// PANEL DE FIESTA COMPLETO
 // ======================
 function openPartyPanel(party) {
   currentParty = party;
-
-  const panel = document.getElementById("partyDetailPanel");
-  if (!panel) return;
-
   updatePartyPanel(party);
-  panel.classList.remove("hidden");
+  document.getElementById("partyDetailPanel").classList.remove("hidden");
 }
 
 function updatePartyPanel(party) {
-  // elementos
-  const flyerImg = document.getElementById("partyPanelFlyer");
-  const flyerFallback = document.getElementById("partyPanelFlyerFallback");
+  document.getElementById("partyPanelFlyer").src = party.flyerUrl || "";
+  document.getElementById("partyPanelName").textContent = party.name;
+  document.getElementById("partyPanelGenre").textContent = party.genre;
+  document.getElementById("partyPanelType").textContent = party.type;
+  document.getElementById("partyPanelZone").textContent = party.zone;
+  document.getElementById("partyPanelDate").textContent = party.date;
+  document.getElementById("partyPanelHour").textContent = party.time;
+  document.getElementById("partyPanelAddress").textContent = party.address ? `📍 ${party.address}` : "";
+  document.getElementById("partyPanelDescription").textContent = party.description;
+  document.getElementById("partyPanelPhone").textContent = party.phone ? `📞 ${party.phone}` : "📞 -";
+  document.getElementById("partyPanelInstagram").textContent = party.instagram ? `@${party.instagram}` : "@ -";
 
-  const nameEl = document.getElementById("partyPanelName");
-  const genreEl = document.getElementById("partyPanelGenre");
-  const typeEl = document.getElementById("partyPanelType");
-  const zoneEl = document.getElementById("partyPanelZone");
-  const dateEl = document.getElementById("partyPanelDate");
-  const hourEl = document.getElementById("partyPanelHour");
-  const addrEl = document.getElementById("partyPanelAddress");
-  const descEl = document.getElementById("partyPanelDescription");
-  const phoneEl = document.getElementById("partyPanelPhone");
-  const igEl = document.getElementById("partyPanelInstagram");
-  const attEl = document.getElementById("partyPanelAttendees");
-  const viewsEl = document.getElementById("partyPanelViews");
+  document.getElementById("partyPanelAttendees").textContent = party.attendees;
+  document.getElementById("partyPanelViews").textContent = party.views;
 
-  // flyer
-  if (party.flyerUrl && flyerImg && flyerFallback) {
-    flyerImg.src = party.flyerUrl;
-    flyerImg.classList.remove("hidden");
-    flyerFallback.classList.add("hidden");
-  } else if (flyerFallback && flyerImg) {
-    flyerImg.src = "";
-    flyerImg.classList.add("hidden");
-    flyerFallback.classList.remove("hidden");
+  // ===========================
+  // BLOQUEO DEL BOTÓN QUIERO IR
+  // ===========================
+  const joinBtn = document.getElementById("partyPanelJoinBtn");
+  const storageKey = `joined_${party.id}`;
+
+  if (localStorage.getItem(storageKey)) {
+    joinBtn.textContent = "Listo, nos vemos ahí 🎉";
+    joinBtn.disabled = true;
+    joinBtn.classList.add("already-joined");
+  } else {
+    joinBtn.textContent = "Quiero ir 🔥";
+    joinBtn.disabled = false;
+    joinBtn.classList.remove("already-joined");
+
+    joinBtn.onclick = () => {
+      party.attendees = (party.attendees || 0) + 1;
+      document.getElementById("partyPanelAttendees").textContent = party.attendees;
+
+      localStorage.setItem(storageKey, true);
+
+      joinBtn.textContent = "Listo, nos vemos ahí 🎉";
+      joinBtn.disabled = true;
+      joinBtn.classList.add("already-joined");
+    };
   }
-
-  if (nameEl) nameEl.textContent = party.name || "Fiesta sin nombre";
-  if (genreEl) genreEl.textContent = party.genre || "Género no definido";
-  if (typeEl) typeEl.textContent = party.type || "Tipo no definido";
-  if (zoneEl) zoneEl.textContent = party.zone || "Zona no definida";
-  if (dateEl) dateEl.textContent = party.date || "Fecha por definir";
-  if (hourEl) hourEl.textContent = party.time || "Hora por definir";
-  if (addrEl) addrEl.textContent = party.address ? `📍 ${party.address}` : "";
-
-  if (descEl) {
-    descEl.textContent = party.description || "Sin descripción.";
-  }
-
-  if (phoneEl) {
-    phoneEl.textContent = party.phone ? `📞 ${party.phone}` : "📞 -";
-  }
-
-  if (igEl) {
-    igEl.textContent = party.instagram
-      ? `@${party.instagram.replace(/^@/, "")}`
-      : "@ -";
-  }
-
-  if (attEl) attEl.textContent = party.attendees || 0;
-  if (viewsEl) viewsEl.textContent = party.views || 0;
 }
