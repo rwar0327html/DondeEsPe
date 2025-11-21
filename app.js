@@ -74,7 +74,7 @@ const appleMapStyle = [
   {
     featureType: "road.local",
     elementType: "geometry.fill",
-    stylers: [{ color: "black" }]
+    stylers: [{ color: "#000000" }] // ← corregido
   },
   {
     featureType: "transit.station.airport",
