@@ -305,27 +305,33 @@ function handleCreateParty(event) {
   closePartyModal();
 }
 
+// Devuelve el icono NEON con forma de flecha / diamante
+function getMarkerIcon(party) {
+  // Más adelante, en B y D, usaremos "party.type" para cambiar colores
+  return {
+    // Forma tipo diamante / flecha hacia abajo
+    path: "M 0,-2 L 1,0 L 0,2 L -1,0 Z",
+    fillColor: "#ff00ff",       // fucsia neon (como tu hero)
+    fillOpacity: 1,
+    strokeColor: "#00ffff",     // cian neon
+    strokeWeight: 2,
+    scale: 14,                  // tamaño del marcador
+  };
+}
+
 // ======================
 // MARCADOR NEON + PANEL
 // ======================
 function addPartyMarker(party) {
-  const neonMarker = {
-    path: google.maps.SymbolPath.CIRCLE,
-    fillColor: "#ff00ff",
-    fillOpacity: 1,
-    strokeColor: "#00ffff",
-    strokeWeight: 3,
-    scale: 10,
-  };
-
   const marker = new google.maps.Marker({
     position: { lat: party.lat, lng: party.lng },
     map: map,
-    icon: neonMarker,
+    icon: getMarkerIcon(party),        // usamos nuestra flecha neon
+    animation: google.maps.Animation.DROP,
   });
 
   marker.addListener("click", () => {
-    // suma vista
+    // suma vista cada vez que alguien abre la fiesta
     party.views = (party.views || 0) + 1;
     openPartyPanel(party);
   });
