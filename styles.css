@@ -1,6 +1,7 @@
 /* ============================================================
    🔥 DONDEESPE — PREMIUM NEON UI
    ============================================================ */
+
 :root {
   --bg-main: #050509;
   --bg-glass: rgba(6, 6, 20, 0.95);
@@ -12,6 +13,7 @@
 }
 
 /* RESET */
+
 *,
 *::before,
 *::after {
@@ -134,12 +136,15 @@ body {
   height: 85vh;
   position: relative;
   background: #0b0b16;
+  display: flex;
+  overflow: hidden;
 }
 
 #map {
-  width: 100%;
+  flex: 1;
   height: 100%;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+  position: relative;
 }
 
 /* BOTÓN UBICARME */
@@ -161,6 +166,7 @@ body {
   cursor: pointer;
   box-shadow: 0 0 22px rgba(0, 255, 255, 0.85);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  z-index: 20;
 }
 
 .fab-button:hover {
@@ -169,7 +175,179 @@ body {
 }
 
 /* =========================================
-   MODAL
+   PANEL DE FIESTA (LADO IZQUIERDO)
+   ========================================= */
+
+.party-panel {
+  width: 340px;
+  max-width: 90vw;
+  height: 100%;
+  background: rgba(8, 8, 16, 0.96);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 22px rgba(183, 64, 255, 0.6),
+    0 0 34px rgba(0, 255, 255, 0.45);
+  padding: 14px 14px 18px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 30;
+  animation: partyPanelIn 0.3s ease-out;
+}
+
+.party-panel.hidden {
+  display: none;
+}
+
+@keyframes partyPanelIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.party-panel-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.15s ease;
+  z-index: 2;
+}
+
+.party-panel-close:hover {
+  background: rgba(255, 0, 255, 0.75);
+  transform: scale(1.05);
+}
+
+.party-panel-flyer-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: radial-gradient(circle at top, rgba(255,0,255,0.24), transparent 55%),
+              radial-gradient(circle at bottom, rgba(0,255,255,0.2), transparent 55%),
+              #050513;
+}
+
+.party-panel-flyer {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+  object-fit: cover;
+}
+
+.party-panel-flyer.hidden {
+  display: none;
+}
+
+.party-panel-flyer-fallback {
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dcdcf5;
+  font-size: 0.9rem;
+  background: radial-gradient(circle, rgba(255,0,255,0.26), rgba(0,0,0,0.9));
+}
+
+.party-panel-flyer-fallback.hidden {
+  display: none;
+}
+
+.party-panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-top: 4px;
+}
+
+.party-panel-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.party-panel-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.party-panel-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.party-panel-section {
+  margin-top: 10px;
+}
+
+.party-panel-section h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.party-panel-text {
+  font-size: 0.85rem;
+  color: #dedefa;
+}
+
+.party-panel-stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #f9f9ff;
+}
+
+.party-panel-join {
+  margin-top: 12px;
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #00f5ff, #00b8ff);
+  color: #000;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow:
+    0 0 16px rgba(0, 245, 255, 0.85),
+    0 0 22px rgba(0, 120, 255, 0.6);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.party-panel-join:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow:
+    0 0 22px rgba(0, 245, 255, 1),
+    0 0 28px rgba(0, 120, 255, 0.8);
+}
+
+/* =========================================
+   MODAL CREAR FIESTA (el que ya tenías)
    ========================================= */
 
 .modal {
@@ -195,8 +373,6 @@ body {
   backdrop-filter: blur(6px);
 }
 
-/* tarjeta */
-
 .modal-card {
   position: relative;
   z-index: 2;
@@ -210,10 +386,7 @@ body {
     0 0 0 1px rgba(255, 255, 255, 0.03),
     0 0 24px rgba(183, 64, 255, 0.7),
     0 0 38px rgba(0, 255, 255, 0.55);
-  animation: glowPulse 2.6s ease-in-out infinite;
 }
-
-/* clase que se activa al abrir para animación fade+zoom+glow */
 
 .modal-anim {
   animation:
@@ -287,8 +460,6 @@ body {
   margin-bottom: 14px;
 }
 
-/* FORMULARIO */
-
 .modal-form {
   display: flex;
   flex-direction: column;
@@ -347,8 +518,6 @@ body {
   flex: 1;
 }
 
-/* BOTONES */
-
 .modal-actions {
   display: flex;
   justify-content: flex-end;
@@ -392,7 +561,7 @@ body {
     0 0 28px rgba(0, 120, 255, 0.8);
 }
 
-/* SLIDER CAPACIDAD */
+/* SLIDER */
 
 .slider-row {
   display: flex;
@@ -414,8 +583,6 @@ body {
   color: var(--text-muted);
 }
 
-/* track neutro */
-
 #partyCapacityRange {
   -webkit-appearance: none;
   width: 100%;
@@ -424,8 +591,6 @@ body {
   background: #3a3a48;
   outline: none;
 }
-
-/* thumb: bolita fucsia neon con pulso */
 
 #partyCapacityRange::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -528,13 +693,38 @@ body {
 
 /* RESPONSIVE */
 
+@media (max-width: 900px) {
+  .map-section {
+    flex-direction: column;
+  }
+
+  .party-panel {
+    width: 100%;
+    height: 55vh;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow:
+      0 0 18px rgba(183, 64, 255, 0.7),
+      0 0 26px rgba(0, 255, 255, 0.4);
+  }
+
+  #map {
+    height: 45vh;
+  }
+
+  .fab-button {
+    bottom: 12px;
+    left: 12px;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-title {
     font-size: 2.3rem;
   }
 
   .map-section {
-    height: 75vh;
+    height: auto;
   }
 
   .modal-card {
