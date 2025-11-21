@@ -183,13 +183,27 @@ function handleCreateParty(event) {
 // ICONO NEON (FLECHA)
 // ======================
 function getMarkerIcon(party) {
+  const genre = (party.genre || "").toLowerCase();
+
+  // Paleta neon por género
+  const styles = {
+    "electrónica":  { fill: "#00eaff", stroke: "#ff00ff" },  // cyan / magenta
+    "urbana":       { fill: "#ffe600", stroke: "#ff8c00" },  // amarillo / naranja
+    "privada":      { fill: "#b300ff", stroke: "#e67bff" },  // púrpura
+    "pool party":   { fill: "#009dff", stroke: "#00eaff" },  // azul agua
+    "salsa":        { fill: "#ff3333", stroke: "#ff7777" },  // rojo suave
+  };
+
+  // Si no viene un género conocido → usa fucsia/cyan por defecto
+  const style = styles[genre] || { fill: "#ff00ff", stroke: "#00ffff" };
+
   return {
     path: "M 0,-2 L 1,0 L 0,2 L -1,0 Z",
-    fillColor: "#ff00ff",
+    fillColor: style.fill,
     fillOpacity: 1,
-    strokeColor: "#00ffff",
-    strokeWeight: 2,
-    scale: 14,
+    strokeColor: style.stroke,
+    strokeWeight: 3,
+    scale: 18,
   };
 }
 
