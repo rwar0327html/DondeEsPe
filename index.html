@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DondeEsPe — Fiestas en Tiempo Real</title>
 
-  <!-- Fuente REAL -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
 
   <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
@@ -15,7 +15,7 @@
 <body>
   <div class="app">
 
-    <!-- HERO SUPERIOR -->
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-content">
         <h1 class="hero-title">Fiestas en Tiempo Real</h1>
@@ -34,69 +34,105 @@
     <!-- MAPA -->
     <section class="map-section" id="mapSection">
       <div id="map"></div>
-
       <button id="locateMeBtn" class="fab-button">📍</button>
     </section>
 
-    <!-- FORMULARIO NEON -->
+    <!-- MODAL CREAR FIESTA -->
     <div id="partyModal" class="modal hidden">
-      <div class="modal-backdrop"></div>
-      <div class="modal-content">
-        <button class="modal-close" id="closeModalBtn">✕</button>
-        <h2>Crea tu fiesta 🎧</h2>
+      <div class="modal-overlay"></div>
 
-        <form id="partyForm">
+      <div class="modal-card">
+        <button class="modal-close" id="closeModalBtn">✕</button>
+
+        <h2 class="modal-title">Crear Fiesta 🎉</h2>
+        <p class="modal-location">Ubicación seleccionada en el mapa ✔</p>
+
+        <form id="partyForm" class="modal-form">
+
           <div class="form-group">
             <label for="partyName">Nombre de la fiesta</label>
-            <input id="partyName" required placeholder="Ej. Neon House en Barranco" />
+            <input
+              id="partyName"
+              required
+              placeholder="Ej: Tarde de Perreo en Barranco"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="partyDescription">Descripción</label>
+            <textarea
+              id="partyDescription"
+              rows="3"
+              placeholder="Cuenta qué tipo de fiesta es, dress code, música, etc."
+            ></textarea>
           </div>
 
           <div class="form-group two-cols">
             <div>
-              <label>Tipo</label>
-              <select id="partyType" required>
-                <option value="">Selecciona...</option>
-                <option value="Casa">Casa</option>
-                <option value="Discoteca">Discoteca</option>
-                <option value="Terraza">Terraza</option>
-                <option value="Playa">Playa</option>
-                <option value="Bar">Bar</option>
-              </select>
-            </div>
-
-            <div>
-              <label>Género</label>
-              <select id="partyGenre" required>
-                <option value="">Selecciona...</option>
-                <option value="Reggaetón">Reggaetón</option>
-                <option value="Electrónica">Electrónica</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group two-cols">
-            <div>
-              <label>Fecha</label>
+              <label for="partyDate">Fecha</label>
               <input type="date" id="partyDate" required />
             </div>
 
             <div>
-              <label>Hora</label>
-              <input type="time" id="partyTime" required />
+              <label for="partyZone">Zona / Distrito</label>
+              <select id="partyZone" required>
+                <option value="">Selecciona una zona</option>
+                <option value="Barranco">Barranco</option>
+                <option value="Miraflores">Miraflores</option>
+                <option value="Surco">Santiago de Surco</option>
+                <option value="San Isidro">San Isidro</option>
+                <option value="San Miguel">San Miguel</option>
+                <option value="Callao">Callao</option>
+                <option value="La Molina">La Molina</option>
+              </select>
             </div>
           </div>
 
+          <!-- SLIDER CAPACIDAD -->
           <div class="form-group">
-            <label>Personas</label>
-            <input type="number" id="partyPeople" placeholder="Ej. 40" />
+            <label for="partyCapacityRange">Capacidad mínima para activar la fiesta</label>
+            <div class="slider-row">
+              <input
+                type="range"
+                id="partyCapacityRange"
+                min="10"
+                max="300"
+                step="10"
+                value="50"
+              />
+              <span class="slider-value">
+                <span id="partyCapacityValue">50</span> personas
+              </span>
+            </div>
+            <p class="slider-help">
+              Esta es la cantidad mínima de personas para considerar la fiesta “activa”.
+            </p>
           </div>
 
+          <!-- FLYER -->
           <div class="form-group">
-            <label>Descripción</label>
-            <textarea id="partyDescription"></textarea>
+            <label for="partyFlyer">Flyer (obligatorio más adelante)</label>
+            <div class="file-input-wrapper">
+              <label class="file-label">
+                <span>Seleccionar archivo</span>
+                <input type="file" id="partyFlyer" />
+              </label>
+              <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
+            </div>
+            <p class="file-help">
+              Por ahora solo lo seleccionas, luego conectamos el almacenamiento.
+            </p>
           </div>
 
-          <button class="primary-btn">Publicar fiesta</button>
+          <!-- BOTONES -->
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="cancelBtn">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary">
+              Publicar fiesta
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -108,6 +144,5 @@
 
   <!-- GOOGLE MAPS API -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initGoogleMap" async defer></script>
-
 </body>
 </html>
