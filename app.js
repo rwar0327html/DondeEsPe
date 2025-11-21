@@ -1,159 +1,148 @@
-// ======================
-// Estado en memoria
-// ======================
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DondeEsPe — Fiestas en Tiempo Real</title>
 
-let map;
-let parties = [];
-let lastClickLatLng = null;
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet" />
 
-// ======================
-// ESTILO APPLE MAPS (el que tú mandaste EXACTO)
-// ======================
-styles: [
-  { "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#444444" }] },
-  { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#f2f2f2" }] },
-  { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] },
-  { "featureType": "road", "elementType": "all", "stylers": [{ "saturation": -100 }, { "lightness": 45 }] },
-  { "featureType": "road.highway", "elementType": "all", "stylers": [{ "visibility": "simplified" }] },
-  { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#fff6b7" }] },
-  { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#f5d76e" }] },
-  { "featureType": "road.arterial", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }] },
-  { "featureType": "road.local", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }] },
-  { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] },
-  { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#c8e6f5" }] }
-]
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-// ======================
-// Inicializar Google Maps
-// ======================
+<body>
+  <div class="app">
 
-function initGoogleMap() {
-  const lima = { lat: -12.0464, lng: -77.0428 };
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">Fiestas en Tiempo Real</h1>
+        <p class="hero-subtitle">
+          Descubre, crea y únete a las fiestas que están pasando cerca de ti.
+        </p>
+        <button class="hero-btn" id="scrollToMap">
+          Explorar mapa 🔥
+        </button>
+      </div>
 
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: lima,
-    zoom: 13,
-    disableDefaultUI: true,
-    styles: appleMapStyle, // <- Aquí tu Apple map theme 👑
-  });
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+    </section>
 
-  // Clic → abrir formulario
-  map.addListener("click", (e) => {
-    lastClickLatLng = e.latLng;
-    openPartyModal();
-  });
+    <!-- MAPA -->
+    <section class="map-section" id="mapSection">
+      <div id="map"></div>
+      <button id="locateMeBtn" class="fab-button">📍</button>
+    </section>
 
-  initUI();
-}
+    <!-- MODAL CREAR FIESTA -->
+    <div id="partyModal" class="modal hidden">
+      <div class="modal-overlay"></div>
 
-// ======================
-// UI
-// ======================
+      <div class="modal-card">
+        <button class="modal-close" id="closeModalBtn">✕</button>
 
-function initUI() {
-  const modal = document.getElementById("partyModal");
-  const closeModalBtn = document.getElementById("closeModalBtn");
-  const partyForm = document.getElementById("partyForm");
-  const locateMeBtn = document.getElementById("locateMeBtn");
+        <h2 class="modal-title">Crear Fiesta 🎉</h2>
+        <p class="modal-location">Ubicación seleccionada en el mapa ✔</p>
 
-  closeModalBtn.addEventListener("click", closePartyModal);
-  partyForm.addEventListener("submit", handleCreateParty);
+        <form id="partyForm" class="modal-form">
 
-  locateMeBtn.addEventListener("click", () => {
-    if (!navigator.geolocation) {
-      alert("Tu navegador no soporta geolocalización.");
-      return;
-    }
-    navigator.geolocation.getCurrentPosition((pos) => {
-      const myPos = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-      map.setCenter(myPos);
-      map.setZoom(16);
-    });
-  });
+          <div class="form-group">
+            <label for="partyName">Nombre de la fiesta</label>
+            <input
+              id="partyName"
+              required
+              placeholder="Ej: Tarde de Perreo en Barranco"
+            />
+          </div>
 
-  modal.addEventListener("click", (e) => {
-    if (e.target.id === "partyModal") closePartyModal();
-  });
+          <div class="form-group">
+            <label for="partyDescription">Descripción</label>
+            <textarea
+              id="partyDescription"
+              rows="3"
+              placeholder="Cuenta qué tipo de fiesta es, dress code, música, etc."
+            ></textarea>
+          </div>
 
-  document.getElementById("scrollToMap").onclick = () => {
-    document.getElementById("mapSection").scrollIntoView({ behavior: "smooth" });
-  };
-}
+          <div class="form-group two-cols">
+            <div>
+              <label for="partyDate">Fecha</label>
+              <input type="date" id="partyDate" required />
+            </div>
 
-function openPartyModal() {
-  document.getElementById("partyModal").classList.remove("hidden");
-}
+            <div>
+              <label for="partyZone">Zona / Distrito</label>
+              <select id="partyZone" required>
+                <option value="">Selecciona una zona</option>
+                <option value="Barranco">Barranco</option>
+                <option value="Miraflores">Miraflores</option>
+                <option value="Surco">Santiago de Surco</option>
+                <option value="San Isidro">San Isidro</option>
+                <option value="San Miguel">San Miguel</option>
+                <option value="Callao">Callao</option>
+                <option value="La Molina">La Molina</option>
+              </select>
+            </div>
+          </div>
 
-function closePartyModal() {
-  document.getElementById("partyModal").classList.add("hidden");
-  document.getElementById("partyForm").reset();
-  lastClickLatLng = null;
-}
+          <!-- SLIDER CAPACIDAD -->
+          <div class="form-group">
+            <label for="partyCapacityRange">Capacidad mínima para activar la fiesta</label>
+            <div class="slider-row">
+              <input
+                type="range"
+                id="partyCapacityRange"
+                min="10"
+                max="300"
+                step="10"
+                value="50"
+              />
+              <span class="slider-value">
+                <span id="partyCapacityValue">50</span> personas
+              </span>
+            </div>
+            <p class="slider-help">
+              Esta es la cantidad mínima de personas para considerar la fiesta “activa”.
+            </p>
+          </div>
 
-// ======================
-// Crear fiesta
-// ======================
+          <!-- FLYER -->
+          <div class="form-group">
+            <label for="partyFlyer">Flyer (obligatorio más adelante)</label>
+            <div class="file-input-wrapper">
+              <label class="file-label">
+                <span>Seleccionar archivo</span>
+                <input type="file" id="partyFlyer" />
+              </label>
+              <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
+            </div>
+            <p class="file-help">
+              Por ahora solo lo seleccionas, luego conectamos el almacenamiento.
+            </p>
+          </div>
 
-function handleCreateParty(event) {
-  event.preventDefault();
-  if (!lastClickLatLng) {
-    alert("Haz click en el mapa para seleccionar la ubicación.");
-    return;
-  }
-
-  const party = {
-    id: Date.now(),
-    name: document.getElementById("partyName").value.trim(),
-    type: document.getElementById("partyType").value,
-    genre: document.getElementById("partyGenre").value,
-    date: document.getElementById("partyDate").value,
-    time: document.getElementById("partyTime").value,
-    people: document.getElementById("partyPeople").value || null,
-    description: document.getElementById("partyDescription").value,
-    lat: lastClickLatLng.lat(),
-    lng: lastClickLatLng.lng(),
-  };
-
-  parties.push(party);
-
-  addPartyMarker(party);
-
-  closePartyModal();
-}
-
-// ======================
-// Marcador NEON — Google Maps
-// ======================
-
-function addPartyMarker(party) {
-  const neonMarker = {
-    path: google.maps.SymbolPath.CIRCLE,
-    fillColor: "#ff00ff",
-    fillOpacity: 1,
-    strokeColor: "#00ffff",
-    strokeWeight: 3,
-    scale: 10,
-  };
-
-  const marker = new google.maps.Marker({
-    position: { lat: party.lat, lng: party.lng },
-    map: map,
-    icon: neonMarker,
-  });
-
-  const content = `
-    <div style="color:#000; font-family:Poppins; max-width:230px;">
-      <h3 style="margin:0 0 4px;">${party.name}</h3>
-      <p><strong>Tipo:</strong> ${party.type}<br>
-      <strong>Género:</strong> ${party.genre}</p>
-      <p><strong>Fecha:</strong> ${party.date}<br>
-      <strong>Hora:</strong> ${party.time}</p>
-      ${party.people ? `<p><strong>Personas:</strong> ${party.people}+</p>` : ""}
-      ${party.description ? `<p>${party.description}</p>` : ""}
+          <!-- BOTONES -->
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="cancelBtn">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary">
+              Publicar fiesta
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-  `;
 
-  const info = new google.maps.InfoWindow({ content });
+  </div>
 
-  marker.addListener("click", () => info.open(map, marker));
-}
+  <!-- APP -->
+  <script src="app.js"></script>
+
+  <!-- GOOGLE MAPS API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initGoogleMap" async defer></script>
+</body>
+</html>
