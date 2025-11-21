@@ -31,9 +31,75 @@
       <div class="hero-glow2"></div>
     </section>
 
-    <!-- MAPA -->
+    <!-- MAPA + PANEL DE FIESTA -->
     <section class="map-section" id="mapSection">
+      <!-- PANEL FLOTANTE DE FIESTA (IZQUIERDA) -->
+      <aside id="partyDetailPanel" class="party-panel hidden">
+        <button id="closePartyPanel" class="party-panel-close">✕</button>
+
+        <div class="party-panel-flyer-wrapper">
+          <img id="partyPanelFlyer" class="party-panel-flyer" alt="Flyer de la fiesta" />
+          <div id="partyPanelFlyerFallback" class="party-panel-flyer-fallback hidden">
+            <span>Flyer no disponible</span>
+          </div>
+        </div>
+
+        <div class="party-panel-body">
+          <p class="party-panel-tag">Evento en DondeEsPe</p>
+
+          <h3 id="partyPanelName" class="party-panel-title">Nombre de la fiesta</h3>
+
+          <p class="party-panel-meta">
+            <span id="partyPanelGenre">Género</span> ·
+            <span id="partyPanelType">Tipo</span>
+          </p>
+
+          <p class="party-panel-meta">
+            <span id="partyPanelZone">Zona</span>
+          </p>
+
+          <p class="party-panel-meta">
+            <span id="partyPanelDate">Fecha</span> ·
+            <span id="partyPanelHour">Hora</span>
+          </p>
+
+          <p class="party-panel-meta" id="partyPanelAddress"></p>
+
+          <div class="party-panel-section">
+            <h4>Descripción</h4>
+            <p id="partyPanelDescription" class="party-panel-text">
+              Aquí aparecerá la descripción completa de la fiesta.
+            </p>
+          </div>
+
+          <div class="party-panel-section">
+            <h4>Organizador</h4>
+            <p id="partyPanelPhone" class="party-panel-text">
+              📞 -
+            </p>
+            <p id="partyPanelInstagram" class="party-panel-text">
+              @ -
+            </p>
+          </div>
+
+          <div class="party-panel-section">
+            <h4>Stats sociales</h4>
+            <div class="party-panel-stats">
+              <span>⭐ <span id="partyPanelAttendees">0</span> asistentes</span>
+              <span>👁 <span id="partyPanelViews">0</span> vistas</span>
+            </div>
+          </div>
+
+          <button id="partyPanelJoinBtn" class="party-panel-join">
+            Quiero ir 🔥
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAPA -->
       <div id="map"></div>
+
+      <!-- BOTÓN UBICARME -->
       <button id="locateMeBtn" class="fab-button">📍</button>
     </section>
 
@@ -54,7 +120,7 @@
             <input
               id="partyName"
               required
-              placeholder="Ej: Tarde de Perreo en Barranco"
+              placeholder="Ej: Neon x Barranco"
             />
           </div>
 
@@ -63,7 +129,7 @@
             <textarea
               id="partyDescription"
               rows="3"
-              placeholder="Cuenta qué tipo de fiesta es, dress code, música, etc."
+              placeholder="Cuenta qué habrá: DJs, dress code, ambientes, etc."
             ></textarea>
           </div>
 
@@ -74,17 +140,74 @@
             </div>
 
             <div>
+              <label for="partyTime">Hora de inicio</label>
+              <input type="time" id="partyTime" required />
+            </div>
+          </div>
+
+          <div class="form-group two-cols">
+            <div>
               <label for="partyZone">Zona / Distrito</label>
               <select id="partyZone" required>
                 <option value="">Selecciona una zona</option>
                 <option value="Barranco">Barranco</option>
                 <option value="Miraflores">Miraflores</option>
-                <option value="Surco">Santiago de Surco</option>
+                <option value="Santiago de Surco">Santiago de Surco</option>
                 <option value="San Isidro">San Isidro</option>
                 <option value="San Miguel">San Miguel</option>
                 <option value="Callao">Callao</option>
                 <option value="La Molina">La Molina</option>
               </select>
+            </div>
+
+            <div>
+              <label for="partyType">Tipo de fiesta</label>
+              <select id="partyType" required>
+                <option value="">Selecciona...</option>
+                <option value="Casa">Casa</option>
+                <option value="Terraza">Terraza</option>
+                <option value="Discoteca">Discoteca</option>
+                <option value="Playa">Playa</option>
+                <option value="Bar">Bar</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="partyGenre">Género musical</label>
+            <select id="partyGenre" required>
+              <option value="">Selecciona...</option>
+              <option value="Reggaetón">Reggaetón</option>
+              <option value="Electrónica">Electrónica</option>
+              <option value="House">House</option>
+              <option value="Techno">Techno</option>
+              <option value="Salsa">Salsa</option>
+              <option value="Urbano">Urbano</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="partyAddress">Dirección (aproximada o exacta)</label>
+            <input
+              id="partyAddress"
+              placeholder="Ej: Av. Grau 123, Barranco"
+            />
+          </div>
+
+          <div class="form-group two-cols">
+            <div>
+              <label for="partyPhone">Celular del organizador</label>
+              <input
+                id="partyPhone"
+                placeholder="Ej: 987 654 321"
+              />
+            </div>
+            <div>
+              <label for="partyInstagram">Instagram (opcional)</label>
+              <input
+                id="partyInstagram"
+                placeholder="@usuario"
+              />
             </div>
           </div>
 
@@ -111,16 +234,16 @@
 
           <!-- FLYER -->
           <div class="form-group">
-            <label for="partyFlyer">Flyer (obligatorio más adelante)</label>
+            <label for="partyFlyer">Flyer de la fiesta</label>
             <div class="file-input-wrapper">
               <label class="file-label">
                 <span>Seleccionar archivo</span>
-                <input type="file" id="partyFlyer" />
+                <input type="file" id="partyFlyer" accept="image/*" />
               </label>
               <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
             </div>
             <p class="file-help">
-              Por ahora solo lo seleccionas, luego conectamos el almacenamiento.
+              El flyer se mostrará en el panel de la fiesta cuando los usuarios hagan clic en el ícono.
             </p>
           </div>
 
