@@ -4,6 +4,7 @@
 let map;
 let parties = [];
 let lastClickLatLng = null;
+let currentParty = null;
 
 // ======================
 // ESTILO SNAZZY DARK NEON
@@ -150,7 +151,11 @@ function initUI() {
   const flyerInput = document.getElementById("partyFlyer");
   const fileNameSpan = document.getElementById("fileName");
 
-  // cerrar modal
+  const partyPanel = document.getElementById("partyDetailPanel");
+  const closePartyPanelBtn = document.getElementById("closePartyPanel");
+  const joinBtn = document.getElementById("partyPanelJoinBtn");
+
+  // cerrar modal crear fiesta
   closeModalBtn.addEventListener("click", closePartyModal);
   cancelBtn.addEventListener("click", closePartyModal);
 
@@ -173,7 +178,7 @@ function initUI() {
     });
   });
 
-  // cerrar clickeando fuera
+  // cerrar modal clickeando fuera
   modal.addEventListener("click", (e) => {
     if (e.target.id === "partyModal") closePartyModal();
   });
@@ -195,7 +200,7 @@ function initUI() {
     });
   }
 
-  // nombre de archivo
+  // nombre de archivo flyer
   if (flyerInput && fileNameSpan) {
     flyerInput.addEventListener("change", () => {
       if (flyerInput.files && flyerInput.files.length > 0) {
@@ -203,6 +208,24 @@ function initUI() {
       } else {
         fileNameSpan.textContent = "Ningún archivo seleccionado";
       }
+    });
+  }
+
+  // cerrar panel de fiesta
+  if (partyPanel && closePartyPanelBtn) {
+    closePartyPanelBtn.addEventListener("click", () => {
+      partyPanel.classList.add("hidden");
+      currentParty = null;
+    });
+  }
+
+  // botón "Quiero ir"
+  if (joinBtn) {
+    joinBtn.addEventListener("click", () => {
+      if (!currentParty) return;
+      currentParty.attendees = (currentParty.attendees || 0) + 1;
+      updatePartyPanel(currentParty);
+      // aquí en el futuro se podría abrir WhatsApp o proceso de pago
     });
   }
 }
@@ -213,10 +236,9 @@ function openPartyModal() {
 
   modal.classList.remove("hidden");
 
-  // reiniciar animación
   if (card) {
     card.classList.remove("modal-anim");
-    void card.offsetWidth; // fuerza reflow
+    void card.offsetWidth;
     card.classList.add("modal-anim");
   }
 }
@@ -254,13 +276,26 @@ function handleCreateParty(event) {
     return;
   }
 
+  const flyerInput = document.getElementById("partyFlyer");
+  const flyerFile = flyerInput && flyerInput.files ? flyerInput.files[0] : null;
+  const flyerUrl = flyerFile ? URL.createObjectURL(flyerFile) : null;
+
   const party = {
     id: Date.now(),
     name: document.getElementById("partyName").value.trim(),
     description: document.getElementById("partyDescription").value.trim(),
     date: document.getElementById("partyDate").value,
+    time: document.getElementById("partyTime").value,
     zone: document.getElementById("partyZone").value,
+    type: document.getElementById("partyType").value,
+    genre: document.getElementById("partyGenre").value,
+    address: document.getElementById("partyAddress").value.trim(),
+    phone: document.getElementById("partyPhone").value.trim(),
+    instagram: document.getElementById("partyInstagram").value.trim(),
     capacity: document.getElementById("partyCapacityRange").value,
+    flyerUrl: flyerUrl,
+    attendees: 0,
+    views: 0,
     lat: lastClickLatLng.lat(),
     lng: lastClickLatLng.lng(),
   };
@@ -271,7 +306,7 @@ function handleCreateParty(event) {
 }
 
 // ======================
-// MARCADOR NEON
+// MARCADOR NEON + PANEL
 // ======================
 function addPartyMarker(party) {
   const neonMarker = {
@@ -289,24 +324,77 @@ function addPartyMarker(party) {
     icon: neonMarker,
   });
 
-  const content = `
-    <div style="color:#fff; font-family:Poppins; max-width:230px;">
-      <h3 style="margin:0 0 4px;">${party.name}</h3>
-      ${party.zone ? `<p><strong>Zona:</strong> ${party.zone}</p>` : ""}
-      <p><strong>Fecha:</strong> ${party.date || "Por definir"}</p>
-      ${
-        party.capacity
-          ? `<p><strong>Capacidad mínima:</strong> ${party.capacity} personas</p>`
-          : ""
-      }
-      ${
-        party.description
-          ? `<p style="margin-top:6px;">${party.description}</p>`
-          : ""
-      }
-    </div>
-  `;
+  marker.addListener("click", () => {
+    // suma vista
+    party.views = (party.views || 0) + 1;
+    openPartyPanel(party);
+  });
+}
 
-  const info = new google.maps.InfoWindow({ content });
-  marker.addListener("click", () => info.open(map, marker));
+// ======================
+// PANEL DE FIESTA
+// ======================
+function openPartyPanel(party) {
+  currentParty = party;
+
+  const panel = document.getElementById("partyDetailPanel");
+  if (!panel) return;
+
+  updatePartyPanel(party);
+  panel.classList.remove("hidden");
+}
+
+function updatePartyPanel(party) {
+  // elementos
+  const flyerImg = document.getElementById("partyPanelFlyer");
+  const flyerFallback = document.getElementById("partyPanelFlyerFallback");
+
+  const nameEl = document.getElementById("partyPanelName");
+  const genreEl = document.getElementById("partyPanelGenre");
+  const typeEl = document.getElementById("partyPanelType");
+  const zoneEl = document.getElementById("partyPanelZone");
+  const dateEl = document.getElementById("partyPanelDate");
+  const hourEl = document.getElementById("partyPanelHour");
+  const addrEl = document.getElementById("partyPanelAddress");
+  const descEl = document.getElementById("partyPanelDescription");
+  const phoneEl = document.getElementById("partyPanelPhone");
+  const igEl = document.getElementById("partyPanelInstagram");
+  const attEl = document.getElementById("partyPanelAttendees");
+  const viewsEl = document.getElementById("partyPanelViews");
+
+  // flyer
+  if (party.flyerUrl && flyerImg && flyerFallback) {
+    flyerImg.src = party.flyerUrl;
+    flyerImg.classList.remove("hidden");
+    flyerFallback.classList.add("hidden");
+  } else if (flyerFallback && flyerImg) {
+    flyerImg.src = "";
+    flyerImg.classList.add("hidden");
+    flyerFallback.classList.remove("hidden");
+  }
+
+  if (nameEl) nameEl.textContent = party.name || "Fiesta sin nombre";
+  if (genreEl) genreEl.textContent = party.genre || "Género no definido";
+  if (typeEl) typeEl.textContent = party.type || "Tipo no definido";
+  if (zoneEl) zoneEl.textContent = party.zone || "Zona no definida";
+  if (dateEl) dateEl.textContent = party.date || "Fecha por definir";
+  if (hourEl) hourEl.textContent = party.time || "Hora por definir";
+  if (addrEl) addrEl.textContent = party.address ? `📍 ${party.address}` : "";
+
+  if (descEl) {
+    descEl.textContent = party.description || "Sin descripción.";
+  }
+
+  if (phoneEl) {
+    phoneEl.textContent = party.phone ? `📞 ${party.phone}` : "📞 -";
+  }
+
+  if (igEl) {
+    igEl.textContent = party.instagram
+      ? `@${party.instagram.replace(/^@/, "")}`
+      : "@ -";
+  }
+
+  if (attEl) attEl.textContent = party.attendees || 0;
+  if (viewsEl) viewsEl.textContent = party.views || 0;
 }
