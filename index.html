@@ -31,77 +31,87 @@
       <div class="hero-glow2"></div>
     </section>
 
-    <!-- MAPA + PANEL DE FIESTA -->
-    <section class="map-section" id="mapSection">
-      <!-- PANEL FLOTANTE DE FIESTA (IZQUIERDA) -->
-      <aside id="partyDetailPanel" class="party-panel hidden">
-        <button id="closePartyPanel" class="party-panel-close">✕</button>
+  <!-- MAPA + PANEL DE FIESTA -->
+<section class="map-section" id="mapSection">
 
-        <div class="party-panel-flyer-wrapper">
-          <img id="partyPanelFlyer" class="party-panel-flyer" alt="Flyer de la fiesta" />
-          <div id="partyPanelFlyerFallback" class="party-panel-flyer-fallback hidden">
-            <span>Flyer no disponible</span>
-          </div>
+  <!-- PANEL FLOTANTE DE FIESTA -->
+  <aside id="partyDetailPanel" class="party-panel hidden">
+    <button id="closePartyPanel" class="party-panel-close">✕</button>
+
+    <div class="party-panel-flyer-wrapper">
+      <img id="partyPanelFlyer" class="party-panel-flyer" alt="Flyer de la fiesta" />
+      <div id="partyPanelFlyerFallback" class="party-panel-flyer-fallback hidden">
+        <span>Flyer no disponible</span>
+      </div>
+    </div>
+
+    <div class="party-panel-body">
+      <p class="party-panel-tag">Evento en DondeEsPe</p>
+
+      <h3 id="partyPanelName" class="party-panel-title">Nombre de la fiesta</h3>
+
+      <p class="party-panel-meta">
+        <span id="partyPanelGenre">Género</span> ·
+        <span id="partyPanelType">Tipo</span>
+      </p>
+
+      <p class="party-panel-meta">
+        <span id="partyPanelZone">Zona</span>
+      </p>
+
+      <p class="party-panel-meta">
+        <span id="partyPanelDate">Fecha</span> ·
+        <span id="partyPanelHour">Hora</span>
+      </p>
+
+      <p id="partyPanelAddress" class="party-panel-meta"></p>
+
+      <!-- DESCRIPCIÓN -->
+      <div class="party-panel-section">
+        <h4>Descripción</h4>
+        <p id="partyPanelDescription" class="party-panel-text">
+          Aquí aparecerá la descripción completa de la fiesta.
+        </p>
+      </div>
+
+      <!-- ORGANIZADOR -->
+      <div class="party-panel-section">
+        <h4>Organizador</h4>
+        <p id="partyPanelPhone" class="party-panel-text">📞 -</p>
+        <p id="partyPanelInstagram" class="party-panel-text">@ -</p>
+      </div>
+
+      <!-- STATS -->
+      <div class="party-panel-section">
+        <h4>Stats sociales</h4>
+        <div class="party-panel-stats">
+          <span>⭐ <span id="partyPanelAttendees">0</span> asistentes</span>
+          <span>👁 <span id="partyPanelViews">0</span> vistas</span>
         </div>
+      </div>
 
-        <div class="party-panel-body">
-          <p class="party-panel-tag">Evento en DondeEsPe</p>
+      <!-- BOTÓN QUIERO IR -->
+      <button id="partyPanelJoinBtn" class="party-panel-join">
+        Quiero ir 🔥
+      </button>
 
-          <h3 id="partyPanelName" class="party-panel-title">Nombre de la fiesta</h3>
+      <!-- BOTÓN EDITAR (solo para el creador en futuro) -->
+      <button id="editPartyBtn" class="party-panel-edit hidden">
+        Editar fiesta ✏️
+      </button>
+    </div>
+  </aside>
 
-          <p class="party-panel-meta">
-            <span id="partyPanelGenre">Género</span> ·
-            <span id="partyPanelType">Tipo</span>
-          </p>
+  <!-- MAPA -->
+  <div id="map"></div>
 
-          <p class="party-panel-meta">
-            <span id="partyPanelZone">Zona</span>
-          </p>
+  <!-- BOTÓN UBICARME -->
+  <button id="locateMeBtn" class="fab-button">📍</button>
 
-          <p class="party-panel-meta">
-            <span id="partyPanelDate">Fecha</span> ·
-            <span id="partyPanelHour">Hora</span>
-          </p>
+  <!-- BOTÓN DE TEMA CLARO/OSCURO -->
+  <button id="themeToggle" class="theme-toggle">☀️</button>
 
-          <p class="party-panel-meta" id="partyPanelAddress"></p>
-
-          <div class="party-panel-section">
-            <h4>Descripción</h4>
-            <p id="partyPanelDescription" class="party-panel-text">
-              Aquí aparecerá la descripción completa de la fiesta.
-            </p>
-          </div>
-
-          <div class="party-panel-section">
-            <h4>Organizador</h4>
-            <p id="partyPanelPhone" class="party-panel-text">
-              📞 -
-            </p>
-            <p id="partyPanelInstagram" class="party-panel-text">
-              @ -
-            </p>
-          </div>
-
-          <div class="party-panel-section">
-            <h4>Stats sociales</h4>
-            <div class="party-panel-stats">
-              <span>⭐ <span id="partyPanelAttendees">0</span> asistentes</span>
-              <span>👁 <span id="partyPanelViews">0</span> vistas</span>
-            </div>
-          </div>
-
-          <button id="partyPanelJoinBtn" class="party-panel-join">
-            Quiero ir 🔥
-          </button>
-        </div>
-      </aside>
-
-      <!-- MAPA -->
-      <div id="map"></div>
-
-      <!-- BOTÓN UBICARME -->
-      <button id="locateMeBtn" class="fab-button">📍</button>
-    </section>
+</section>
 
     <!-- MODAL CREAR FIESTA -->
     <div id="partyModal" class="modal hidden">
