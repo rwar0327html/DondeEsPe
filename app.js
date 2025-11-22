@@ -5,30 +5,122 @@ let map;
 let parties = [];
 let lastClickLatLng = null;
 let currentParty = null;
+let currentTheme = "dark"; // se ajusta en initTheme()
 
 // ======================
-// ESTILO SNAZZY DARK NEON
+// ESTILO SNAZZY DARK NEON (MODO OSCURO)
 // ======================
 const darkNeonStyle = [
   { featureType: "all", elementType: "labels", stylers: [{ visibility: "on" }, { hue: "#ff0000" }] },
   { featureType: "all", elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] },
   { featureType: "all", elementType: "labels.text.stroke", stylers: [{ color: "#000000" }, { lightness: 13 }] },
-  { featureType: "all", elementType: "labels.icon", stylers: [
-      { hue: "#ff0000" }, { saturation: "100" }, { lightness: "5" }, { gamma: "0.70" }, { weight: "7.95" }, { invert_lightness: true }
-    ]
+  {
+    featureType: "all",
+    elementType: "labels.icon",
+    stylers: [
+      { hue: "#ff0000" },
+      { saturation: "100" },
+      { lightness: "5" },
+      { gamma: "0.70" },
+      { weight: "7.95" },
+      { invert_lightness: true },
+    ],
   },
   { featureType: "administrative", elementType: "geometry.fill", stylers: [{ color: "#000000" }] },
-  { featureType: "administrative", elementType: "geometry.stroke", stylers: [{ color: "#144b53" }, { lightness: 14 }, { weight: 1.4 }] },
+  {
+    featureType: "administrative",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#144b53" }, { lightness: 14 }, { weight: 1.4 }],
+  },
   { featureType: "landscape", elementType: "all", stylers: [{ color: "#08304b" }] },
-  { featureType: "poi", elementType: "geometry", stylers: [{ color: "#0c4152" }, { lightness: 5 }] },
+  {
+    featureType: "poi",
+    elementType: "geometry",
+    stylers: [{ color: "#0c4152" }, { lightness: 5 }],
+  },
   { featureType: "road.highway", elementType: "geometry.fill", stylers: [{ color: "#000000" }] },
-  { featureType: "road.highway", elementType: "geometry.stroke", stylers: [{ color: "#0b434f" }, { lightness: 25 }] },
+  {
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#0b434f" }, { lightness: 25 }],
+  },
   { featureType: "road.arterial", elementType: "geometry.fill", stylers: [{ color: "#000000" }] },
-  { featureType: "road.arterial", elementType: "geometry.stroke", stylers: [{ color: "#0b3d51" }, { lightness: 16 }] },
+  {
+    featureType: "road.arterial",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#0b3d51" }, { lightness: 16 }],
+  },
   { featureType: "road.local", elementType: "geometry", stylers: [{ color: "#000000" }] },
   { featureType: "transit", elementType: "all", stylers: [{ color: "#146474" }] },
-  { featureType: "water", elementType: "all", stylers: [{ color: "#021019" }] }
+  { featureType: "water", elementType: "all", stylers: [{ color: "#021019" }] },
 ];
+
+// ======================
+// ESTILO CLARO NEUTRO (MODO CLARO TIPO SPOTIFY/APPLE)
+// ======================
+const lightAppleStyle = [
+  { featureType: "all", elementType: "labels.text.fill", stylers: [{ color: "#4a4a4a" }] },
+  { featureType: "all", elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+  { featureType: "administrative", elementType: "geometry", stylers: [{ color: "#e0e0e0" }] },
+  { featureType: "landscape", elementType: "geometry", stylers: [{ color: "#f5f5f5" }] },
+  { featureType: "poi", elementType: "geometry", stylers: [{ color: "#eeeeee" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#ffffff" }] },
+  { featureType: "road.arterial", elementType: "geometry.stroke", stylers: [{ color: "#dadada" }] },
+  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#f0f0f0" }] },
+  { featureType: "transit", elementType: "geometry", stylers: [{ color: "#e3e3e3" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#d2e7ff" }] },
+];
+
+// ======================
+// TEMA (CLARO / OSCURO)
+// ======================
+
+function applyTheme(theme) {
+  currentTheme = theme;
+  const body = document.body;
+
+  // Clase en el body
+  if (theme === "light") {
+    body.classList.add("theme-light");
+  } else {
+    body.classList.remove("theme-light");
+  }
+
+  // Cambiar estilo del mapa
+  if (map) {
+    const styleToUse = theme === "light" ? lightAppleStyle : darkNeonStyle;
+    map.setOptions({ styles: styleToUse });
+  }
+
+  // Actualizar icono del botón
+  const themeBtn = document.getElementById("themeToggle");
+  if (themeBtn) {
+    themeBtn.textContent = theme === "light" ? "🌙" : "☀️";
+  }
+
+  // Guardar preferencia
+  localStorage.setItem("dondeespe_theme", theme);
+}
+
+function initTheme() {
+  const saved = localStorage.getItem("dondeespe_theme");
+
+  let initial = "dark";
+
+  if (saved === "light" || saved === "dark") {
+    // Si el usuario ya eligió antes, respetamos eso
+    initial = saved;
+  } else {
+    // Si no hay preferencia, usamos el modo del sistema (opción C)
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      initial = "light";
+    } else {
+      initial = "dark";
+    }
+  }
+
+  applyTheme(initial);
+}
 
 // ======================
 // INICIALIZAR GOOGLE MAPS
@@ -40,7 +132,7 @@ function initGoogleMap() {
     center: lima,
     zoom: 13,
     disableDefaultUI: true,
-    styles: darkNeonStyle,
+    styles: darkNeonStyle, // se ajusta luego por initTheme()
   });
 
   map.addListener("click", (e) => {
@@ -49,6 +141,7 @@ function initGoogleMap() {
   });
 
   initUI();
+  initTheme(); // aplica tema (y estilo de mapa) según sistema o preferencia guardada
 }
 
 // ======================
@@ -70,7 +163,8 @@ function initUI() {
 
   const partyPanel = document.getElementById("partyDetailPanel");
   const closePartyPanelBtn = document.getElementById("closePartyPanel");
-  const joinBtn = document.getElementById("partyPanelJoinBtn");
+
+  const themeToggleBtn = document.getElementById("themeToggle");
 
   // cerrar modal crear fiesta
   closeModalBtn.addEventListener("click", closePartyModal);
@@ -118,7 +212,9 @@ function initUI() {
   // nombre de archivo flyer
   if (flyerInput && fileNameSpan) {
     flyerInput.addEventListener("change", () => {
-      fileNameSpan.textContent = flyerInput.files?.length ? flyerInput.files[0].name : "Ningún archivo seleccionado";
+      fileNameSpan.textContent = flyerInput.files?.length
+        ? flyerInput.files[0].name
+        : "Ningún archivo seleccionado";
     });
   }
 
@@ -127,6 +223,14 @@ function initUI() {
     closePartyPanelBtn.addEventListener("click", () => {
       partyPanel.classList.add("hidden");
       currentParty = null;
+    });
+  }
+
+  // Toggle de tema (claro / oscuro)
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", () => {
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      applyTheme(nextTheme);
     });
   }
 }
@@ -180,18 +284,18 @@ function handleCreateParty(event) {
 }
 
 // ======================
-// ICONO NEON (FLECHA)
+// ICONO NEON POR GÉNERO
 // ======================
 function getMarkerIcon(party) {
   const genre = (party.genre || "").toLowerCase();
 
   // Paleta neon por género
   const styles = {
-    "electrónica":  { fill: "#00eaff", stroke: "#ff00ff" },  // cyan / magenta
-    "urbana":       { fill: "#ffe600", stroke: "#ff8c00" },  // amarillo / naranja
-    "privada":      { fill: "#b300ff", stroke: "#e67bff" },  // púrpura
-    "pool party":   { fill: "#009dff", stroke: "#00eaff" },  // azul agua
-    "salsa":        { fill: "#ff3333", stroke: "#ff7777" },  // rojo suave
+    "electrónica": { fill: "#00eaff", stroke: "#ff00ff" }, // cyan / magenta
+    urbana: { fill: "#ffe600", stroke: "#ff8c00" }, // amarillo / naranja
+    privada: { fill: "#b300ff", stroke: "#e67bff" }, // púrpura
+    "pool party": { fill: "#009dff", stroke: "#00eaff" }, // azul agua
+    salsa: { fill: "#ff3333", stroke: "#ff7777" }, // rojo suave
   };
 
   // Si no viene un género conocido → usa fucsia/cyan por defecto
@@ -241,10 +345,16 @@ function updatePartyPanel(party) {
   document.getElementById("partyPanelZone").textContent = party.zone;
   document.getElementById("partyPanelDate").textContent = party.date;
   document.getElementById("partyPanelHour").textContent = party.time;
-  document.getElementById("partyPanelAddress").textContent = party.address ? `📍 ${party.address}` : "";
+  document.getElementById("partyPanelAddress").textContent = party.address
+    ? `📍 ${party.address}`
+    : "";
   document.getElementById("partyPanelDescription").textContent = party.description;
-  document.getElementById("partyPanelPhone").textContent = party.phone ? `📞 ${party.phone}` : "📞 -";
-  document.getElementById("partyPanelInstagram").textContent = party.instagram ? `@${party.instagram}` : "@ -";
+  document.getElementById("partyPanelPhone").textContent = party.phone
+    ? `📞 ${party.phone}`
+    : "📞 -";
+  document.getElementById("partyPanelInstagram").textContent = party.instagram
+    ? `@${party.instagram}`
+    : "@ -";
 
   document.getElementById("partyPanelAttendees").textContent = party.attendees;
   document.getElementById("partyPanelViews").textContent = party.views;
