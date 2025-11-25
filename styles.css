@@ -1,5 +1,5 @@
 /* ============================================================
-   🔥 DONDEESPE — PREMIUM NEON UI
+   🔥 DONDEESPE — PREMIUM NEON UI (FULL CSS FINAL)
    ============================================================ */
 
 :root {
@@ -13,7 +13,6 @@
 }
 
 /* RESET */
-
 *,
 *::before,
 *::after {
@@ -175,26 +174,25 @@ body {
 }
 
 /* =========================================
-   📊 BARRA DE PESTAÑAS TIPO SNAZZY MAPS
+   📊 BARRA DE PESTAÑAS (SNAZZY MAPS STYLE)
    ========================================= */
 
 .tabs-section {
   width: 100%;
-  padding: 10px 16px 6px;
-  background: rgba(5, 5, 15, 0.96);
+  padding: 12px 18px 6px;
+  background: rgba(5, 5, 15, 0.92);
   backdrop-filter: blur(18px);
-  border-top: 1px solid rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 999;
 }
 
 .tabs-container {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
   scrollbar-width: none;
 }
 
@@ -204,70 +202,66 @@ body {
 
 .map-tab {
   flex-shrink: 0;
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: radial-gradient(circle at top left, rgba(255, 0, 255, 0.16), rgba(0, 0, 0, 0.9));
-  color: #f5f5ff;
-  font-size: 0.86rem;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.01em;
+  white-space: nowrap;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  transition: background 0.22s ease, transform 0.15s ease, box-shadow 0.22s ease, border-color 0.22s ease, color 0.22s ease;
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: all 0.2s ease;
 }
 
 .map-tab:hover {
+  background: rgba(255, 0, 255, 0.15);
+  border-color: rgba(255, 0, 255, 0.35);
   transform: translateY(-1px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
-  border-color: rgba(0, 255, 255, 0.4);
 }
 
 .map-tab.active {
   background: linear-gradient(135deg, #00eaff, #ff00ff);
   color: #050509;
   border-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 22px rgba(255, 0, 255, 0.45);
+  box-shadow: 0 0 16px rgba(255, 0, 255, 0.4),
+              0 0 22px rgba(0, 234, 255, 0.35);
 }
 
-/* Texto debajo de la barra de pestañas */
+/* Texto inferior */
 .tabs-info {
   margin-top: 6px;
   font-size: 0.78rem;
-  color: #b4b4d4;
-  padding-left: 4px;
+  color: #b9b9cc;
+  padding-left: 6px;
 }
 
-/* Tema claro: fondo neutro y tabs más limpias */
+/* ——— LIGHT MODE ——— */
+
 body.theme-light .tabs-section {
   background: rgba(245, 245, 247, 0.96);
-  border-top: 1px solid rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 body.theme-light .map-tab {
   background: rgba(255, 255, 255, 0.9);
-  color: #222222;
-  border-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  color: #222;
+  border-color: rgba(0, 0, 0, 0.1);
 }
 
 body.theme-light .map-tab.active {
   background: linear-gradient(135deg, #00eaff, #7b61ff);
-  color: #050509;
-  border-color: rgba(0, 0, 0, 0.18);
-  box-shadow: 0 0 20px rgba(0, 234, 255, 0.45);
+  color: #fff;
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 12px rgba(0, 234, 255, 0.35);
 }
 
 body.theme-light .tabs-info {
-  color: #555555;
+  color: #555;
 }
 
 /* =========================================
-   PANEL DE FIESTA (LADO IZQUIERDO)
+   PANEL DE FIESTA
    ========================================= */
 
 .party-panel {
@@ -361,10 +355,6 @@ body.theme-light .tabs-info {
   background: radial-gradient(circle, rgba(255,0,255,0.26), rgba(0,0,0,0.9));
 }
 
-.party-panel-flyer-fallback.hidden {
-  display: none;
-}
-
 .party-panel-body {
   flex: 1;
   overflow-y: auto;
@@ -439,7 +429,7 @@ body.theme-light .tabs-info {
 }
 
 /* =========================================
-   MODAL CREAR FIESTA (el que ya tenías)
+   MODAL CREAR FIESTA
    ========================================= */
 
 .modal {
@@ -480,43 +470,6 @@ body.theme-light .tabs-info {
     0 0 38px rgba(0, 255, 255, 0.55);
 }
 
-.modal-anim {
-  animation:
-    modalIn 0.35s ease-out,
-    glowPulse 2.6s ease-in-out infinite 0.35s;
-}
-
-@keyframes modalIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.88);
-    box-shadow: 0 0 10px rgba(183, 64, 255, 0.2);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.03),
-      0 0 24px rgba(183, 64, 255, 0.7),
-      0 0 38px rgba(0, 255, 255, 0.55);
-  }
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.04),
-      0 0 22px rgba(183, 64, 255, 0.7),
-      0 0 32px rgba(0, 255, 255, 0.5);
-  }
-  50% {
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.06),
-      0 0 32px rgba(183, 64, 255, 0.95),
-      0 0 42px rgba(0, 255, 255, 0.8);
-  }
-}
-
 .modal-close {
   position: absolute;
   top: 10px;
@@ -532,316 +485,12 @@ body.theme-light .tabs-info {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-
-.modal-close:hover {
-  background: rgba(255, 0, 255, 0.7);
-  transform: scale(1.05);
-}
-
-.modal-title {
-  font-size: 1.7rem;
-  font-weight: 800;
-  margin-bottom: 2px;
-}
-
-.modal-location {
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-}
-
-.modal-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 4px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group label {
-  font-size: 0.9rem;
-  color: #e6e6ff;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 9px 11px;
-  background: rgba(9, 9, 18, 0.96);
-  color: #fff;
-  font-size: 0.9rem;
-  outline: none;
-  transition: border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.form-group textarea {
-  resize: vertical;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: #6b6b80;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--accent-neon-cyan);
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.55);
-  background: rgba(12, 12, 28, 0.98);
-}
-
-.two-cols {
-  display: flex;
-  gap: 10px;
-}
-
-.two-cols > div {
-  flex: 1;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-.btn-secondary,
-.btn-primary {
-  padding: 9px 16px;
-  border-radius: 999px;
-  border: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.06);
-  color: #e7e7f7;
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateY(-1px);
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #00f5ff, #00b8ff);
-  color: #000;
-  box-shadow:
-    0 0 16px rgba(0, 245, 255, 0.85),
-    0 0 22px rgba(0, 120, 255, 0.6);
-}
-
-.btn-primary:hover {
-  transform: translateY(-1px) scale(1.01);
-  box-shadow:
-    0 0 22px rgba(0, 245, 255, 1),
-    0 0 28px rgba(0, 120, 255, 0.8);
-}
-
-/* SLIDER */
-
-.slider-row {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.slider-value {
-  min-width: 86px;
-  text-align: right;
-  font-weight: 600;
-  color: #f8f8ff;
-  font-size: 0.9rem;
-}
-
-.slider-help {
-  margin-top: 4px;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-#partyCapacityRange {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: 999px;
-  background: #3a3a48;
-  outline: none;
-}
-
-#partyCapacityRange::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 2px solid var(--accent-neon-pink);
-  box-shadow:
-    0 0 10px rgba(255, 0, 255, 0.95),
-    0 0 18px rgba(255, 0, 255, 0.8);
-  cursor: pointer;
-  animation: thumbPulse 1.4s ease-in-out infinite;
-}
-
-#partyCapacityRange::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 2px solid var(--accent-neon-pink);
-  box-shadow:
-    0 0 10px rgba(255, 0, 255, 0.95),
-    0 0 18px rgba(255, 0, 255, 0.8);
-  cursor: pointer;
-  animation: thumbPulse 1.4s ease-in-out infinite;
-}
-
-#partyCapacityRange::-moz-range-track {
-  height: 6px;
-  border-radius: 999px;
-  background: #3a3a48;
-}
-
-@keyframes thumbPulse {
-  0%, 100% {
-    box-shadow:
-      0 0 8px rgba(255, 0, 255, 0.7),
-      0 0 14px rgba(255, 0, 255, 0.55);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow:
-      0 0 14px rgba(255, 0, 255, 1),
-      0 0 24px rgba(255, 0, 255, 0.95);
-    transform: scale(1.08);
-  }
-}
-
-/* FILE INPUT */
-
-.file-input-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(10, 10, 22, 0.96);
-  border-radius: 12px;
-  padding: 8px 10px;
-  border: 1px dashed rgba(255, 255, 255, 0.18);
-}
-
-.file-label {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 7px 14px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.09);
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.file-label span {
-  pointer-events: none;
-}
-
-.file-label input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.file-name {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.file-help {
-  margin-top: 4px;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 900px) {
-  .map-section {
-    flex-direction: column;
-  }
-
-  .party-panel {
-    width: 100%;
-    height: 55vh;
-    border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow:
-      0 0 18px rgba(183, 64, 255, 0.7),
-      0 0 26px rgba(0, 255, 255, 0.4);
-  }
-
-  #map {
-    height: 45vh;
-  }
-
-  .fab-button {
-    bottom: 12px;
-    left: 12px;
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.3rem;
-  }
-
-  .map-section {
-    height: auto;
-  }
-
-  .modal-card {
-    padding: 18px 16px 20px;
-  }
-
-  .two-cols {
-    flex-direction: column;
-  }
-
-  .modal-actions {
-    flex-direction: column-reverse;
-    align-items: stretch;
-  }
-
-  .btn-secondary,
-  .btn-primary {
-    width: 100%;
-    text-align: center;
-  }
 }
 
 /* =========================================
-   🌗 TOGGLE DE TEMA (CLARO / OSCURO)
+   🌗 TOGGLE DE TEMA
    ========================================= */
+
 .theme-toggle {
   position: fixed;
   top: 20px;
@@ -862,15 +511,8 @@ body.theme-light .tabs-info {
   transition: 0.25s ease;
 }
 
-.btn-secondary,
-  .btn-primary {
-    width: 100%;
-    text-align: center;
-  }
-
 /* =========================================
-   🌞 TEMA CLARO (BASE NEUTRA + NEON)
-   Cuando el body tenga la clase .theme-light
+   🌞 TEMA CLARO
    ========================================= */
 
 body.theme-light {
@@ -878,70 +520,51 @@ body.theme-light {
   color: #111111;
 }
 
-/* Hero en modo claro: más suave, tipo Spotify */
 body.theme-light .hero {
   background: radial-gradient(circle at top left, #ffe6ff 0, #f5f5ff 35%, #e6f7ff 100%);
-  animation: none; /* puedes quitar esto si quieres mantener el movimiento */
+  animation: none;
   color: #111111;
 }
 
-body.theme-light .hero-title {
-  color: #111111;
-  text-shadow: none;
-}
-
-body.theme-light .hero-subtitle {
-  color: #333333;
-}
-
-body.theme-light .hero-btn {
-  background: #111111;
-  color: #ffffff;
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.3);
-}
-
-/* Fondo del área del mapa en modo claro */
 body.theme-light .map-section {
   background: #e5e5ea;
 }
 
-/* Panel de fiesta claro: estilo tarjeta premium */
 body.theme-light .party-panel {
   background: rgba(255, 255, 255, 0.96);
   color: #111111;
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* Textos dentro del panel en modo claro */
-body.theme-light .party-panel-title,
-body.theme-light .party-panel-text,
-body.theme-light .party-panel-meta,
-body.theme-light .party-panel-section h4 {
-  color: #111111;
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 900px) {
+  .map-section {
+    flex-direction: column;
+  }
+
+  .party-panel {
+    width: 100%;
+    height: 55vh;
+  }
+
+  #map {
+    height: 45vh;
+  }
+
+  .fab-button {
+    bottom: 12px;
+    left: 12px;
+  }
 }
 
-/* Botón "Quiero ir" en modo claro: acento neon limpio */
-body.theme-light .party-panel-join {
-  background: linear-gradient(135deg, #00eaff, #7b61ff);
-  color: #050509;
-  box-shadow: 0 0 18px rgba(0, 234, 255, 0.6);
-}
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.3rem;
+  }
 
-/* Botón "Quiero ir" bloqueado en tema claro */
-body.theme-light .party-panel-join.already-joined {
-  background: #bbbbbb !important;
-  color: #555555;
+  .map-section {
+    height: auto;
+  }
 }
-
-/* Botón de tema en modo claro cambia fondo un poco */
-body.theme-light .theme-toggle {
-  background: rgba(255, 255, 255, 0.95);
-  color: #444444;
-}
-
-/* Si tienes otros backgrounds muy oscuros, aquí puedes suavizarlos */
-body.theme-light .app {
-  background: transparent;
-}
-
