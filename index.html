@@ -22,6 +22,7 @@
         <p class="hero-subtitle">
           Descubre, crea y únete a las fiestas que están pasando cerca de ti.
         </p>
+
         <button class="hero-btn" id="scrollToMap">
           Explorar mapa 🔥
         </button>
@@ -31,24 +32,16 @@
       <div class="hero-glow2"></div>
     </section>
 
-        <!-- TABS DE NAVEGACIÓN SOBRE EL MAPA -->
+    <!-- =============================
+         TABS ESTILO SNAZZY MAPS
+    ============================== -->
     <section class="tabs-section">
       <div class="tabs-container">
-        <button class="map-tab active" data-tab="live">
-          🔴 Fiestas activas ahora
-        </button>
-        <button class="map-tab" data-tab="hot">
-          🔥 Zonas calientes
-        </button>
-        <button class="map-tab" data-tab="featured">
-          ⭐ Destacadas
-        </button>
-        <button class="map-tab" data-tab="today">
-          📅 Hoy
-        </button>
-        <button class="map-tab" data-tab="promos">
-          🥂 Promos & tragos
-        </button>
+        <button class="map-tab active" data-tab="live">🔴 Fiestas activas ahora</button>
+        <button class="map-tab" data-tab="hot">🔥 Zonas calientes</button>
+        <button class="map-tab" data-tab="featured">⭐ Destacadas</button>
+        <button class="map-tab" data-tab="today">📅 Hoy</button>
+        <button class="map-tab" data-tab="promos">🥂 Promos & tragos</button>
       </div>
 
       <div class="tabs-info" id="tabInfoText">
@@ -56,89 +49,90 @@
       </div>
     </section>
 
-  <!-- MAPA + PANEL DE FIESTA -->
-<section class="map-section" id="mapSection">
+    <!-- =============================
+         MAPA + PANEL DE FIESTA
+    ============================== -->
+    <section class="map-section" id="mapSection">
 
-  <!-- PANEL FLOTANTE DE FIESTA -->
-  <aside id="partyDetailPanel" class="party-panel hidden">
-    <button id="closePartyPanel" class="party-panel-close">✕</button>
+      <!-- PANEL DE FIESTA -->
+      <aside id="partyDetailPanel" class="party-panel hidden">
+        <button id="closePartyPanel" class="party-panel-close">✕</button>
 
-    <div class="party-panel-flyer-wrapper">
-      <img id="partyPanelFlyer" class="party-panel-flyer" alt="Flyer de la fiesta" />
-      <div id="partyPanelFlyerFallback" class="party-panel-flyer-fallback hidden">
-        <span>Flyer no disponible</span>
-      </div>
-    </div>
-
-    <div class="party-panel-body">
-      <p class="party-panel-tag">Evento en DondeEsPe</p>
-
-      <h3 id="partyPanelName" class="party-panel-title">Nombre de la fiesta</h3>
-
-      <p class="party-panel-meta">
-        <span id="partyPanelGenre">Género</span> ·
-        <span id="partyPanelType">Tipo</span>
-      </p>
-
-      <p class="party-panel-meta">
-        <span id="partyPanelZone">Zona</span>
-      </p>
-
-      <p class="party-panel-meta">
-        <span id="partyPanelDate">Fecha</span> ·
-        <span id="partyPanelHour">Hora</span>
-      </p>
-
-      <p id="partyPanelAddress" class="party-panel-meta"></p>
-
-      <!-- DESCRIPCIÓN -->
-      <div class="party-panel-section">
-        <h4>Descripción</h4>
-        <p id="partyPanelDescription" class="party-panel-text">
-          Aquí aparecerá la descripción completa de la fiesta.
-        </p>
-      </div>
-
-      <!-- ORGANIZADOR -->
-      <div class="party-panel-section">
-        <h4>Organizador</h4>
-        <p id="partyPanelPhone" class="party-panel-text">📞 -</p>
-        <p id="partyPanelInstagram" class="party-panel-text">@ -</p>
-      </div>
-
-      <!-- STATS -->
-      <div class="party-panel-section">
-        <h4>Stats sociales</h4>
-        <div class="party-panel-stats">
-          <span>⭐ <span id="partyPanelAttendees">0</span> asistentes</span>
-          <span>👁 <span id="partyPanelViews">0</span> vistas</span>
+        <div class="party-panel-flyer-wrapper">
+          <img id="partyPanelFlyer" class="party-panel-flyer" alt="Flyer de la fiesta" />
+          <div id="partyPanelFlyerFallback" class="party-panel-flyer-fallback hidden">
+            <span>Flyer no disponible</span>
+          </div>
         </div>
-      </div>
 
-      <!-- BOTÓN QUIERO IR -->
-      <button id="partyPanelJoinBtn" class="party-panel-join">
-        Quiero ir 🔥
-      </button>
+        <div class="party-panel-body">
+          <p class="party-panel-tag">Evento en DondeEsPe</p>
 
-      <!-- BOTÓN EDITAR (solo para el creador en futuro) -->
-      <button id="editPartyBtn" class="party-panel-edit hidden">
-        Editar fiesta ✏️
-      </button>
-    </div>
-  </aside>
+          <h3 id="partyPanelName" class="party-panel-title">Nombre de la fiesta</h3>
 
-  <!-- MAPA -->
-  <div id="map"></div>
+          <p class="party-panel-meta">
+            <span id="partyPanelGenre">Género</span> ·
+            <span id="partyPanelType">Tipo</span>
+          </p>
 
-  <!-- BOTÓN UBICARME -->
-  <button id="locateMeBtn" class="fab-button">📍</button>
+          <p class="party-panel-meta">
+            <span id="partyPanelZone">Zona</span>
+          </p>
 
-  <!-- BOTÓN DE TEMA CLARO/OSCURO -->
-  <button id="themeToggle" class="theme-toggle">☀️</button>
+          <p class="party-panel-meta">
+            <span id="partyPanelDate">Fecha</span> ·
+            <span id="partyPanelHour">Hora</span>
+          </p>
 
-</section>
+          <p id="partyPanelAddress" class="party-panel-meta"></p>
 
-    <!-- MODAL CREAR FIESTA -->
+          <!-- DESCRIPCIÓN -->
+          <div class="party-panel-section">
+            <h4>Descripción</h4>
+            <p id="partyPanelDescription" class="party-panel-text">
+              Aquí aparecerá la descripción completa de la fiesta.
+            </p>
+          </div>
+
+          <!-- ORGANIZADOR -->
+          <div class="party-panel-section">
+            <h4>Organizador</h4>
+            <p id="partyPanelPhone" class="party-panel-text">📞 -</p>
+            <p id="partyPanelInstagram" class="party-panel-text">@ -</p>
+          </div>
+
+          <!-- STATS -->
+          <div class="party-panel-section">
+            <h4>Stats sociales</h4>
+            <div class="party-panel-stats">
+              <span>⭐ <span id="partyPanelAttendees">0</span> asistentes</span>
+              <span>👁 <span id="partyPanelViews">0</span> vistas</span>
+            </div>
+          </div>
+
+          <!-- BOTÓN QUIERO IR -->
+          <button id="partyPanelJoinBtn" class="party-panel-join">Quiero ir 🔥</button>
+
+          <!-- BOTÓN EDITAR (solo creador) -->
+          <button id="editPartyBtn" class="party-panel-edit hidden">
+            Editar fiesta ✏️
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAPA -->
+      <div id="map"></div>
+
+      <!-- BOTÓN UBICARME -->
+      <button id="locateMeBtn" class="fab-button">📍</button>
+
+      <!-- BOTÓN DE TEMA -->
+      <button id="themeToggle" class="theme-toggle">☀️</button>
+    </section>
+
+    <!-- =============================
+         MODAL CREAR FIESTA
+    ============================== -->
     <div id="partyModal" class="modal hidden">
       <div class="modal-overlay"></div>
 
@@ -152,20 +146,12 @@
 
           <div class="form-group">
             <label for="partyName">Nombre de la fiesta</label>
-            <input
-              id="partyName"
-              required
-              placeholder="Ej: Neon x Barranco"
-            />
+            <input id="partyName" required placeholder="Ej: Neon x Barranco" />
           </div>
 
           <div class="form-group">
             <label for="partyDescription">Descripción</label>
-            <textarea
-              id="partyDescription"
-              rows="3"
-              placeholder="Cuenta qué habrá: DJs, dress code, ambientes, etc."
-            ></textarea>
+            <textarea id="partyDescription" rows="3" placeholder="Cuenta qué habrá: DJs, dress code, ambientes, etc."></textarea>
           </div>
 
           <div class="form-group two-cols">
@@ -185,13 +171,13 @@
               <label for="partyZone">Zona / Distrito</label>
               <select id="partyZone" required>
                 <option value="">Selecciona una zona</option>
-                <option value="Barranco">Barranco</option>
-                <option value="Miraflores">Miraflores</option>
-                <option value="Santiago de Surco">Santiago de Surco</option>
-                <option value="San Isidro">San Isidro</option>
-                <option value="San Miguel">San Miguel</option>
-                <option value="Callao">Callao</option>
-                <option value="La Molina">La Molina</option>
+                <option>Barranco</option>
+                <option>Miraflores</option>
+                <option>Santiago de Surco</option>
+                <option>San Isidro</option>
+                <option>San Miguel</option>
+                <option>Callao</option>
+                <option>La Molina</option>
               </select>
             </div>
 
@@ -199,11 +185,11 @@
               <label for="partyType">Tipo de fiesta</label>
               <select id="partyType" required>
                 <option value="">Selecciona...</option>
-                <option value="Casa">Casa</option>
-                <option value="Terraza">Terraza</option>
-                <option value="Discoteca">Discoteca</option>
-                <option value="Playa">Playa</option>
-                <option value="Bar">Bar</option>
+                <option>Casa</option>
+                <option>Terraza</option>
+                <option>Discoteca</option>
+                <option>Playa</option>
+                <option>Bar</option>
               </select>
             </div>
           </div>
@@ -212,55 +198,37 @@
             <label for="partyGenre">Género musical</label>
             <select id="partyGenre" required>
               <option value="">Selecciona...</option>
-              <option value="Reggaetón">Reggaetón</option>
-              <option value="Electrónica">Electrónica</option>
-              <option value="House">House</option>
-              <option value="Techno">Techno</option>
-              <option value="Salsa">Salsa</option>
-              <option value="Urbano">Urbano</option>
+              <option>Reggaetón</option>
+              <option>Electrónica</option>
+              <option>House</option>
+              <option>Techno</option>
+              <option>Salsa</option>
+              <option>Urbano</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="partyAddress">Dirección (aproximada o exacta)</label>
-            <input
-              id="partyAddress"
-              placeholder="Ej: Av. Grau 123, Barranco"
-            />
+            <input id="partyAddress" placeholder="Ej: Av. Grau 123, Barranco" />
           </div>
 
           <div class="form-group two-cols">
             <div>
               <label for="partyPhone">Celular del organizador</label>
-              <input
-                id="partyPhone"
-                placeholder="Ej: 987 654 321"
-              />
+              <input id="partyPhone" placeholder="Ej: 987 654 321" />
             </div>
             <div>
               <label for="partyInstagram">Instagram (opcional)</label>
-              <input
-                id="partyInstagram"
-                placeholder="@usuario"
-              />
+              <input id="partyInstagram" placeholder="@usuario" />
             </div>
           </div>
 
-          <!-- SLIDER CAPACIDAD -->
+          <!-- SLIDER -->
           <div class="form-group">
             <label for="partyCapacityRange">Capacidad mínima para activar la fiesta</label>
             <div class="slider-row">
-              <input
-                type="range"
-                id="partyCapacityRange"
-                min="10"
-                max="300"
-                step="10"
-                value="50"
-              />
-              <span class="slider-value">
-                <span id="partyCapacityValue">50</span> personas
-              </span>
+              <input type="range" id="partyCapacityRange" min="10" max="300" step="10" value="50" />
+              <span class="slider-value"><span id="partyCapacityValue">50</span> personas</span>
             </div>
             <p class="slider-help">
               Esta es la cantidad mínima de personas para considerar la fiesta “activa”.
@@ -277,28 +245,26 @@
               </label>
               <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
             </div>
-            <p class="file-help">
-              El flyer se mostrará en el panel de la fiesta cuando los usuarios hagan clic en el ícono.
-            </p>
           </div>
 
-          <!-- BOTONES -->
+          <!-- ACCIONES -->
           <div class="modal-actions">
-            <button type="button" class="btn-secondary" id="cancelBtn">
-              Cancelar
-            </button>
-            <button type="submit" class="btn-primary">
-              Publicar fiesta
-            </button>
+            <button type="button" class="btn-secondary" id="cancelBtn">Cancelar</button>
+            <button type="submit" class="btn-primary">Publicar fiesta</button>
           </div>
+
         </form>
       </div>
     </div>
+
+  </div>
 
   <!-- APP -->
   <script src="app.js"></script>
 
   <!-- GOOGLE MAPS API -->
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initGoogleMap&language=es&region=PE" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initGoogleMap&language=es&region=PE" async defer></script>
+
 </body>
 </html>
+
