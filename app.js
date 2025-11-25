@@ -123,6 +123,17 @@ function initTheme() {
 }
 
 // ======================
+// TABS: MENSAJES POR SECCIÓN
+// ======================
+const TAB_MESSAGES = {
+  live: "Mostrando fiestas activas ahora cerca de ti.",
+  hot: "Zonas con más fiestas y movimiento esta semana.",
+  featured: "Eventos destacados seleccionados por DondeEsPe.",
+  today: "Fiestas que suceden hoy en tu ciudad.",
+  promos: "Promociones de tragos y convenios con tiendas."
+};
+
+// ======================
 // INICIALIZAR GOOGLE MAPS
 // ======================
 function initGoogleMap() {
