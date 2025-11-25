@@ -770,11 +770,6 @@ body {
   transition: 0.25s ease;
 }
 
-.theme-toggle:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 24px rgba(0, 0, 0, 0.9);
-}
-
 /* =========================================
    🌞 TEMA CLARO (BASE NEUTRA + NEON)
    Cuando el body tenga la clase .theme-light
