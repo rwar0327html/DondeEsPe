@@ -1,33 +1,51 @@
-// =======================================
-// 🔥 IMPORTS FIREBASE DESDE VENTANA GLOBAL
-// =======================================
-// (Esto viene del index.html)
-import {
-  collection,
-  addDoc,
-  getDocs,
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+// ======================
+// FIREBASE — CONFIG REAL TUYO
+// ======================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-const db = window.db;
+// CONFIG DE TU PROYECTO REAL
+const firebaseConfig = {
+  apiKey: "AIzaSyAsxlN1GC0OUyagYoquKd5R56C-PrGBNrY",
+  authDomain: "dondeespe-realproyecto.firebaseapp.com",
+  databaseURL: "https://dondeespe-realproyecto-default-rtdb.firebaseio.com",
+  projectId: "dondeespe-realproyecto",
+  storageBucket: "dondeespe-realproyecto.firebasestorage.app",
+  messagingSenderId: "302761804310",
+  appId: "1:302761804310:web:b0340496700f4c3eab6b37"
+};
 
-// =======================================
+// Inicializar
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ======================
 // ESTADO EN MEMORIA
-// =======================================
+// ======================
 let map;
 let parties = [];
 let lastClickLatLng = null;
 let currentParty = null;
 let currentTheme = "dark";
 
-// =======================================
+// ======================
 // ESTILOS DEL MAPA
-// =======================================
-const darkNeonStyle = [...]; // ——— (usa tus estilos EXACTOS)
-const lightAppleStyle = [...]; // ——— (usa tus estilos EXACTOS)
+// ======================
+const darkNeonStyle = [
+  { featureType: "all", elementType: "labels.text.fill", stylers: [{ color: "#ffffff" }] },
+  { featureType: "landscape", elementType: "all", stylers: [{ color: "#08304b" }] },
+  { featureType: "water", elementType: "all", stylers: [{ color: "#021019" }] }
+];
 
-// =======================================
-// TEMA
-// =======================================
+const lightAppleStyle = [
+  { featureType: "all", elementType: "labels.text.fill", stylers: [{ color: "#4a4a4a" }] },
+  { featureType: "landscape", elementType: "geometry", stylers: [{ color: "#f5f5f5" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#d2e7ff" }] }
+];
+
+// ======================
+// TEMA CLARO/OSCURO
+// ======================
 function applyTheme(theme) {
   currentTheme = theme;
   const body = document.body;
@@ -36,37 +54,36 @@ function applyTheme(theme) {
   else body.classList.remove("theme-light");
 
   if (map) {
-    map.setOptions({
-      styles: theme === "light" ? lightAppleStyle : darkNeonStyle,
-    });
+    const style = theme === "light" ? lightAppleStyle : darkNeonStyle;
+    map.setOptions({ styles: style });
   }
 
-  const themeBtn = document.getElementById("themeToggle");
-  if (themeBtn) themeBtn.textContent = theme === "light" ? "🌙" : "☀️";
+  const btn = document.getElementById("themeToggle");
+  btn.textContent = theme === "light" ? "🌙" : "☀️";
 
   localStorage.setItem("dondeespe_theme", theme);
 }
 
 function initTheme() {
   const saved = localStorage.getItem("dondeespe_theme");
-  const initial = saved || "dark";
+  let initial = saved || "dark";
   applyTheme(initial);
 }
 
-// =======================================
-// TABS TEXTOS
-// =======================================
+// ======================
+// TABS
+// ======================
 const TAB_MESSAGES = {
   live: "Mostrando fiestas activas ahora cerca de ti.",
-  hot: "Zonas con más fiestas esta semana.",
-  featured: "Eventos destacados.",
-  today: "Fiestas de HOY.",
-  promos: "Promociones de tragos.",
+  hot: "Zonas calientes con más movimiento.",
+  featured: "Eventos destacados por DondeEsPe.",
+  today: "Eventos que ocurren hoy.",
+  promos: "Promociones activas de tragos."
 };
 
-// =======================================
-// 🔥 INICIALIZAR GOOGLE MAPS
-// =======================================
+// ======================
+// INICIALIZAR MAPA
+// ======================
 function initGoogleMap() {
   const lima = { lat: -12.0464, lng: -77.0428 };
 
@@ -84,85 +101,98 @@ function initGoogleMap() {
 
   initUI();
   initTheme();
-
-  // 🔥 Cargar fiestas desde Firestore al iniciar
-  loadPartiesFromFirebase();
 }
 
 window.initGoogleMap = initGoogleMap;
 
-// =======================================
-// 🔥 UI
-// =======================================
+// ======================
+// UI / EVENTOS
+// ======================
 function initUI() {
   const modal = document.getElementById("partyModal");
-  const closeModal = document.getElementById("closeModalBtn");
+  const closeModalBtn = document.getElementById("closeModalBtn");
   const cancelBtn = document.getElementById("cancelBtn");
-  const locateBtn = document.getElementById("locateMeBtn");
+  const partyForm = document.getElementById("partyForm");
+  const locateMeBtn = document.getElementById("locateMeBtn");
   const scrollBtn = document.getElementById("scrollToMap");
-  const form = document.getElementById("partyForm");
-  const tabs = document.querySelectorAll(".map-tab");
+  const themeToggleBtn = document.getElementById("themeToggle");
+
+  // TABS
+  const tabButtons = document.querySelectorAll(".map-tab");
   const tabInfo = document.getElementById("tabInfoText");
 
-  tabs.forEach((btn) => {
+  tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-      tabs.forEach((b) => b.classList.remove("active"));
+      tabButtons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      tabInfo.textContent = TAB_MESSAGES[btn.dataset.tab] || "";
+      tabInfo.textContent = TAB_MESSAGES[btn.dataset.tab];
     });
   });
 
-  closeModal.onclick = closePartyModal;
-  cancelBtn.onclick = closePartyModal;
+  // Modal
+  closeModalBtn.addEventListener("click", closePartyModal);
+  cancelBtn.addEventListener("click", closePartyModal);
 
-  form.addEventListener("submit", handleCreateParty);
+  // Enviar formulario
+  partyForm.addEventListener("submit", handleCreateParty);
 
-  locateBtn.onclick = () => {
-    navigator.geolocation.getCurrentPosition((p) => {
-      const pos = { lat: p.coords.latitude, lng: p.coords.longitude };
-      map.setCenter(pos);
+  // Ubicarme
+  locateMeBtn.addEventListener("click", () => {
+    if (!navigator.geolocation) return alert("Tu navegador no soporta geolocalización.");
+
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const myPos = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      map.setCenter(myPos);
       map.setZoom(16);
     });
-  };
-
-  modal.addEventListener("click", (e) => {
-    if (e.target.id === "partyModal") closePartyModal();
   });
 
-  if (scrollBtn) {
-    scrollBtn.onclick = () =>
-      document.getElementById("mapSection").scrollIntoView({ behavior: "smooth" });
-  }
+  // Toggle de tema
+  themeToggleBtn.addEventListener("click", () => {
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
+  });
 
-  const themeToggle = document.getElementById("themeToggle");
-  themeToggle.onclick = () => {
-    const next = currentTheme === "dark" ? "light" : "dark";
-    applyTheme(next);
-  };
+  // Scroll al mapa
+  if (scrollBtn) {
+    scrollBtn.onclick = () => {
+      document.getElementById("mapSection").scrollIntoView({ behavior: "smooth" });
+    };
+  }
 }
 
-// =======================================
-// MODAL
-// =======================================
 function openPartyModal() {
   document.getElementById("partyModal").classList.remove("hidden");
 }
 
 function closePartyModal() {
-  document.getElementById("partyModal").classList.add("hidden");
+  const modal = document.getElementById("partyModal");
+  modal.classList.add("hidden");
   document.getElementById("partyForm").reset();
   lastClickLatLng = null;
 }
 
-// =======================================
-// 🔥 CREAR FIESTA (GUARDAR EN FIRESTORE)
-// =======================================
-async function handleCreateParty(e) {
-  e.preventDefault();
+// ======================
+// GUARDAR EN FIREBASE
+// ======================
+function savePartyToFirebase(party) {
+  const partiesRef = ref(db, "parties");
+  const newPartyRef = push(partiesRef);
+  return set(newPartyRef, party);
+}
 
-  if (!lastClickLatLng) return alert("Haz click en el mapa primero.");
+// ======================
+// CREAR FIESTA
+// ======================
+function handleCreateParty(event) {
+  event.preventDefault();
+
+  if (!lastClickLatLng) return alert("Haz click en el mapa para seleccionar la ubicación.");
+
+  const flyerFile = document.getElementById("partyFlyer").files[0];
+  const flyerUrl = flyerFile ? URL.createObjectURL(flyerFile) : null;
 
   const party = {
+    id: Date.now(),
     name: document.getElementById("partyName").value.trim(),
     description: document.getElementById("partyDescription").value.trim(),
     date: document.getElementById("partyDate").value,
@@ -171,90 +201,97 @@ async function handleCreateParty(e) {
     type: document.getElementById("partyType").value,
     genre: document.getElementById("partyGenre").value,
     address: document.getElementById("partyAddress").value.trim(),
-    lat: lastClickLatLng.lat(),
-    lng: lastClickLatLng.lng(),
+    phone: document.getElementById("partyPhone").value.trim(),
+    instagram: document.getElementById("partyInstagram").value.trim(),
+    capacity: document.getElementById("partyCapacityRange").value,
+    flyerUrl: flyerUrl,
     attendees: 0,
     views: 0,
-    createdAt: Date.now(),
+    lat: lastClickLatLng.lat(),
+    lng: lastClickLatLng.lng(),
   };
 
-  try {
-    // 🔥 Guardar en Firestore
-    const docRef = await addDoc(collection(db, "parties"), party);
-    party.id = docRef.id;
+  // 🔥 GUARDAR EN FIREBASE
+  savePartyToFirebase(party);
 
-    // Añadir al mapa inmediatamente
-    addPartyMarker(party);
+  // guardar local + mapa
+  parties.push(party);
+  addPartyMarker(party);
 
-    closePartyModal();
-    alert("🔥 Fiesta creada con éxito!");
-  } catch (err) {
-    console.error("Error al guardar fiesta:", err);
-    alert("Error guardando la fiesta.");
-  }
+  closePartyModal();
 }
 
-// =======================================
-// 🔥 CARGAR FIESTAS DESDE FIREBASE
-// =======================================
-async function loadPartiesFromFirebase() {
-  const snap = await getDocs(collection(db, "parties"));
-  snap.forEach((doc) => {
-    const p = { id: doc.id, ...doc.data() };
-    parties.push(p);
-    addPartyMarker(p);
-  });
-}
-
-// =======================================
-// ÍCONO DE MARCADOR
-// =======================================
+// ======================
+// ICONO NEÓN
+// ======================
 function getMarkerIcon(party) {
   return {
-    path: "M 0,-2 L 1,0 L 0,2 L -1,0 Z",
+    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
     fillColor: "#ff00ff",
+    fillOpacity: 1,
     strokeColor: "#00ffff",
-    strokeWeight: 3,
-    scale: 18,
+    strokeWeight: 2,
+    scale: 10,
   };
 }
 
-// =======================================
-// MARCADOR
-// =======================================
+// ======================
+// AGREGAR MARCADOR
+// ======================
 function addPartyMarker(party) {
   const marker = new google.maps.Marker({
     position: { lat: party.lat, lng: party.lng },
-    map,
+    map: map,
     icon: getMarkerIcon(party),
   });
 
   marker.addListener("click", () => {
-    party.views++;
+    party.views = (party.views || 0) + 1;
     openPartyPanel(party);
   });
 }
 
-// =======================================
-// PANEL
-// =======================================
+// ======================
+// PANEL DE FIESTA
+// ======================
 function openPartyPanel(party) {
   currentParty = party;
-
+  updatePartyPanel(party);
   document.getElementById("partyDetailPanel").classList.remove("hidden");
+}
 
+function updatePartyPanel(party) {
+  document.getElementById("partyPanelFlyer").src = party.flyerUrl || "";
   document.getElementById("partyPanelName").textContent = party.name;
   document.getElementById("partyPanelGenre").textContent = party.genre;
   document.getElementById("partyPanelType").textContent = party.type;
   document.getElementById("partyPanelZone").textContent = party.zone;
   document.getElementById("partyPanelDate").textContent = party.date;
   document.getElementById("partyPanelHour").textContent = party.time;
-  document.getElementById("partyPanelAddress").textContent = "📍 " + (party.address || "");
+  document.getElementById("partyPanelAddress").textContent = party.address ? "📍 " + party.address : "";
   document.getElementById("partyPanelDescription").textContent = party.description;
+  document.getElementById("partyPanelPhone").textContent = party.phone ? "📞 " + party.phone : "📞 -";
+  document.getElementById("partyPanelInstagram").textContent = party.instagram ? "@" + party.instagram : "@ -";
+
   document.getElementById("partyPanelAttendees").textContent = party.attendees;
   document.getElementById("partyPanelViews").textContent = party.views;
 
-  document.getElementById("closePartyPanel").onclick = () => {
-    document.getElementById("partyDetailPanel").classList.add("hidden");
-  };
+  const joinBtn = document.getElementById("partyPanelJoinBtn");
+  const storageKey = "joined_" + party.id;
+
+  if (localStorage.getItem(storageKey)) {
+    joinBtn.textContent = "Listo, nos vemos ahí 🎉";
+    joinBtn.disabled = true;
+  } else {
+    joinBtn.textContent = "Quiero ir 🔥";
+    joinBtn.disabled = false;
+
+    joinBtn.onclick = () => {
+      party.attendees++;
+      document.getElementById("partyPanelAttendees").textContent = party.attendees;
+      localStorage.setItem(storageKey, true);
+      joinBtn.textContent = "Listo, nos vemos ahí 🎉";
+      joinBtn.disabled = true;
+    };
+  }
 }
