@@ -391,3 +391,6 @@ function updatePartyPanel(party) {
     };
   }
 }
+
+// Expone la función de inicialización al global
+window.initGoogleMap = initGoogleMap;
