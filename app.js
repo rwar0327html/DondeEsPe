@@ -56,7 +56,7 @@ const darkNeonStyle = [
 ];
 
 // ======================
-// ESTILO CLARO NEUTRO (MODO CLARO TIPO SPOTIFY/APPLE)
+// ESTILO CLARO NEUTRAL (APPLE STYLE)
 // ======================
 const lightAppleStyle = [
   { featureType: "all", elementType: "labels.text.fill", stylers: [{ color: "#4a4a4a" }] },
@@ -72,33 +72,28 @@ const lightAppleStyle = [
 ];
 
 // ======================
-// TEMA (CLARO / OSCURO)
+// TEMA CLARO / OSCURO
 // ======================
-
 function applyTheme(theme) {
   currentTheme = theme;
   const body = document.body;
 
-  // Clase en el body
   if (theme === "light") {
     body.classList.add("theme-light");
   } else {
     body.classList.remove("theme-light");
   }
 
-  // Cambiar estilo del mapa
   if (map) {
-    const styleToUse = theme === "light" ? lightAppleStyle : darkNeonStyle;
-    map.setOptions({ styles: styleToUse });
+    const style = theme === "light" ? lightAppleStyle : darkNeonStyle;
+    map.setOptions({ styles: style });
   }
 
-  // Actualizar icono del botón
   const themeBtn = document.getElementById("themeToggle");
   if (themeBtn) {
     themeBtn.textContent = theme === "light" ? "🌙" : "☀️";
   }
 
-  // Guardar preferencia
   localStorage.setItem("dondeespe_theme", theme);
 }
 
@@ -108,14 +103,10 @@ function initTheme() {
   let initial = "dark";
 
   if (saved === "light" || saved === "dark") {
-    // Si el usuario ya eligió antes, respetamos eso
     initial = saved;
   } else {
-    // Si no hay preferencia, usamos el modo del sistema (opción C)
     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
       initial = "light";
-    } else {
-      initial = "dark";
     }
   }
 
@@ -123,18 +114,18 @@ function initTheme() {
 }
 
 // ======================
-// TABS: MENSAJES POR SECCIÓN
+// TABS MENSAJES
 // ======================
 const TAB_MESSAGES = {
   live: "Mostrando fiestas activas ahora cerca de ti.",
   hot: "Zonas con más fiestas y movimiento esta semana.",
   featured: "Eventos destacados seleccionados por DondeEsPe.",
   today: "Fiestas que suceden hoy en tu ciudad.",
-  promos: "Promociones de tragos y convenios con tiendas."
+  promos: "Promociones de tragos y convenios con tiendas.",
 };
 
 // ======================
-// INICIALIZAR GOOGLE MAPS
+// INICIALIZAR MAPA
 // ======================
 function initGoogleMap() {
   const lima = { lat: -12.0464, lng: -77.0428 };
@@ -143,7 +134,7 @@ function initGoogleMap() {
     center: lima,
     zoom: 13,
     disableDefaultUI: true,
-    styles: darkNeonStyle, // se ajusta luego por initTheme()
+    styles: darkNeonStyle,
   });
 
   map.addListener("click", (e) => {
@@ -152,7 +143,7 @@ function initGoogleMap() {
   });
 
   initUI();
-  initTheme(); // aplica tema (y estilo de mapa) según sistema o preferencia guardada
+  initTheme();
 }
 
 // ======================
@@ -177,6 +168,24 @@ function initUI() {
 
   const themeToggleBtn = document.getElementById("themeToggle");
 
+  // ===== TABS =====
+  const tabButtons = document.querySelectorAll(".map-tab");
+  const tabInfo = document.getElementById("tabInfoText");
+
+  if (tabButtons.length) {
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const key = btn.dataset.tab;
+        if (TAB_MESSAGES[key]) {
+          tabInfo.textContent = TAB_MESSAGES[key];
+        }
+      });
+    });
+  }
+
   // cerrar modal crear fiesta
   closeModalBtn.addEventListener("click", closePartyModal);
   cancelBtn.addEventListener("click", closePartyModal);
@@ -191,10 +200,7 @@ function initUI() {
       return;
     }
     navigator.geolocation.getCurrentPosition((pos) => {
-      const myPos = {
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude,
-      };
+      const myPos = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       map.setCenter(myPos);
       map.setZoom(16);
     });
@@ -223,9 +229,7 @@ function initUI() {
   // nombre de archivo flyer
   if (flyerInput && fileNameSpan) {
     flyerInput.addEventListener("change", () => {
-      fileNameSpan.textContent = flyerInput.files?.length
-        ? flyerInput.files[0].name
-        : "Ningún archivo seleccionado";
+      fileNameSpan.textContent = flyerInput.files?.length ? flyerInput.files[0].name : "Ningún archivo seleccionado";
     });
   }
 
@@ -237,7 +241,7 @@ function initUI() {
     });
   }
 
-  // Toggle de tema (claro / oscuro)
+  // Toggle de tema
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener("click", () => {
       const nextTheme = currentTheme === "dark" ? "light" : "dark";
@@ -247,8 +251,7 @@ function initUI() {
 }
 
 function openPartyModal() {
-  const modal = document.getElementById("partyModal");
-  modal.classList.remove("hidden");
+  document.getElementById("partyModal").classList.remove("hidden");
 }
 
 function closePartyModal() {
@@ -300,16 +303,14 @@ function handleCreateParty(event) {
 function getMarkerIcon(party) {
   const genre = (party.genre || "").toLowerCase();
 
-  // Paleta neon por género
   const styles = {
-    "electrónica": { fill: "#00eaff", stroke: "#ff00ff" }, // cyan / magenta
-    urbana: { fill: "#ffe600", stroke: "#ff8c00" }, // amarillo / naranja
-    privada: { fill: "#b300ff", stroke: "#e67bff" }, // púrpura
-    "pool party": { fill: "#009dff", stroke: "#00eaff" }, // azul agua
-    salsa: { fill: "#ff3333", stroke: "#ff7777" }, // rojo suave
+    "electrónica": { fill: "#00eaff", stroke: "#ff00ff" },
+    urbano: { fill: "#ffe600", stroke: "#ff8c00" },
+    privada: { fill: "#b300ff", stroke: "#e67bff" },
+    "pool party": { fill: "#009dff", stroke: "#00eaff" },
+    salsa: { fill: "#ff3333", stroke: "#ff7777" },
   };
 
-  // Si no viene un género conocido → usa fucsia/cyan por defecto
   const style = styles[genre] || { fill: "#ff00ff", stroke: "#00ffff" };
 
   return {
@@ -323,7 +324,7 @@ function getMarkerIcon(party) {
 }
 
 // ======================
-// MARCADOR + ABRIR PANEL
+// MARCADOR + PANEL
 // ======================
 function addPartyMarker(party) {
   const marker = new google.maps.Marker({
@@ -340,7 +341,7 @@ function addPartyMarker(party) {
 }
 
 // ======================
-// PANEL DE FIESTA COMPLETO
+// PANEL DE FIESTA
 // ======================
 function openPartyPanel(party) {
   currentParty = party;
@@ -360,19 +361,12 @@ function updatePartyPanel(party) {
     ? `📍 ${party.address}`
     : "";
   document.getElementById("partyPanelDescription").textContent = party.description;
-  document.getElementById("partyPanelPhone").textContent = party.phone
-    ? `📞 ${party.phone}`
-    : "📞 -";
-  document.getElementById("partyPanelInstagram").textContent = party.instagram
-    ? `@${party.instagram}`
-    : "@ -";
+  document.getElementById("partyPanelPhone").textContent = party.phone ? `📞 ${party.phone}` : "📞 -";
+  document.getElementById("partyPanelInstagram").textContent = party.instagram ? `@${party.instagram}` : "@ -";
 
   document.getElementById("partyPanelAttendees").textContent = party.attendees;
   document.getElementById("partyPanelViews").textContent = party.views;
 
-  // ===========================
-  // BLOQUEO DEL BOTÓN QUIERO IR
-  // ===========================
   const joinBtn = document.getElementById("partyPanelJoinBtn");
   const storageKey = `joined_${party.id}`;
 
