@@ -750,25 +750,24 @@ body {
 /* =========================================
    🌗 TOGGLE DE TEMA (CLARO / OSCURO)
    ========================================= */
-
 .theme-toggle {
-  position: absolute;
+  position: fixed;
   top: 20px;
   right: 20px;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: none;
-  background: rgba(10, 10, 25, 0.9);
-  color: #ffd966;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  color: #ffe680;
   font-size: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-  z-index: 15;
+  z-index: 999999;
+  transition: 0.25s ease;
 }
 
 .theme-toggle:hover {
