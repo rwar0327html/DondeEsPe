@@ -6,7 +6,7 @@ import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/
 
 // CONFIG DE TU PROYECTO REAL
 const firebaseConfig = {
-  apiKey: "AIzaSyAsxlN1GC0OUyagYoquKd5R56C-PrGBNrY",
+  apiKey: "AIzaSyAsxIN1GC0OUyagYoquKd5R",
   authDomain: "dondeespe-realproyecto.firebaseapp.com",
   databaseURL: "https://dondeespe-realproyecto-default-rtdb.firebaseio.com",
   projectId: "dondeespe-realproyecto",
