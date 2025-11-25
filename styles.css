@@ -770,6 +770,12 @@ body {
   transition: 0.25s ease;
 }
 
+.btn-secondary,
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+
 /* =========================================
    🌞 TEMA CLARO (BASE NEUTRA + NEON)
    Cuando el body tenga la clase .theme-light
