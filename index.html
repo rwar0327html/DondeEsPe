@@ -10,6 +10,33 @@
 
   <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- ----------------------------
+        🔥 FIREBASE SDK (OFICIAL)
+       ---------------------------- -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // TU CONFIG REAL
+    const firebaseConfig = {
+      apiKey: "AIzaSyAsxlN1GC0OUyagYoquKd5R56C-PrGBNrY",
+      authDomain: "dondeespe-realproyecto.firebaseapp.com",
+      databaseURL: "https://dondeespe-realproyecto-default-rtdb.firebaseio.com",
+      projectId: "dondeespe-realproyecto",
+      storageBucket: "dondeespe-realproyecto.firebasestorage.app",
+      messagingSenderId: "302761804310",
+      appId: "1:302761804310:web:b0340496700f4c3eab6b37"
+    };
+
+    // INICIALIZAR
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Exponer para app.js
+    window.db = db;
+  </script>
+
 </head>
 
 <body>
@@ -89,16 +116,14 @@
           <!-- DESCRIPCIÓN -->
           <div class="party-panel-section">
             <h4>Descripción</h4>
-            <p id="partyPanelDescription" class="party-panel-text">
-              Aquí aparecerá la descripción completa de la fiesta.
-            </p>
+            <p id="partyPanelDescription" class="party-panel-text"></p>
           </div>
 
           <!-- ORGANIZADOR -->
           <div class="party-panel-section">
             <h4>Organizador</h4>
-            <p id="partyPanelPhone" class="party-panel-text">📞 -</p>
-            <p id="partyPanelInstagram" class="party-panel-text">@ -</p>
+            <p id="partyPanelPhone" class="party-panel-text"></p>
+            <p id="partyPanelInstagram" class="party-panel-text"></p>
           </div>
 
           <!-- STATS -->
@@ -110,13 +135,7 @@
             </div>
           </div>
 
-          <!-- BOTÓN QUIERO IR -->
           <button id="partyPanelJoinBtn" class="party-panel-join">Quiero ir 🔥</button>
-
-          <!-- BOTÓN EDITAR (solo creador) -->
-          <button id="editPartyBtn" class="party-panel-edit hidden">
-            Editar fiesta ✏️
-          </button>
         </div>
       </aside>
 
@@ -130,9 +149,7 @@
       <button id="themeToggle" class="theme-toggle">☀️</button>
     </section>
 
-    <!-- =============================
-         MODAL CREAR FIESTA
-    ============================== -->
+    <!-- MODAL -->
     <div id="partyModal" class="modal hidden">
       <div class="modal-overlay"></div>
 
@@ -146,110 +163,61 @@
 
           <div class="form-group">
             <label for="partyName">Nombre de la fiesta</label>
-            <input id="partyName" required placeholder="Ej: Neon x Barranco" />
+            <input id="partyName" required />
           </div>
 
           <div class="form-group">
             <label for="partyDescription">Descripción</label>
-            <textarea id="partyDescription" rows="3" placeholder="Cuenta qué habrá: DJs, dress code, ambientes, etc."></textarea>
+            <textarea id="partyDescription"></textarea>
           </div>
 
           <div class="form-group two-cols">
             <div>
-              <label for="partyDate">Fecha</label>
+              <label>Fecha</label>
               <input type="date" id="partyDate" required />
             </div>
-
             <div>
-              <label for="partyTime">Hora de inicio</label>
+              <label>Hora</label>
               <input type="time" id="partyTime" required />
             </div>
           </div>
 
           <div class="form-group two-cols">
             <div>
-              <label for="partyZone">Zona / Distrito</label>
+              <label>Zona</label>
               <select id="partyZone" required>
-                <option value="">Selecciona una zona</option>
                 <option>Barranco</option>
                 <option>Miraflores</option>
-                <option>Santiago de Surco</option>
-                <option>San Isidro</option>
-                <option>San Miguel</option>
-                <option>Callao</option>
-                <option>La Molina</option>
+                <option>Surco</option>
               </select>
             </div>
 
             <div>
-              <label for="partyType">Tipo de fiesta</label>
+              <label>Tipo</label>
               <select id="partyType" required>
-                <option value="">Selecciona...</option>
                 <option>Casa</option>
                 <option>Terraza</option>
                 <option>Discoteca</option>
-                <option>Playa</option>
-                <option>Bar</option>
               </select>
             </div>
           </div>
 
           <div class="form-group">
-            <label for="partyGenre">Género musical</label>
+            <label>Género musical</label>
             <select id="partyGenre" required>
-              <option value="">Selecciona...</option>
               <option>Reggaetón</option>
               <option>Electrónica</option>
               <option>House</option>
-              <option>Techno</option>
-              <option>Salsa</option>
-              <option>Urbano</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="partyAddress">Dirección (aproximada o exacta)</label>
-            <input id="partyAddress" placeholder="Ej: Av. Grau 123, Barranco" />
+            <label>Dirección</label>
+            <input id="partyAddress" />
           </div>
 
-          <div class="form-group two-cols">
-            <div>
-              <label for="partyPhone">Celular del organizador</label>
-              <input id="partyPhone" placeholder="Ej: 987 654 321" />
-            </div>
-            <div>
-              <label for="partyInstagram">Instagram (opcional)</label>
-              <input id="partyInstagram" placeholder="@usuario" />
-            </div>
-          </div>
-
-          <!-- SLIDER -->
-          <div class="form-group">
-            <label for="partyCapacityRange">Capacidad mínima para activar la fiesta</label>
-            <div class="slider-row">
-              <input type="range" id="partyCapacityRange" min="10" max="300" step="10" value="50" />
-              <span class="slider-value"><span id="partyCapacityValue">50</span> personas</span>
-            </div>
-            <p class="slider-help">
-              Esta es la cantidad mínima de personas para considerar la fiesta “activa”.
-            </p>
-          </div>
-
-          <!-- FLYER -->
-          <div class="form-group">
-            <label for="partyFlyer">Flyer de la fiesta</label>
-            <div class="file-input-wrapper">
-              <label class="file-label">
-                <span>Seleccionar archivo</span>
-                <input type="file" id="partyFlyer" accept="image/*" />
-              </label>
-              <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
-            </div>
-          </div>
-
-          <!-- ACCIONES -->
           <div class="modal-actions">
-            <button type="button" class="btn-secondary" id="cancelBtn">Cancelar</button>
+            <button type="button" id="cancelBtn" class="btn-secondary">Cancelar</button>
             <button type="submit" class="btn-primary">Publicar fiesta</button>
           </div>
 
@@ -259,12 +227,10 @@
 
   </div>
 
-  <!-- APP -->
-  <script src="app.js"></script>
+  <!-- APP JS -->
+  <script type="module" src="app.js"></script>
 
-  <!-- GOOGLE MAPS API -->
+  <!-- GOOGLE MAPS -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgFLYXdggm6O2zpNnYCzGvZFm8WKnExVE&callback=initGoogleMap&language=es&region=PE" async defer></script>
-
 </body>
 </html>
-
