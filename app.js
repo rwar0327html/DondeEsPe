@@ -222,8 +222,10 @@ async function handleCreateParty(event) {
     return;
   }
     
-  const flyerFile = document.getElementById("partyFlyer").files[0];
-  const flyerUrl = flyerFile ? URL.createObjectURL(flyerFile) : null;
+  // 🛑🛑 TEMPORAL: Desactivamos la lógica del flyer para confirmar el guardado.
+  // const flyerFile = document.getElementById("partyFlyer").files[0];
+  // const flyerUrl = flyerFile ? URL.createObjectURL(flyerFile) : null;
+  const flyerUrl = null; // <= GUARDAREMOS NULL EN FIREBASE POR AHORA
 
   const party = {
     name: document.getElementById("partyName").value.trim(),
@@ -237,7 +239,7 @@ async function handleCreateParty(event) {
     phone: document.getElementById("partyPhone").value.trim(),
     instagram: document.getElementById("partyInstagram").value.trim(),
     capacity: document.getElementById("partyCapacityRange").value,
-    flyerUrl: flyerUrl,
+    flyerUrl: flyerUrl, // Usamos null temporalmente
     attendees: 0,
     views: 0,
     lat: lastClickLatLng.lat(),
@@ -248,17 +250,13 @@ async function handleCreateParty(event) {
     // 1. 🔥 ESPERAMOS LA CONFIRMACIÓN DE FIREBASE (AWAIT)
     await savePartyToFirebase(party); 
     
-    // 2. Ya NO necesitamos actualizar parties.push(party) ni addPartyMarker(party) aquí.
-    // La función 'loadParties' se encargará de esto automáticamente
-    // cuando Firebase notifique que el dato se ha guardado.
-    
     closePartyModal();
     alert("¡Fiesta publicada exitosamente! 🎉");
 
   } catch (error) {
-    // 3. MANEJO DE ERRORES: Informamos al usuario y a la consola
+    // 3. MANEJO DE ERRORES: Revisar la consola del navegador (F12)
     console.error("Error al guardar la fiesta en Firebase:", error);
-    alert("⚠️ Error al publicar. Esto puede ser por las Reglas de Seguridad de Firebase.");
+    alert("⚠️ Error al publicar. Revisa la consola (F12) para el error específico.");
   }
 }
 
