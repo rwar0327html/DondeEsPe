@@ -181,44 +181,56 @@ function savePartyToFirebase(party) {
 }
 
 // ======================
-// CREAR FIESTA
+// CREAR FIESTA 
 // ======================
-function handleCreateParty(event) {
-  event.preventDefault();
+async function handleCreateParty(event) {
+  event.preventDefault();
 
-  if (!lastClickLatLng) return alert("Haz click en el mapa para seleccionar la ubicación.");
+  if (!lastClickLatLng) {
+    alert("Haz click en el mapa para seleccionar la ubicación.");
+    return;
+  }
+    
+    // Aquí puedes añadir una pequeña animación de carga (loading)
 
-  const flyerFile = document.getElementById("partyFlyer").files[0];
-  const flyerUrl = flyerFile ? URL.createObjectURL(flyerFile) : null;
+  const flyerFile = document.getElementById("partyFlyer").files[0];
+  const flyerUrl = flyerFile ? URL.createObjectURL(flyerFile) : null;
 
-  const party = {
-    id: Date.now(),
-    name: document.getElementById("partyName").value.trim(),
-    description: document.getElementById("partyDescription").value.trim(),
-    date: document.getElementById("partyDate").value,
-    time: document.getElementById("partyTime").value,
-    zone: document.getElementById("partyZone").value,
-    type: document.getElementById("partyType").value,
-    genre: document.getElementById("partyGenre").value,
-    address: document.getElementById("partyAddress").value.trim(),
-    phone: document.getElementById("partyPhone").value.trim(),
-    instagram: document.getElementById("partyInstagram").value.trim(),
-    capacity: document.getElementById("partyCapacityRange").value,
-    flyerUrl: flyerUrl,
-    attendees: 0,
-    views: 0,
-    lat: lastClickLatLng.lat(),
-    lng: lastClickLatLng.lng(),
-  };
+  const party = {
+    // id: Date.now(), // Firebase Realtime DB generará su propia key única, no necesitamos este ID local
+    name: document.getElementById("partyName").value.trim(),
+    description: document.getElementById("partyDescription").value.trim(),
+    date: document.getElementById("partyDate").value,
+    time: document.getElementById("partyTime").value,
+    zone: document.getElementById("partyZone").value,
+    type: document.getElementById("partyType").value,
+    genre: document.getElementById("partyGenre").value,
+    address: document.getElementById("partyAddress").value.trim(),
+    phone: document.getElementById("partyPhone").value.trim(),
+    instagram: document.getElementById("partyInstagram").value.trim(),
+    capacity: document.getElementById("partyCapacityRange").value,
+    flyerUrl: flyerUrl,
+    attendees: 0,
+    views: 0,
+    lat: lastClickLatLng.lat(),
+    lng: lastClickLatLng.lng(),
+  };
 
-  // 🔥 GUARDAR EN FIREBASE
-  savePartyToFirebase(party);
+  try {
+    // 1. 🔥 ESPERAMOS LA CONFIRMACIÓN DE FIREBASE (AWAIT)
+    await savePartyToFirebase(party); 
+    
+    // 2. Si el guardado fue exitoso, actualizamos la interfaz de usuario
+    parties.push(party);
+    addPartyMarker(party);
+    closePartyModal();
+    alert("¡Fiesta publicada exitosamente! 🎉");
 
-  // guardar local + mapa
-  parties.push(party);
-  addPartyMarker(party);
-
-  closePartyModal();
+  } catch (error) {
+    // 3. MANEJO DE ERRORES: Informamos al usuario y a la consola
+    console.error("Error al guardar la fiesta en Firebase:", error);
+    alert("⚠️ Error al publicar. Esto puede ser por las Reglas de Seguridad de Firebase.");
+  }
 }
 
 // ======================
