@@ -11,32 +11,6 @@
   <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- ----------------------------
-        🔥 FIREBASE SDK (OFICIAL)
-       ---------------------------- -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    // TU CONFIG REAL
-    const firebaseConfig = {
-      apiKey: "AIzaSyAsxlN1GC0OUyagYoquKd5R56C-PrGBNrY",
-      authDomain: "dondeespe-realproyecto.firebaseapp.com",
-      databaseURL: "https://dondeespe-realproyecto-default-rtdb.firebaseio.com",
-      projectId: "dondeespe-realproyecto",
-      storageBucket: "dondeespe-realproyecto.firebasestorage.app",
-      messagingSenderId: "302761804310",
-      appId: "1:302761804310:web:b0340496700f4c3eab6b37"
-    };
-
-    // INICIALIZAR
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Exponer para app.js
-    window.db = db;
-  </script>
-
 </head>
 
 <body>
